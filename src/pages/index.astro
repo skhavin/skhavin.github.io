@@ -5,21 +5,16 @@ import {
   MAIN_SITE_ORIGIN,
   REMOTE_PUBLICATIONS_URL,
   fetchPublications,
-  getAvailableFilters,
   sortPublications,
 } from '../lib/publications';
-import { renderFilterPillsHtml, renderPublicationsListHtml } from '../lib/render';
+import { renderGroupedResearchHtml } from '../lib/render';
 
 const { publications: fetchedPublications, source: initialSource } = await fetchPublications(
   fallbackPayload,
-  { timeoutMs: 3500 }
+  { timeoutMs: 2200 }
 );
 
-const initialPublications = sortPublications(fetchedPublications, 'newest');
-const initialFilters = getAvailableFilters(initialPublications);
-const initialYears = initialPublications.map((p) => p.year).filter((y) => y > 0);
-const latestYear = initialYears.length > 0 ? Math.max(...initialYears) : new Date().getFullYear();
-
+const initialPublications = sortPublications(fetchedPublications);
 const serializedPayload = JSON.stringify({ publications: initialPublications }).replace(
   /</g,
   '\\u003c'
@@ -27,219 +22,461 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
 ---
 
 <ResearchLayout>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="/" class="brand-link" aria-label="SKHAVIN Research Home">
-        <svg class="brand-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-          <circle cx="32" cy="32" r="25" stroke="currentColor" stroke-width="2.6" />
-          <circle cx="32" cy="32" r="15" stroke="var(--accent)" stroke-width="2" stroke-dasharray="10 4" />
-          <circle cx="32" cy="32" r="4.5" fill="var(--accent)" />
-        </svg>
-        <span class="brand-wordmark">SKHAVIN</span>
-        <span class="brand-divider" aria-hidden="true">/</span>
-        <span class="brand-section">Research</span>
+  <header class="site-nav">
+    <div class="page-wrap nav-inner">
+      <a href="#top" class="nav-brand">
+        <span class="nav-wordmark">SKHAVIN</span>
+        <span class="nav-submark">RESEARCH ARCHIVE</span>
       </a>
 
-      <div class="header-actions">
-        <span
-          id="sync-pill"
-          class={`sync-pill${initialSource === 'live' ? ' is-live' : ''}`}
-          title={`Synced with ${REMOTE_PUBLICATIONS_URL}`}
-        >
-          <span class="sync-dot" aria-hidden="true"></span>
-          <span id="sync-text">
-            {initialSource === 'live' ? 'Live · skhavin.in' : 'Syncing · skhavin.in'}
-          </span>
-        </span>
-
-        <a
-          href={`${MAIN_SITE_ORIGIN}/research`}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="header-ext-link"
-        >
-          ↗ skhavin.in
-        </a>
-
-        <button
-          type="button"
-          id="theme-toggle"
-          class="theme-toggle"
-          aria-label="Toggle light and dark theme"
-        >
-          <svg
-            class="theme-icon icon-moon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-          </svg>
-          <svg
-            class="theme-icon icon-sun"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <circle cx="12" cy="12" r="4.5" />
-            <path d="M12 2v2.2M12 19.8V22M4.93 4.93l1.56 1.56M17.51 17.51l1.56 1.56M2 12h2.2M19.8 12H22M4.93 19.07l1.56-1.56M17.51 6.49l1.56-1.56" />
-          </svg>
-          <span id="theme-label">Dark</span>
-        </button>
-      </div>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#projects">Projects</a>
+        <a href="#writing">Writing</a>
+        <a href="#contact">Contact</a>
+        <button type="button" id="theme-toggle" class="theme-btn">[dark]</button>
+      </nav>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <p class="hero-eyebrow">Research Archive · Preprints &amp; Monographs</p>
-        <h1 class="hero-title">
-          <span class="hero-brand">SKHAVIN</span>
-          <span class="hero-editorial">Research</span>
-        </h1>
-        <p class="hero-summary">
-          Selected papers and technical notes on neural circuit geometry, sub-quadratic attention,
-          and causal interpretability — fetched live from
-          <a href={`${MAIN_SITE_ORIGIN}/research`} target="_blank" rel="noopener noreferrer">
-            skhavin.in
-          </a>.
-        </p>
+  <main id="top">
+    <section class="hero-section">
+      <div class="page-wrap hero-grid">
+        <div>
+          <p class="archive-stamp">S. KHAVIN · PERSONAL ARCHIVE · 2026</p>
+          <h1 class="hero-name">Independent Researcher.</h1>
+          <p class="hero-motto">Understanding intelligence, one mechanism at a time.</p>
 
-        <div class="hero-stats" aria-label="Archive summary">
-          <div class="stat-item">
-            <span id="stat-count" class="stat-value">
-              {String(initialPublications.length).padStart(2, '0')}
-            </span>
-            <span class="stat-label">Papers</span>
+          <p class="hero-intro">
+            I am <strong>S. Khavin</strong>, a computer science student and independent researcher
+            based in Chennai, India. My work explores how language and vision-language models
+            represent, process, and retrieve information—testing whether uncovering their internal
+            computational mechanisms can yield training-free efficient inference without altering
+            pretrained weights.
+          </p>
+
+          <p class="hero-meta-line">
+            Chennai, India · Computer Science · 2023–2027 · Mechanistic Interpretability ·
+            Efficient Inference · Multimodal Systems
+          </p>
+
+          <div class="hero-actions">
+            <a href="#research">Research ↗</a>
+            <a href="#about">About ↗</a>
+            <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">
+              GitHub ↗
+            </a>
+            <a href={MAIN_SITE_ORIGIN} target="_blank" rel="noopener noreferrer">
+              Portfolio (skhavin.in) ↗
+            </a>
+            <a href="#contact">Contact ↗</a>
           </div>
-          <div class="stat-item">
-            <span id="stat-tracks" class="stat-value">
-              {String(Math.max(0, initialFilters.length - 1)).padStart(2, '0')}
-            </span>
-            <span class="stat-label">Tracks</span>
+        </div>
+
+        <aside class="dossier-box" aria-label="Current research activity">
+          <div class="dossier-head">
+            <span class="dossier-label">Currently · Active</span>
+            <span class="dossier-date">November 2026</span>
           </div>
-          <div class="stat-item">
-            <span id="stat-year" class="stat-value">{latestYear}</span>
-            <span class="stat-label">Latest</span>
+          <ol class="dossier-list">
+            <li>Investigating why conserved task geometries stay causally inert in residual streams.</li>
+            <li>Validating JCCS &amp; Layer-4 zero-training routing beyond N=1 models per family.</li>
+            <li>Exploring proactive O(1) KV-cache eviction and multimodal temporal event graphs.</li>
+            <li>Open to collaborative research in interpretability and inference efficiency.</li>
+          </ol>
+          <p class="dossier-foot">FILE REF // 2026-ISA · CHENNAI (IST)</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="ruder-section">
+      <div class="page-wrap ruder-grid">
+        <div class="margin-rail">
+          <p class="section-code">ABOUT / 001</p>
+          <h2 class="section-heading">Biography &amp; Foundation</h2>
+
+          <div class="rail-block">
+            <h3 class="rail-title">Education</h3>
+            <ul class="rail-list">
+              <li>
+                <strong>B.E. Computer Science Engineering</strong>
+                Sathyabama Institute of Science and Technology, Chennai · 2023–2027
+              </li>
+              <li>
+                <strong>Generative AI Nanodegree</strong>
+                Udacity × Bertelsmann Scholarship (500 / 17,000 applicants)
+              </li>
+            </ul>
+          </div>
+
+          <div class="rail-block">
+            <h3 class="rail-title">Methods</h3>
+            <ul class="rail-list">
+              <li>Joint Causal Circuit Search (JCCS)</li>
+              <li>Causal patching &amp; head knockouts</li>
+              <li>CKA &amp; constrained Dynamic Time Warping</li>
+              <li>Direct Logit Attribution &amp; Procrustes alignment</li>
+              <li>Proactive KV eviction &amp; dual FAISS graphs</li>
+            </ul>
+          </div>
+
+          <div class="rail-block">
+            <h3 class="rail-title">Languages</h3>
+            <ul class="rail-list">
+              <li>English (Fluent) · Tamil (Native)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="content-col">
+          <h3 class="editorial-title">Curiosity drives the work.</h3>
+          <div class="prose-stack">
+            <p>
+              I'm <strong>S. Khavin</strong>, a final-year Computer Science Engineering student at
+              Sathyabama Institute of Science and Technology, Chennai. Looking back, my trajectory
+              started around age seven building redstone and command-block circuits in Minecraft—I
+              have always gravitated toward taking systems apart to trace what actually computes.
+            </p>
+            <p>
+              My research investigates the internal computational mechanisms of modern neural
+              networks. Using causal interventions, representation geometry, and
+              neuroscience-inspired ablation protocols, I study how language and vision-language
+              models represent tasks, transform residual activations, and route long-range context.
+            </p>
+            <p>
+              That line of inquiry grew out of systems friction while building <em>AgentFox</em> (a
+              local agentic browser) and <em>Trinetra</em>: even when an LLM ingests only selected
+              video frames, quadratic transformer attention still bottlenecks scaling. Today, standard
+              inference burns the same forward pass evaluating <code>3 + 7</code> as synthesizing
+              production code.
+            </p>
+            <p>
+              My core question is narrower and empirically falsifiable: <strong>find the minimal
+              causal circuit doing task-relevant work, and you naturally obtain both zero-training
+              sparse routing and a concrete structure for mechanistic oversight.</strong>
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="controls-section" aria-label="Filter and search publications">
-      <div class="container">
-        <div
-          id="filter-row"
-          class="filter-row"
-          role="group"
-          aria-label="Filter by research area"
-          set:html={renderFilterPillsHtml(initialFilters, 'all')}
-        />
+    <section id="research" class="ruder-section">
+      <div class="page-wrap ruder-grid">
+        <div class="margin-rail">
+          <p class="section-code">RESEARCH / 002</p>
+          <h2 class="section-heading">Research Record</h2>
+          <p class="rail-list">
+            <span class="dir-note">
+              Manuscript status is marked explicitly: submitted work under peer review is never
+              presented as accepted publication.
+            </span>
+          </p>
+          <div class="rail-block">
+            <h3 class="rail-title">External Profiles</h3>
+            <ul class="rail-list">
+              <li>
+                <a
+                  href="https://openreview.net/profile?id=~S_Khavin1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  OpenReview Profile ↗
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`${MAIN_SITE_ORIGIN}/research`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Main Archive (skhavin.in) ↗
+                </a>
+              </li>
+              <li>
+                <a href={REMOTE_PUBLICATIONS_URL} target="_blank" rel="noopener noreferrer">
+                  Live JSON Feed ↗
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-        <div class="toolbar-row">
-          <div class="search-wrap">
-            <svg
-              class="search-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-3.5-3.5" />
-            </svg>
-            <input
-              id="search-input"
-              class="search-input"
-              type="search"
-              placeholder="Search title, abstract, venue, or tag…"
-              aria-label="Search publications"
-              autocomplete="off"
-            />
+        <div class="content-col">
+          <div class="research-toolbar">
+            <div id="theme-filters" class="theme-filters" role="group" aria-label="Filter by theme">
+              <button type="button" class="filter-tab is-active" data-theme-filter="all">
+                all directions
+              </button>
+              <button type="button" class="filter-tab" data-theme-filter="geometry">
+                01. geometry &amp; mech-interp
+              </button>
+              <button type="button" class="filter-tab" data-theme-filter="inference">
+                02. efficient inference
+              </button>
+              <button type="button" class="filter-tab" data-theme-filter="multimodal">
+                03. multimodal
+              </button>
+            </div>
+
+            <div class="search-inline">
+              <input
+                id="research-search"
+                class="flat-search"
+                type="search"
+                placeholder="search papers or tags…"
+                aria-label="Search manuscripts"
+                autocomplete="off"
+              />
+            </div>
           </div>
 
-          <div class="toolbar-right">
-            <span id="result-count" class="result-count">
-              {initialPublications.length} of {initialPublications.length}
-            </span>
+          <p id="sync-note" class="sync-note">
+            source: {initialSource === 'live' ? 'synced live from skhavin.in/publications.json' : 'snapshot synced · connecting to skhavin.in/publications.json'}
+          </p>
 
-            <select id="sort-select" class="sort-select" aria-label="Sort papers">
-              <option value="newest">Newest first</option>
-              <option value="oldest">Oldest first</option>
-            </select>
+          <div
+            id="research-themes-container"
+            set:html={renderGroupedResearchHtml(initialPublications, 'all', '')}
+          />
+        </div>
+      </div>
+    </section>
 
-            <div class="view-switch" role="group" aria-label="Layout mode">
-              <button
-                type="button"
-                class="view-btn is-active"
-                data-view="list"
-                aria-pressed="true"
-              >
-                List
-              </button>
-              <button
-                type="button"
-                class="view-btn"
-                data-view="grid"
-                aria-pressed="false"
-              >
-                Grid
-              </button>
+    <section id="program" class="ruder-section">
+      <div class="page-wrap ruder-grid">
+        <div class="margin-rail">
+          <p class="section-code">PROGRAM / 003</p>
+          <h2 class="section-heading">Standards &amp; Open Questions</h2>
+        </div>
+
+        <div class="content-col">
+          <div class="two-col-notes">
+            <div class="note-box">
+              <h3 class="note-heading">Falsification Filters</h3>
+              <ol class="note-list">
+                <li>
+                  <strong>Weeks-not-years falsifiability:</strong> hypotheses must be refutable by
+                  clean ablations (e.g., knocking out counting vs. sorting circuits).
+                </li>
+                <li>
+                  <strong>Inspectable mechanistic artifact:</strong> every study must yield a
+                  concrete taxonomy, ablation matrix, or deployable routing table—not just an
+                  efficiency curve.
+                </li>
+                <li>
+                  <strong>Real-world benchmark validity:</strong> evaluated across 4K long-context
+                  tasks (RULER, LongBench-Qasper), Python synthesis, and HumanEval rather than
+                  isolated toy circuits.
+                </li>
+              </ol>
+            </div>
+
+            <div class="note-box">
+              <h3 class="note-heading">Open Problems &amp; Honest Limits</h3>
+              <ul class="note-list">
+                <li>
+                  <strong>Fixed-head ISA falsified:</strong> assuming fixed head labels collapsed on
+                  held-out data (WRITE = 0.311, LOAD = 0.079); ISA turned out dynamic and circuit-level.
+                </li>
+                <li>
+                  <strong>Suppressor blind spot:</strong> greedy JCCS deflation misses components
+                  whose removal improves accuracy (two NIAH suppressors emerged during joint ablation).
+                </li>
+                <li>
+                  <strong>Dense variable tracking:</strong> resists sparsification across K ∈ [6, 64]
+                  and requires full dense heads on Qwen2.5-1.5B.
+                </li>
+                <li>
+                  <strong>Central puzzle:</strong> why conserved cross-architecture task geometry
+                  (DTW p ≈ 0.00139) remains causally inert under activation injection.
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="publications-section" aria-label="Publications">
-      <div class="container">
-        <div
-          id="publications-list"
-          class="publications-list"
-          set:html={renderPublicationsListHtml(initialPublications, {
-            totalCount: initialPublications.length,
-            isLoading: initialPublications.length === 0,
-          })}
-        />
+    <section id="projects" class="ruder-section">
+      <div class="page-wrap ruder-grid">
+        <div class="margin-rail">
+          <p class="section-code">BEYOND / 004</p>
+          <h2 class="section-heading">Engineering &amp; Record</h2>
+        </div>
+
+        <div class="content-col">
+          <table class="beyond-table">
+            <tbody>
+              <tr>
+                <th>Engineering</th>
+                <td>
+                  <strong><a href="https://github.com/skhavin/taskgeometry" target="_blank" rel="noopener noreferrer">taskgeometry</a></strong>,
+                  <strong><a href="https://github.com/skhavin/necstuff" target="_blank" rel="noopener noreferrer">necstuff</a></strong>,
+                  <strong><a href="https://github.com/skhavin/headgenome" target="_blank" rel="noopener noreferrer">headgenome</a></strong> (open-source interpretability codebases) ·
+                  <strong>AgentFox</strong> (local self-contained agentic browser) ·
+                  <strong>AlgoUniversity</strong> engineering · <strong>SIST Transit+</strong> · <strong>Marin</strong>
+                </td>
+              </tr>
+              <tr>
+                <th>Experience</th>
+                <td>
+                  <strong>SWE Co-op Intern</strong>, AlgoUniversity (YC) (2025) ·
+                  <strong>ML Research Intern (Co-Lead)</strong>, Omdena ·
+                  <strong>AI &amp; Automation Intern</strong>, Chennai Airport ·
+                  <strong>Software Engineer Intern</strong>, Headstarter (YC) ·
+                  <strong>Business Analytics Intern</strong>, Business.io (IITM)
+                </td>
+              </tr>
+              <tr>
+                <th>Recognition</th>
+                <td>
+                  <strong>AlgoUniversity Technology Fellowship (ATF)</strong> — Top 5% of 20,000 applicants ·
+                  <strong>Udacity Next Gen Tech Booster Scholar</strong> — Top 500 of 17,000 global ·
+                  <strong>Google GenAI Exchange / Hackathon</strong> Team Lead (Top Project Nationwide) ·
+                  <strong>IIT Bombay National Entrepreneurship Challenge</strong> (5th Nationwide)
+                </td>
+              </tr>
+              <tr>
+                <th>Leadership</th>
+                <td>
+                  <strong>GDSC SIST</strong> · <strong>TEDx SIST</strong> · University Philosophy Club
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="writing" class="ruder-section">
+      <div class="page-wrap ruder-grid">
+        <div class="margin-rail">
+          <p class="section-code">WRITING / 005</p>
+          <h2 class="section-heading">Field Notes &amp; Essays</h2>
+        </div>
+
+        <div class="content-col">
+          <ul class="writing-list">
+            <li>
+              <a
+                href={`${MAIN_SITE_ORIGIN}/blog/trunk-and-branch-theory-of-computation`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                The Trunk and Branch Theory of Computation
+              </a>
+              <span class="writing-meta">Essay · Representation Geometry</span>
+            </li>
+            <li>
+              <a
+                href={`${MAIN_SITE_ORIGIN}/blog/trinetra-overview`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Trinetra: Linear-Time Video Ingest &amp; Temporal Event Graphs
+              </a>
+              <span class="writing-meta">Essay · Multimodal Systems</span>
+            </li>
+            <li>
+              <a href={`${MAIN_SITE_ORIGIN}/blog/`} target="_blank" rel="noopener noreferrer">
+                All Field Dispatches on skhavin.in
+              </a>
+              <span class="writing-meta">Archive · Research Notes</span>
+            </li>
+            <li>
+              <a
+                href="https://docs.google.com/document/d/1e5oTakOVCsuiDKINbt9btoS7i6cpU-Ja-sYKwn4znuw/edit?usp=drivesdk"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Transformer ISA Research Program Notes
+              </a>
+              <span class="writing-meta">Working Document · 2026</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="ruder-section">
+      <div class="page-wrap ruder-grid">
+        <div class="margin-rail">
+          <p class="section-code">CONTACT / 006</p>
+          <h2 class="section-heading">Direct Links</h2>
+        </div>
+
+        <div class="content-col">
+          <table class="beyond-table">
+            <tbody>
+              <tr>
+                <th>Email</th>
+                <td><a href="mailto:skhavin.res@gmail.com">skhavin.res@gmail.com</a></td>
+              </tr>
+              <tr>
+                <th>GitHub</th>
+                <td>
+                  <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">
+                    github.com/skhavin
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th>LinkedIn</th>
+                <td>
+                  <a
+                    href="https://www.linkedin.com/in/s-khavin33/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    linkedin.com/in/s-khavin33
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th>OpenReview</th>
+                <td>
+                  <a
+                    href="https://openreview.net/profile?id=~S_Khavin1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    openreview.net/profile?id=~S_Khavin1
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th>Main Portfolio</th>
+                <td>
+                  <a href={MAIN_SITE_ORIGIN} target="_blank" rel="noopener noreferrer">
+                    skhavin.in
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <span class="footer-wordmark">SKHAVIN</span>
-        <p class="footer-note">
-          Independent Research Archive · Live feed synchronized from skhavin.in
-        </p>
+    <div class="page-wrap">
+      <div class="footer-top">
+        <p class="footer-motto">An independent mind, exploring intelligent systems.</p>
+        <span class="footer-stamp">SKHAVIN · 2026</span>
       </div>
-      <nav class="footer-links" aria-label="External links">
-        <a href={MAIN_SITE_ORIGIN} target="_blank" rel="noopener noreferrer">Portfolio</a>
-        <a href={`${MAIN_SITE_ORIGIN}/research`} target="_blank" rel="noopener noreferrer">
-          Main Research
-        </a>
-        <a href={REMOTE_PUBLICATIONS_URL} target="_blank" rel="noopener noreferrer">JSON Feed</a>
-      </nav>
+      <p class="colophon">
+        <strong>Colophon &amp; Typography Sources:</strong> Built as a single-page static Astro
+        document with zero runtime framework overhead and inline CSS. Measure constrained to
+        <code>64ch</code> (Bringhurst, <em>The Elements of Typographic Style</em>; Dyson &amp;
+        Haselgrove, 2001); <code>17px</code> reading body size and <code>1.62</code> leading informed
+        by eye-tracking readability findings (Rello &amp; Pielot, CHI 2016); asymmetric two-column
+        hierarchy structured for F-pattern scanning (Nielsen Norman Group) and Emil Ruder grid
+        discipline. Papers synchronized live from <code>skhavin.in/publications.json</code>.
+      </p>
     </div>
   </footer>
-
-  <dialog id="figure-lightbox" class="lightbox" aria-labelledby="lightbox-caption">
-    <div class="lightbox-head">
-      <p id="lightbox-caption" class="lightbox-caption"></p>
-      <button type="button" id="lightbox-close" class="lightbox-close" aria-label="Close figure">
-        Esc / Close
-      </button>
-    </div>
-    <div class="lightbox-body">
-      <img id="lightbox-img" src="" alt="" />
-    </div>
-  </dialog>
 
   <script
     id="ssr-publications"
@@ -251,24 +488,13 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
   <script>
     import {
       fetchPublications,
-      filterPublications,
-      getAvailableFilters,
       parsePublicationsPayload,
       toBibtex,
       type Publication,
-      type SortOrder,
-      type ViewMode,
     } from '../lib/publications';
-    import { renderFilterPillsHtml, renderPublicationsListHtml } from '../lib/render';
+    import { renderGroupedResearchHtml } from '../lib/render';
 
-    interface AppState {
-      publications: Publication[];
-      filter: string;
-      query: string;
-      sort: SortOrder;
-      view: ViewMode;
-      loading: boolean;
-    }
+    type ThemeFilter = 'all' | 'geometry' | 'inference' | 'multimodal';
 
     const ssrEl = document.getElementById('ssr-publications');
     let initialPayload: unknown = { publications: [] };
@@ -280,143 +506,120 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
       }
     }
 
-    const state: AppState = {
-      publications: parsePublicationsPayload(initialPayload),
-      filter: 'all',
+    const state = {
+      publications: parsePublicationsPayload(initialPayload) as Publication[],
+      theme: 'all' as ThemeFilter,
       query: '',
-      sort: 'newest',
-      view: 'list',
-      loading: true,
     };
 
-    const listEl = document.getElementById('publications-list');
-    const filterRowEl = document.getElementById('filter-row');
-    const searchEl = document.getElementById('search-input') as HTMLInputElement | null;
-    const sortEl = document.getElementById('sort-select') as HTMLSelectElement | null;
-    const resultCountEl = document.getElementById('result-count');
-    const statCountEl = document.getElementById('stat-count');
-    const statTracksEl = document.getElementById('stat-tracks');
-    const statYearEl = document.getElementById('stat-year');
-    const syncPillEl = document.getElementById('sync-pill');
-    const syncTextEl = document.getElementById('sync-text');
-    const themeToggleEl = document.getElementById('theme-toggle');
-    const themeLabelEl = document.getElementById('theme-label');
-    const lightboxEl = document.getElementById('figure-lightbox') as HTMLDialogElement | null;
-    const lightboxImgEl = document.getElementById('lightbox-img') as HTMLImageElement | null;
-    const lightboxCaptionEl = document.getElementById('lightbox-caption');
-    const lightboxCloseEl = document.getElementById('lightbox-close');
+    const containerEl = document.getElementById('research-themes-container');
+    const filtersEl = document.getElementById('theme-filters');
+    const searchEl = document.getElementById('research-search') as HTMLInputElement | null;
+    const syncNoteEl = document.getElementById('sync-note');
+    const themeBtnEl = document.getElementById('theme-toggle');
 
-    function typesetMath(root: HTMLElement | null): void {
+    let katexPromise: Promise<void> | null = null;
+
+    function maybeLoadAndTypesetMath(root: HTMLElement | null): void {
       if (!root) return;
-      const renderMath = (
-        window as unknown as {
-          renderMathInElement?: (el: HTMLElement, opts: Record<string, unknown>) => void;
+      const text = root.textContent ?? '';
+      // Trigger lazy KaTeX only for TeX expressions (avoid currency amounts like $1,500).
+      if (!/\$[A-Za-z\\][^$\n]{0,80}\$|\\\(|\\\[/.test(text)) return;
+
+      const win = window as unknown as {
+        renderMathInElement?: (el: HTMLElement, opts: Record<string, unknown>) => void;
+      };
+
+      const applyMath = () => {
+        if (typeof win.renderMathInElement === 'function') {
+          win.renderMathInElement(root, {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false },
+              { left: '\\(', right: '\\)', display: false },
+            ],
+            ignoredClasses: ['no-math'],
+            throwOnError: false,
+          });
         }
-      ).renderMathInElement;
+      };
 
-      if (typeof renderMath !== 'function') return;
+      if (typeof win.renderMathInElement === 'function') {
+        applyMath();
+        return;
+      }
 
-      renderMath(root, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false },
-          { left: '\\[', right: '\\]', display: true },
-        ],
-        throwOnError: false,
-      });
+      if (!katexPromise) {
+        katexPromise = new Promise<void>((resolve) => {
+          const css = document.createElement('link');
+          css.rel = 'stylesheet';
+          css.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css';
+          document.head.appendChild(css);
+
+          const core = document.createElement('script');
+          core.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js';
+          core.onload = () => {
+            const auto = document.createElement('script');
+            auto.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js';
+            auto.onload = () => resolve();
+            auto.onerror = () => resolve();
+            document.head.appendChild(auto);
+          };
+          core.onerror = () => resolve();
+          document.head.appendChild(core);
+        });
+      }
+
+      void katexPromise.then(applyMath);
     }
 
-    function syncThemeUi(): void {
+    function syncThemeButton(): void {
       const current =
         document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-      if (themeLabelEl) {
-        themeLabelEl.textContent = current === 'dark' ? 'Light' : 'Dark';
+      if (themeBtnEl) {
+        themeBtnEl.textContent = current === 'dark' ? '[light]' : '[dark]';
       }
-      if (themeToggleEl) {
-        themeToggleEl.setAttribute(
-          'aria-label',
-          current === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'
+    }
+
+    function renderResearch(): void {
+      filtersEl?.querySelectorAll<HTMLButtonElement>('[data-theme-filter]').forEach((btn) => {
+        btn.classList.toggle('is-active', btn.dataset.themeFilter === state.theme);
+      });
+
+      if (containerEl) {
+        containerEl.innerHTML = renderGroupedResearchHtml(
+          state.publications,
+          state.theme,
+          state.query
         );
+        maybeLoadAndTypesetMath(containerEl);
       }
-    }
-
-    function updateStats(): void {
-      const filters = getAvailableFilters(state.publications);
-      const years = state.publications.map((p) => p.year).filter((y) => y > 0);
-      const maxYear = years.length > 0 ? Math.max(...years) : new Date().getFullYear();
-
-      if (statCountEl) {
-        statCountEl.textContent = String(state.publications.length).padStart(2, '0');
-      }
-      if (statTracksEl) {
-        statTracksEl.textContent = String(Math.max(0, filters.length - 1)).padStart(2, '0');
-      }
-      if (statYearEl) {
-        statYearEl.textContent = String(maxYear);
-      }
-    }
-
-    function renderAll(): void {
-      const filters = getAvailableFilters(state.publications);
-      if (!filters.includes(state.filter)) {
-        state.filter = 'all';
-      }
-
-      if (filterRowEl) {
-        filterRowEl.innerHTML = renderFilterPillsHtml(filters, state.filter);
-      }
-
-      const visible = filterPublications(
-        state.publications,
-        state.filter,
-        state.query,
-        state.sort
-      );
-
-      if (resultCountEl) {
-        resultCountEl.textContent = `${visible.length} of ${state.publications.length}`;
-      }
-
-      if (listEl) {
-        listEl.classList.toggle('is-grid', state.view === 'grid');
-        listEl.innerHTML = renderPublicationsListHtml(visible, {
-          totalCount: state.publications.length,
-          isLoading: state.loading,
-        });
-        typesetMath(listEl);
-      }
-
-      updateStats();
     }
 
     async function syncFromMainSite(): Promise<void> {
-      state.loading = true;
-      if (syncPillEl) syncPillEl.classList.remove('is-live');
-      if (syncTextEl) syncTextEl.textContent = 'Syncing · skhavin.in';
-
       const result = await fetchPublications(
         { publications: state.publications },
-        { timeoutMs: 6500, noCache: true }
+        { timeoutMs: 5000, noCache: true }
       );
 
-      state.loading = false;
       if (result.publications.length > 0) {
         state.publications = result.publications;
       }
 
-      if (syncPillEl) {
-        syncPillEl.classList.toggle('is-live', result.source === 'live');
-      }
-      if (syncTextEl) {
-        syncTextEl.textContent =
-          result.source === 'live' ? 'Live · skhavin.in' : 'Snapshot · skhavin.in';
+      if (syncNoteEl) {
+        syncNoteEl.textContent =
+          result.source === 'live'
+            ? 'source: synced live from skhavin.in/publications.json'
+            : 'source: local research snapshot (skhavin.in offline or awaiting CORS deploy)';
       }
 
-      renderAll();
+      // Preserve user's open <details> state when live snapshot is identical; re-render on update.
+      if (result.source === 'live') {
+        renderResearch();
+      }
     }
 
-    themeToggleEl?.addEventListener('click', () => {
+    themeBtnEl?.addEventListener('click', () => {
       const current =
         document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
       const next = current === 'dark' ? 'light' : 'dark';
@@ -424,67 +627,33 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
       try {
         localStorage.setItem('skhavin-theme', next);
       } catch {
-        // Ignore storage errors in restricted browsing contexts.
+        // Ignore restricted storage contexts.
       }
-      syncThemeUi();
+      syncThemeButton();
     });
 
-    filterRowEl?.addEventListener('click', (event) => {
-      const btn = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-filter]');
+    filtersEl?.addEventListener('click', (event) => {
+      const btn = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-theme-filter]');
       if (!btn) return;
-      state.filter = btn.dataset.filter ?? 'all';
-      renderAll();
+      const val = btn.dataset.themeFilter as ThemeFilter | undefined;
+      if (!val) return;
+      state.theme = val;
+      renderResearch();
     });
 
     searchEl?.addEventListener('input', () => {
       state.query = searchEl.value;
-      renderAll();
+      renderResearch();
     });
 
-    sortEl?.addEventListener('change', () => {
-      state.sort = sortEl.value === 'oldest' ? 'oldest' : 'newest';
-      renderAll();
-    });
-
-    document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const nextView: ViewMode = btn.dataset.view === 'grid' ? 'grid' : 'list';
-        state.view = nextView;
-        document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach((other) => {
-          const active = other.dataset.view === nextView;
-          other.classList.toggle('is-active', active);
-          other.setAttribute('aria-pressed', active ? 'true' : 'false');
-        });
-        listEl?.classList.toggle('is-grid', nextView === 'grid');
-      });
-    });
-
-    listEl?.addEventListener(
-      'error',
-      (event) => {
-        const target = event.target;
-        if (target instanceof HTMLImageElement) {
-          target.closest('.paper-media')?.remove();
-        }
-      },
-      true
-    );
-
-    listEl?.addEventListener('click', async (event) => {
+    containerEl?.addEventListener('click', async (event) => {
       const target = event.target as HTMLElement;
 
-      const retryBtn = target.closest('[data-retry-sync]');
-      if (retryBtn) {
-        void syncFromMainSite();
-        return;
-      }
-
-      const resetBtn = target.closest('[data-reset-filters]');
-      if (resetBtn) {
-        state.filter = 'all';
+      if (target.closest('[data-reset-research]')) {
+        state.theme = 'all';
         state.query = '';
         if (searchEl) searchEl.value = '';
-        renderAll();
+        renderResearch();
         return;
       }
 
@@ -494,40 +663,18 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
         if (!pub) return;
         try {
           await navigator.clipboard.writeText(toBibtex(pub));
-          citeBtn.textContent = '✓ Copied BibTeX';
-          citeBtn.classList.add('is-copied');
+          citeBtn.textContent = '[copied]';
           setTimeout(() => {
-            citeBtn.textContent = 'BibTeX';
-            citeBtn.classList.remove('is-copied');
-          }, 1800);
+            citeBtn.textContent = '[bibtex]';
+          }, 1500);
         } catch {
-          citeBtn.textContent = 'Copy unavailable';
+          citeBtn.textContent = '[copy failed]';
         }
-        return;
-      }
-
-      const mediaBtn = target.closest<HTMLButtonElement>('[data-lightbox-src]');
-      if (mediaBtn && lightboxEl && lightboxImgEl) {
-        const src = mediaBtn.dataset.lightboxSrc ?? '';
-        const title = mediaBtn.dataset.lightboxTitle ?? '';
-        if (!src) return;
-        lightboxImgEl.src = src;
-        lightboxImgEl.alt = title;
-        if (lightboxCaptionEl) lightboxCaptionEl.textContent = title;
-        lightboxEl.showModal();
       }
     });
 
-    lightboxCloseEl?.addEventListener('click', () => lightboxEl?.close());
-    lightboxEl?.addEventListener('click', (event) => {
-      if (event.target === lightboxEl) {
-        lightboxEl.close();
-      }
-    });
-
-    window.addEventListener('load', () => typesetMath(listEl));
-    syncThemeUi();
-    typesetMath(listEl);
+    syncThemeButton();
+    maybeLoadAndTypesetMath(containerEl);
     void syncFromMainSite();
   </script>
 </ResearchLayout>

@@ -5,6 +5,6 @@ export default defineConfig({
   site: 'https://skhavin.github.io',
   compressHTML: true,
   build: {
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
   },
 });

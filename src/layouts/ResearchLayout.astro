@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = 'SKHAVIN · Research',
-  description = 'Selected research papers, preprints, and monographs by S. Khavin — fetched live from skhavin.in.',
+  title = 'S. Khavin — Personal Research & Biography',
+  description = 'S. Khavin — Independent researcher investigating mechanistic interpretability, computational geometry in residual streams, training-free efficient inference, and multimodal temporal reasoning.',
 } = Astro.props;
 ---
 
@@ -26,39 +26,13 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
 
-    <!-- Fonts aligned with skhavin.in -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Libertinus+Mono&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="preload"
-      href="https://fonts.gstatic.com/s/libertinusmono/v1/_gPg1RnxrjY_TDm97ApTqwneJJFjpxt2.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
 
-    <!-- KaTeX for inline mathematical expressions in abstracts -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
-      crossorigin="anonymous"
-    />
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- Prevent theme flash: default to archival light paper unless user toggled dark -->
     <script is:inline>
       (() => {
         try {
