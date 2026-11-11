@@ -32,7 +32,7 @@ const QWEN_SPARSITY_TABLE_HTML = `
   </div>
 `;
 
-function renderPublicationEntryHtml(pub: Publication, displayIndex: string): string {
+function renderPublicationEntryHtml(pub: Publication): string {
   const meta = getPublicationMeta(pub);
   const titleText = meta.shortTitle ?? pub.title;
   const primaryUrl = pub.links.find((l) => l.primary)?.url ?? pub.links[0]?.url ?? '';
@@ -42,36 +42,37 @@ function renderPublicationEntryHtml(pub: Publication, displayIndex: string): str
     : `<span>${escapeHtml(titleText)}</span>`;
 
   const statusClass =
-    meta.statusKind === 'submitted' ? 'status-stamp status-submitted' : 'status-stamp';
+    meta.statusKind === 'submitted' ? 'paper-status is-submitted' : 'paper-status';
 
   const linksHtml = pub.links
     .map(
       (link) =>
-        `<a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer" class="cite-link">[${escapeHtml(link.label.toLowerCase())}]</a>`
+        `<a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label)}</a>`
     )
-    .join(' ');
+    .join('<span class="action-sep" aria-hidden="true">·</span>');
 
   const benchmarkAddon =
     pub.id === 'k-heads-is-all-you-need' ? QWEN_SPARSITY_TABLE_HTML : '';
 
   const tagsLine = pub.tags.length
-    ? `<p class="detail-tags"><strong>Topics:</strong> ${pub.tags.map((t) => escapeHtml(t)).join(' · ')}</p>`
+    ? `<p class="detail-tags"><strong>Topics:</strong> ${pub.tags.map((t) => escapeHtml(t)).join(', ')}</p>`
     : '';
 
   return `
-    <article class="paper-entry" data-paper-id="${escapeHtml(pub.id)}">
-      <div class="paper-meta-row">
-        <span class="paper-code">REF ${escapeHtml(displayIndex)}</span>
+    <article class="paper-item" data-paper-id="${escapeHtml(pub.id)}">
+      <p class="paper-byline">
         <span class="${statusClass}">${escapeHtml(meta.statusLabel)}</span>
-        <span class="paper-year">${escapeHtml(pub.date)}</span>
-      </div>
+        <span class="byline-sep" aria-hidden="true">—</span>
+        <span class="paper-date">${escapeHtml(pub.date)}</span>
+      </p>
 
       <h4 class="paper-title">${titleHtml}</h4>
       <p class="paper-oneliner">${escapeHtml(meta.summaryLine)}</p>
 
       <div class="paper-links-row">
         ${linksHtml}
-        <button type="button" class="cite-btn" data-cite-id="${escapeHtml(pub.id)}">[bibtex]</button>
+        <span class="action-sep" aria-hidden="true">·</span>
+        <button type="button" class="text-action-btn" data-cite-id="${escapeHtml(pub.id)}">BibTeX</button>
       </div>
 
       <details class="paper-details">
@@ -79,7 +80,7 @@ function renderPublicationEntryHtml(pub: Publication, displayIndex: string): str
         <div class="paper-details-body">
           <div class="paper-abstract">${sanitizeAbstractHtml(pub.abstract)}</div>
           ${benchmarkAddon}
-          <p class="detail-limitations"><strong>Documented Limitations:</strong> ${escapeHtml(meta.limitations)}</p>
+          <p class="detail-limitations"><strong>Limitations:</strong> ${escapeHtml(meta.limitations)}</p>
           ${tagsLine}
         </div>
       </details>
@@ -87,7 +88,7 @@ function renderPublicationEntryHtml(pub: Publication, displayIndex: string): str
   `;
 }
 
-/** Render all publications grouped cleanly under the three core research themes. */
+/** Render manuscripts grouped under the three editorial research themes. */
 export function renderGroupedResearchHtml(
   publications: Publication[],
   activeTheme: 'all' | 'geometry' | 'inference' | 'multimodal' = 'all',
@@ -115,7 +116,7 @@ export function renderGroupedResearchHtml(
   });
 
   if (filtered.length === 0) {
-    return `<p class="empty-msg">No manuscripts match the current filter. <button type="button" class="cite-btn" data-reset-research>[show all directions]</button></p>`;
+    return `<p class="empty-msg">No manuscripts match this filter. <button type="button" class="text-action-btn" data-reset-research>Show all directions</button></p>`;
   }
 
   const sections: string[] = [];
@@ -124,23 +125,21 @@ export function renderGroupedResearchHtml(
     const items = filtered.filter((pub) => getPublicationMeta(pub).theme === theme.id);
     if (items.length === 0) continue;
 
-    const rowsHtml = items
-      .map((pub, idx) => renderPublicationEntryHtml(pub, `${theme.num}.${idx + 1}`))
-      .join('');
+    const rowsHtml = items.map((pub) => renderPublicationEntryHtml(pub)).join('');
 
     sections.push(`
-      <div class="theme-group" data-theme-group="${theme.id}">
-        <div class="theme-head">
+      <section class="theme-group" data-theme-group="${theme.id}">
+        <header class="theme-head">
           <span class="theme-num">${theme.num}</span>
           <div>
             <h3 class="theme-title">${escapeHtml(theme.title)}</h3>
             <p class="theme-subtitle">${escapeHtml(theme.subtitle)}</p>
           </div>
-        </div>
+        </header>
         <div class="theme-entries">
           ${rowsHtml}
         </div>
-      </div>
+      </section>
     `);
   }
 

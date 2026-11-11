@@ -7,51 +7,51 @@
 }
 
 :root {
+  /*
+   * Scientific Typographic System
+   * - Body size: ~18px (1.125rem) desktop — Rello & Pielot (CHI 2016) high-readability band
+   * - Measure: 60ch — Dyson & Haselgrove (2001) ~55 CPL & Bringhurst 45–75 CPL optimal range
+   * - Polarity & Halation: Warm ivory (#FCFBF7) + charcoal (#1F1E1B) — Piepenbrock et al. (2013/2014)
+   */
   --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --font-stamp: "GoldenEye", "Cormorant Garamond", serif;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Modular Scale (Major Third 1.25 from 17px baseline) */
-  --text-xs: 0.78rem;
-  --text-sm: 0.89rem;
-  --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem); /* 17px desktop */
-  --text-md: 1.328rem;
-  --text-lg: 1.66rem;
-  --text-xl: clamp(1.7rem, 3vw, 2.35rem);
-  --text-2xl: clamp(2.3rem, 4.6vw, 3.35rem);
-  --measure: 64ch;
+  --text-xs: 0.8125rem; /* 13px */
+  --text-sm: 0.9375rem; /* 15px */
+  --text-base: clamp(1.03rem, 0.98rem + 0.25vw, 1.125rem); /* 18px desktop */
+  --text-lg: clamp(1.55rem, 2.2vw, 1.85rem);
+  --text-xl: clamp(1.65rem, 3.1vw, 2.3rem);
+  --text-2xl: clamp(2.65rem, 5.5vw, 4.1rem);
+  --measure: 60ch;
 
-  /* Light Theme (Default) — Emil Ruder Ivory & Restrained Gold */
-  --bg: #faf9f5;
-  --bg-elevated: #ffffff;
-  --bg-inset: #f2efe7;
-  --ink: #141416;
-  --ink-2: #414148;
-  --ink-3: #6c6c75;
-  --gold: #8a6918;
-  --gold-soft: rgba(138, 105, 24, 0.11);
-  --link: #0f4db8;
-  --link-visited: #551a8b;
-  --border: #ddd8cc;
-  --border-strong: #9d9788;
+  /* Light Polarity (Default) — Unbleached Gallery Paper, Zero Pure-White Glare */
+  --bg: #fcfbf7;
+  --bg-subtle: #f4f1ea;
+  --ink: #1f1e1b;
+  --ink-2: #494640;
+  --ink-3: #706c63; /* WCAG AA >= 4.9:1 on #fcfbf7 */
+  --gold: #8c681b;
+  --link: #1d4e89;
+  --link-visited: #523b7a;
+  --rule: #e4dfd4;
+  --rule-strong: #b6afa0;
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  /* Dark Theme — Obsidian Archive & Champagne Gold */
-  --bg: #0c0c0e;
-  --bg-elevated: #121216;
-  --bg-inset: #17171c;
-  --ink: #f1efe9;
-  --ink-2: #bab9c2;
-  --ink-3: #868590;
+  /* Dark Mode — Warm Obsidian Paper & Bone Off-White (Prevents #fff/#000 Halation) */
+  --bg: #141311;
+  --bg-subtle: #1c1a17;
+  --ink: #eae6dd;
+  --ink-2: #b9b4a8;
+  --ink-3: #8c877c;
   --gold: #d4b25c;
-  --gold-soft: rgba(212, 178, 92, 0.14);
-  --link: #86b7ff;
-  --link-visited: #c5a6ff;
-  --border: #27272e;
-  --border-strong: #535260;
+  --link: #8bb4e6;
+  --link-visited: #bea7e6;
+  --rule: #2a2722;
+  --rule-strong: #534e44;
   color-scheme: dark;
 }
 
@@ -73,14 +73,14 @@ body {
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: var(--text-base);
-  line-height: 1.62;
+  line-height: 1.72;
 }
 
 a {
   color: var(--link);
   text-decoration: underline;
-  text-underline-offset: 3px;
   text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
 }
 
 a:visited {
@@ -99,19 +99,19 @@ input {
 
 :focus-visible {
   outline: 2px solid var(--gold);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
+/* Generous Page Container — Chaparro et al. (2004) Margins Improve Comprehension */
 .page-wrap {
-  width: min(100% - 2.5rem, 1060px);
+  width: min(100% - 3rem, 1140px);
   margin-inline: auto;
 }
 
-/* ── Top Navigation (Ruder Hairline + Craigslist Utility) ─────── */
+/* ── Calm Editorial Top Bar (No Sticky Blur, No Cards) ───────── */
 .site-nav {
-  border-bottom: 1px solid var(--border);
-  padding: 0.9rem 0;
-  background: var(--bg);
+  padding: 2.1rem 0 1.35rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 .nav-inner {
@@ -119,41 +119,28 @@ input {
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 0.75rem 1.5rem;
-}
-
-.nav-brand {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.65rem;
-  text-decoration: none;
-  color: var(--ink);
-}
-
-.nav-brand:visited {
-  color: var(--ink);
+  gap: 1rem 2rem;
 }
 
 .nav-wordmark {
   font-family: var(--font-stamp);
-  font-size: 1.35rem;
-  letter-spacing: 0.09em;
+  font-size: 1.15rem;
+  letter-spacing: 0.14em;
   line-height: 1;
+  color: var(--ink);
+  text-decoration: none;
   text-transform: uppercase;
 }
 
-.nav-submark {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--ink-3);
-  letter-spacing: 0.06em;
+.nav-wordmark:visited {
+  color: var(--ink);
 }
 
 .nav-links {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.55rem 1.15rem;
+  align-items: baseline;
+  gap: 0.75rem 1.75rem;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
@@ -168,42 +155,44 @@ input {
 .nav-links a:hover {
   color: var(--ink);
   text-decoration: underline;
+  text-underline-offset: 5px;
 }
 
 .theme-btn {
   background: none;
-  border: 1px solid var(--border-strong);
-  padding: 0.2rem 0.55rem;
+  border: none;
+  padding: 0;
+  color: var(--gold);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
 }
 
 .theme-btn:hover {
-  border-color: var(--gold);
-  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 5px;
 }
 
-/* ── Hero Section ────────────────────────────────────────────── */
+/* ── Hero Opening — Space, Breath & Quiet Authority ──────────── */
 .hero-section {
-  padding: clamp(2.5rem, 5.5vw, 4.25rem) 0 clamp(2rem, 4vw, 3rem);
-  border-bottom: 1px solid var(--border);
+  padding: clamp(4.5rem, 10vw, 8rem) 0 clamp(3.75rem, 8vw, 6.25rem);
+  border-bottom: 1px solid var(--rule);
 }
 
-.hero-grid {
+.hero-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 2.25rem 3rem;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  gap: 3.5rem clamp(3rem, 7vw, 6.5rem);
   align-items: start;
 }
 
-.archive-stamp {
-  margin: 0 0 0.85rem;
+.hero-kicker {
+  margin: 0 0 1.25rem;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--gold);
 }
@@ -212,24 +201,24 @@ input {
   margin: 0;
   font-family: var(--font-serif);
   font-size: var(--text-2xl);
-  font-weight: 600;
-  line-height: 1.03;
-  letter-spacing: -0.015em;
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
   color: var(--ink);
 }
 
 .hero-motto {
-  margin: 0.35rem 0 1.25rem;
+  margin: 0.7rem 0 2.1rem;
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
   font-size: var(--text-xl);
-  line-height: 1.15;
+  line-height: 1.2;
   color: var(--ink-2);
 }
 
 .hero-intro {
-  margin: 0 0 1.35rem;
+  margin: 0 0 2rem;
   max-width: var(--measure);
   color: var(--ink-2);
 }
@@ -240,7 +229,7 @@ input {
 }
 
 .hero-meta-line {
-  margin: 0 0 1rem;
+  margin: 0 0 1.4rem;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
@@ -251,106 +240,83 @@ input {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65rem 1.25rem;
+  gap: 0.75rem 1.85rem;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-/* Living Field Notes / Currently Dossier Box */
-.dossier-box {
-  background: var(--bg-inset);
-  border: 1px solid var(--border);
-  border-top: 2px solid var(--gold);
-  padding: 1rem 1.1rem;
+/* Open Marginalia Note (NO box, NO tint — just a quiet hairline rule) */
+.marginalia-currently {
+  border-left: 1px solid var(--gold);
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
 }
 
-.dossier-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.7rem;
-  padding-bottom: 0.45rem;
-  border-bottom: 1px solid var(--border);
+.marginalia-head {
+  margin: 0 0 0.85rem;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  letter-spacing: 0.09em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-}
-
-.dossier-label {
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.dossier-date {
   color: var(--gold);
 }
 
-.dossier-list {
+.marginalia-list {
   margin: 0;
-  padding-left: 1rem;
+  padding-left: 1.05rem;
   display: grid;
-  gap: 0.45rem;
+  gap: 0.75rem;
   font-size: var(--text-sm);
-  line-height: 1.48;
+  line-height: 1.58;
   color: var(--ink-2);
 }
 
-.dossier-foot {
-  margin: 0.75rem 0 0;
-  padding-top: 0.45rem;
-  border-top: 1px solid var(--border);
-  font-family: var(--font-mono);
-  font-size: 0.73rem;
-  color: var(--ink-3);
+/* ── Emil Ruder Two-Column Chapters (Open Air, Zero Boxes) ─────── */
+.editorial-section {
+  padding: clamp(4.25rem, 8.5vw, 7rem) 0;
+  border-bottom: 1px solid var(--rule);
 }
 
-/* ── Emil Ruder Two-Column Editorial Sections ────────────────── */
-.ruder-section {
-  padding: clamp(2.25rem, 4.5vw, 3.4rem) 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.ruder-grid {
+.editorial-grid {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: 1.75rem 3rem;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 2.5rem clamp(3rem, 7vw, 6.5rem);
   align-items: start;
 }
 
-.margin-rail {
+.rail-column {
   position: sticky;
-  top: 1.5rem;
+  top: 2.5rem;
 }
 
-.section-code {
-  margin: 0 0 0.45rem;
+.chapter-heading {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.chapter-label {
+  margin: 0;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--gold);
 }
 
-.section-heading {
-  margin: 0 0 0.85rem;
-  font-family: var(--font-serif);
-  font-size: var(--text-lg);
-  font-weight: 600;
-  line-height: 1.15;
-  color: var(--ink);
+.rail-meta-group {
+  margin-top: 2.15rem;
+  display: grid;
+  gap: 0.65rem;
 }
 
-.rail-block {
-  margin-top: 1.4rem;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--border);
-}
-
-.rail-title {
-  margin: 0 0 0.45rem;
+.rail-meta-title {
+  margin: 0;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.1em;
@@ -358,88 +324,87 @@ input {
   color: var(--ink-3);
 }
 
-.rail-list {
+.rail-meta-list {
   margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0.55rem;
+  gap: 0.85rem;
   font-size: var(--text-sm);
-  line-height: 1.45;
+  line-height: 1.55;
   color: var(--ink-2);
 }
 
-.rail-list strong {
+.rail-meta-list strong {
   display: block;
   color: var(--ink);
   font-weight: 600;
 }
 
-.dir-note {
-  font-size: 0.82rem;
-  line-height: 1.48;
+.rail-note {
+  margin: 1.5rem 0 0;
+  font-size: var(--text-sm);
+  line-height: 1.6;
   color: var(--ink-3);
 }
 
-.content-col {
+.main-column {
   min-width: 0;
 }
 
-.editorial-title {
-  margin: 0 0 1rem;
+.editorial-lead {
+  margin: 0 0 1.65rem;
   font-family: var(--font-serif);
   font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.65rem, 2.8vw, 2.2rem);
-  line-height: 1.18;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  line-height: 1.22;
   color: var(--ink);
-  max-width: 34ch;
 }
 
-.prose-stack {
+.prose-flow {
   max-width: var(--measure);
   display: grid;
-  gap: 0.95rem;
+  gap: 1.35rem;
   color: var(--ink-2);
 }
 
-.prose-stack p {
+.prose-flow p {
   margin: 0;
 }
 
-.prose-stack strong {
+.prose-flow strong {
   color: var(--ink);
   font-weight: 600;
 }
 
-/* ── Research Section Controls & Themes ──────────────────────── */
-.research-toolbar {
+/* ── Research Index (Borderless Controls & Generous Rhythm) ─── */
+.research-controls {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 0.65rem 1rem;
-  padding: 0.65rem 0.85rem;
-  margin-bottom: 1.75rem;
-  background: var(--bg-inset);
-  border: 1px solid var(--border);
+  gap: 1rem 2rem;
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--rule);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
 }
 
-.theme-filters {
+.theme-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem 0.75rem;
+  gap: 0.5rem 1.35rem;
 }
 
 .filter-tab {
   background: none;
   border: none;
-  padding: 0.15rem 0;
+  padding: 0 0 0.2rem;
   color: var(--ink-3);
   cursor: pointer;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -449,35 +414,39 @@ input {
 
 .filter-tab.is-active {
   color: var(--ink);
-  font-weight: 500;
   border-bottom: 1px solid var(--gold);
 }
 
-.search-inline {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.flat-search {
-  border: 1px solid var(--border-strong);
-  background: var(--bg-elevated);
-  padding: 0.25rem 0.55rem;
+.search-line {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--rule-strong);
+  padding: 0.2rem 0;
   border-radius: 0;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
+  color: var(--ink);
   width: 210px;
 }
 
+.search-line::placeholder {
+  color: var(--ink-3);
+}
+
+.search-line:focus {
+  outline: none;
+  border-bottom-color: var(--gold);
+}
+
 .sync-note {
-  margin: 0 0 1.25rem;
+  margin: 0 0 2.75rem;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   color: var(--ink-3);
 }
 
 .theme-group {
-  margin-bottom: 2.35rem;
+  margin-bottom: 4.5rem;
 }
 
 .theme-group:last-child {
@@ -487,15 +456,15 @@ input {
 .theme-head {
   display: flex;
   align-items: baseline;
-  gap: 0.85rem;
-  padding-bottom: 0.6rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--border-strong);
+  gap: 1rem;
+  margin-bottom: 2.25rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--rule-strong);
 }
 
 .theme-num {
   font-family: var(--font-stamp);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: var(--gold);
   line-height: 1;
   flex-shrink: 0;
@@ -504,78 +473,56 @@ input {
 .theme-title {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: 1.48rem;
-  font-weight: 600;
-  line-height: 1.18;
+  font-size: var(--text-lg);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--ink);
 }
 
 .theme-subtitle {
-  margin: 0.2rem 0 0;
+  margin: 0.35rem 0 0;
   font-size: var(--text-sm);
   color: var(--ink-3);
 }
 
 .theme-entries {
   display: grid;
-  gap: 1.35rem;
+  gap: 3.1rem;
 }
 
-.paper-entry {
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border);
+.paper-item {
+  max-width: var(--measure);
 }
 
-.paper-entry:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.paper-meta-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.45rem 0.7rem;
-  margin-bottom: 0.35rem;
+.paper-byline {
+  margin: 0 0 0.45rem;
   font-family: var(--font-mono);
-  font-size: 0.74rem;
-}
-
-.paper-code {
+  font-size: 0.78rem;
   color: var(--ink-3);
-  letter-spacing: 0.06em;
 }
 
-.status-stamp {
-  padding: 0.08rem 0.42rem;
-  border: 1px solid var(--border);
-  background: var(--bg-inset);
-  color: var(--ink-2);
-  letter-spacing: 0.05em;
-}
-
-.status-submitted {
-  border-color: var(--gold);
-  background: var(--gold-soft);
+.paper-status.is-submitted {
   color: var(--gold);
 }
 
-.paper-year {
+.byline-sep,
+.action-sep {
+  margin-inline: 0.45rem;
   color: var(--ink-3);
 }
 
 .paper-title {
-  margin: 0 0 0.38rem;
+  margin: 0 0 0.65rem;
   font-family: var(--font-serif);
-  font-size: 1.38rem;
-  font-weight: 600;
+  font-size: 1.55rem;
+  font-weight: 500;
   line-height: 1.22;
-  max-width: 58ch;
+  color: var(--ink);
 }
 
 .paper-title-link {
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 1px solid transparent;
 }
 
 .paper-title-link:visited {
@@ -584,105 +531,96 @@ input {
 
 .paper-title-link:hover {
   color: var(--link);
-  border-bottom-color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .paper-oneliner {
-  margin: 0 0 0.55rem;
-  max-width: var(--measure);
-  font-size: 0.96rem;
-  line-height: 1.56;
+  margin: 0 0 0.85rem;
   color: var(--ink-2);
 }
 
 .paper-links-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.45rem 0.75rem;
+  align-items: baseline;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
 }
 
-.cite-btn {
+.text-action-btn {
   background: none;
   border: none;
   padding: 0;
   color: var(--link);
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 4px;
   cursor: pointer;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
 }
 
-/* Native HTML Progressive Disclosure */
 .paper-details {
-  margin-top: 0.6rem;
+  margin-top: 0.85rem;
 }
 
 .paper-details summary {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--gold);
+  color: var(--ink-3);
   cursor: pointer;
   user-select: none;
 }
 
 .paper-details summary:hover {
-  text-decoration: underline;
+  color: var(--gold);
 }
 
 .paper-details-body {
-  margin-top: 0.75rem;
-  padding: 0.85rem 1rem;
-  border-left: 2px solid var(--gold);
-  background: var(--bg-inset);
-  max-width: var(--measure);
+  margin-top: 1.1rem;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--gold);
   font-size: var(--text-sm);
+  line-height: 1.68;
   color: var(--ink-2);
 }
 
 .paper-abstract p {
-  margin: 0 0 0.65rem;
+  margin: 0 0 0.9rem;
 }
 
 .detail-limitations,
 .detail-tags {
-  margin: 0.65rem 0 0;
-  font-size: 0.84rem;
-  line-height: 1.5;
+  margin: 0.95rem 0 0;
 }
 
 .mini-table-wrap {
-  margin: 0.85rem 0;
+  margin: 1.4rem 0;
   overflow-x: auto;
-  border: 1px solid var(--border);
-  background: var(--bg-elevated);
 }
 
 .mini-table-caption {
-  margin: 0;
-  padding: 0.42rem 0.65rem;
-  border-bottom: 1px solid var(--border);
+  margin: 0 0 0.55rem;
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.76rem;
   color: var(--ink-3);
 }
 
 .data-table {
   width: 100%;
   border-collapse: collapse;
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-variant-numeric: tabular-nums;
 }
 
 .data-table th,
 .data-table td {
-  padding: 0.36rem 0.65rem;
-  border-bottom: 1px solid var(--border);
+  padding: 0.55rem 0.75rem 0.55rem 0;
+  border-bottom: 1px solid var(--rule);
   text-align: left;
 }
 
@@ -695,71 +633,77 @@ input {
   white-space: nowrap;
 }
 
-/* ── Program / Beyond Research Ledgers ───────────────────────── */
-.two-col-notes {
+/* ── Program Notes / Open Columns (Air Only, Zero Boxes) ──────── */
+.open-columns {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem;
-  max-width: 76ch;
+  gap: 2.5rem 4rem;
+  max-width: 72ch;
 }
 
-.note-box {
-  border: 1px solid var(--border);
-  background: var(--bg-elevated);
-  padding: 0.95rem 1.05rem;
-}
-
-.note-heading {
-  margin: 0 0 0.55rem;
+.sub-heading {
+  margin: 0 0 1rem;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--gold);
 }
 
-.note-list {
+.calm-list {
   margin: 0;
-  padding-left: 1.1rem;
+  padding-left: 1.2rem;
   display: grid;
-  gap: 0.48rem;
+  gap: 1.05rem;
   font-size: var(--text-sm);
-  line-height: 1.5;
+  line-height: 1.65;
   color: var(--ink-2);
 }
 
-.note-list strong {
+.calm-list strong {
   color: var(--ink);
+  font-weight: 600;
 }
 
-.beyond-table {
+/* ── Airy Ledger Tables & Lists ──────────────────────────────── */
+.ledger-table {
   width: 100%;
-  max-width: 72ch;
+  max-width: 68ch;
   border-collapse: collapse;
-  border-top: 1px solid var(--border-strong);
 }
 
-.beyond-table th,
-.beyond-table td {
-  padding: 0.72rem 0.75rem 0.72rem 0;
-  border-bottom: 1px solid var(--border);
+.ledger-table th,
+.ledger-table td {
+  padding: 1.15rem 1.25rem 1.15rem 0;
+  border-bottom: 1px solid var(--rule);
   vertical-align: top;
   text-align: left;
   font-size: var(--text-sm);
+  line-height: 1.65;
 }
 
-.beyond-table th {
+.ledger-table tr:last-child th,
+.ledger-table tr:last-child td {
+  border-bottom: none;
+}
+
+.ledger-table th {
   width: 155px;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
 
-.beyond-table td {
+.ledger-table td {
   color: var(--ink-2);
+}
+
+.ledger-table strong {
+  color: var(--ink);
+  font-weight: 600;
 }
 
 .writing-list {
@@ -767,7 +711,6 @@ input {
   padding: 0;
   list-style: none;
   max-width: var(--measure);
-  border-top: 1px solid var(--border);
 }
 
 .writing-list li {
@@ -775,9 +718,13 @@ input {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
-  gap: 0.35rem 1rem;
-  padding: 0.65rem 0;
-  border-bottom: 1px solid var(--border);
+  gap: 0.45rem 1.5rem;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.writing-list li:last-child {
+  border-bottom: none;
 }
 
 .writing-meta {
@@ -792,9 +739,9 @@ input {
   color: var(--ink-2);
 }
 
-/* ── Footer & Typography Colophon ────────────────────────────── */
+/* ── Calm Footer & Citations Colophon ────────────────────────── */
 .site-footer {
-  padding: 2rem 0 2.75rem;
+  padding: 3.75rem 0 4.5rem;
 }
 
 .footer-top {
@@ -802,67 +749,71 @@ input {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
-  gap: 0.75rem 1.5rem;
-  margin-bottom: 1rem;
+  gap: 1rem 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .footer-motto {
   margin: 0;
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   color: var(--ink);
 }
 
 .footer-stamp {
   font-family: var(--font-stamp);
-  font-size: 1.1rem;
-  letter-spacing: 0.09em;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
   color: var(--gold);
 }
 
 .colophon {
   margin: 0;
-  max-width: 76ch;
+  max-width: 70ch;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  line-height: 1.55;
+  font-size: 0.74rem;
+  line-height: 1.7;
   color: var(--ink-3);
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
-@media (max-width: 880px) {
-  .hero-grid,
-  .ruder-grid,
-  .two-col-notes {
+@media (max-width: 920px) {
+  .hero-layout,
+  .editorial-grid,
+  .open-columns {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .margin-rail {
+  .rail-column {
     position: static;
+  }
+
+  .marginalia-currently {
+    margin-top: 1.5rem;
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 600px) {
   .page-wrap {
-    width: min(100% - 1.5rem, 1060px);
+    width: min(100% - 2rem, 1140px);
   }
 
-  .flat-search {
+  .search-line {
     width: 100%;
   }
 
-  .beyond-table th,
-  .beyond-table td {
+  .ledger-table th,
+  .ledger-table td {
     display: block;
     width: auto;
-    padding-bottom: 0.3rem;
+    padding: 0.35rem 0;
     border-bottom: none;
   }
 
-  .beyond-table tr {
+  .ledger-table tr {
     display: block;
-    padding: 0.55rem 0;
-    border-bottom: 1px solid var(--border);
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--rule);
   }
 }

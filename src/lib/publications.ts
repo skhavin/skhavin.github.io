@@ -67,7 +67,7 @@ const CURATED_METADATA: Record<string, CuratedDetail> = {
   'k-heads-is-all-you-need': {
     theme: 'inference',
     shortTitle: 'K Heads Is All You Need: Task-Dependent Circuit Granularity & Zero-Training Routing',
-    statusLabel: 'SUBMITTED MANUSCRIPT · ICLR 2027 (UNDER REVIEW)',
+    statusLabel: 'Submitted Manuscript · ICLR 2027 (under review)',
     statusKind: 'submitted',
     summaryLine:
       'JCCS (greedy ACDC + CoAx specificity) recovers dynamic task-dependent circuits across Qwen, Llama, and Gemma; sparse for retrieval (5–8/336 heads), dense for variable tracking & code synthesis, with a zero-training Layer-4 cosine router.',
@@ -77,7 +77,7 @@ const CURATED_METADATA: Record<string, CuratedDetail> = {
   'shape-of-computation': {
     theme: 'geometry',
     shortTitle: 'The Shape of Computation (Trunk & Branch)',
-    statusLabel: 'PREPRINT · PLANNED ICML SUBMISSION',
+    statusLabel: 'Preprint · Planned ICML submission',
     statusKind: 'preprint',
     summaryLine:
       'CKA-constrained DTW across 720 permutations (p ≈ 0.00139, 3× replicated) reveals universal trunk-and-branch residual geometry built by MLPs—yet steering mature centroids fails causal sufficiency checks (r = 0.049, 0.112 vs. r > 0.7 bar).',
@@ -91,7 +91,7 @@ const CURATED_METADATA: Record<string, CuratedDetail> = {
   'necessary-but-not-sufficient': {
     theme: 'geometry',
     shortTitle: 'Necessary But Not Sufficient: Convergent Geometry in the Residual Stream',
-    statusLabel: 'PREPRINT · OPENREVIEW / ZENODO',
+    statusLabel: 'Preprint · OpenReview / Zenodo',
     statusKind: 'preprint',
     summaryLine:
       'Falsifies fixed CPU-like Head ISAs across 12 phases (WRITE = 0.311, LOAD = 0.079 recall), isolates the Intersection Circuit, and shows OLS-deconfounded residual geometry generalizes across Qwen2.5, Llama-3.2, and Phi-1.5 (Mantel p < 0.003).',
@@ -102,7 +102,7 @@ const CURATED_METADATA: Record<string, CuratedDetail> = {
   headgenome: {
     theme: 'geometry',
     shortTitle: 'The HeadGenome Taxonomy: Structural & Causal Map of 1,568 Attention Heads',
-    statusLabel: 'PREPRINT · OPENREVIEW / ZENODO',
+    statusLabel: 'Preprint · OpenReview / Zenodo',
     statusKind: 'preprint',
     summaryLine:
       'Maps 1,568 attention heads into Sink/Local/Retrieval/Induction classes, uncovers a V/Q Frobenius depth law (p = 1.92 × 10⁻¹²⁷), exposes the perplexity illusion, and achieves 13.3× KV compression & up to 2.81× FlexAttention speedup.',
@@ -112,7 +112,7 @@ const CURATED_METADATA: Record<string, CuratedDetail> = {
   'o1-decode-step-attention': {
     theme: 'inference',
     shortTitle: 'O(1) Decode Step Attention via Training-Free Proactive KV Cache Eviction',
-    statusLabel: 'PREPRINT · ZENODO',
+    statusLabel: 'Preprint · Zenodo',
     statusKind: 'preprint',
     summaryLine:
       'Offline attention prototype clustering + TF-IDF ingest routing bounds KV cache to budget B, yielding O(B²) = O(1) decode attention per token and 3.09× speedup / 4.6× PPL gain on LLaMA 3.1 8B with zero gradient updates.',
@@ -122,7 +122,7 @@ const CURATED_METADATA: Record<string, CuratedDetail> = {
   'trinetra-2026': {
     theme: 'multimodal',
     shortTitle: 'Trinetra: O(N) Video Ingest, O(1) Query — Proactive Temporal Event Graph',
-    statusLabel: 'PREPRINT · OPENREVIEW / ZENODO',
+    statusLabel: 'Preprint · OpenReview / Zenodo',
     statusKind: 'preprint',
     summaryLine:
       'Temporal Event Graph + Multi-Scale Temporal Attention Shift (TAS₂, TAS₈, TAS₃₂) + dual FAISS index compresses 20-minute video into linear O(N) ingest and O(1) retrieval (9× temporal awareness, 317,500× fewer query FLOPs).',
@@ -311,8 +311,8 @@ export function getPublicationMeta(pub: Publication): CuratedDetail {
   return {
     theme,
     statusLabel: isSubmitted
-      ? `SUBMITTED MANUSCRIPT · ${venue.toUpperCase()}`
-      : `PREPRINT · ${venue.toUpperCase()}`,
+      ? `Submitted Manuscript · ${venue}`
+      : `Preprint · ${venue}`,
     statusKind: isSubmitted ? 'submitted' : 'preprint',
     summaryLine: pub.abstract.replace(/<[^>]+>/g, '').slice(0, 210).trim() + '…',
     limitations: 'Full experimental controls, methodology, and limitations are documented in the linked preprint.',

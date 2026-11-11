@@ -24,10 +24,7 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
 <ResearchLayout>
   <header class="site-nav">
     <div class="page-wrap nav-inner">
-      <a href="#top" class="nav-brand">
-        <span class="nav-wordmark">SKHAVIN</span>
-        <span class="nav-submark">RESEARCH ARCHIVE</span>
-      </a>
+      <a href="#top" class="nav-wordmark">SKHAVIN</a>
 
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="#about">About</a>
@@ -35,146 +32,140 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
         <a href="#projects">Projects</a>
         <a href="#writing">Writing</a>
         <a href="#contact">Contact</a>
-        <button type="button" id="theme-toggle" class="theme-btn">[dark]</button>
+        <button type="button" id="theme-toggle" class="theme-btn">Dark</button>
       </nav>
     </div>
   </header>
 
   <main id="top">
     <section class="hero-section">
-      <div class="page-wrap hero-grid">
+      <div class="page-wrap hero-layout">
         <div>
-          <p class="archive-stamp">S. KHAVIN · PERSONAL ARCHIVE · 2026</p>
-          <h1 class="hero-name">Independent Researcher.</h1>
-          <p class="hero-motto">Understanding intelligence, one mechanism at a time.</p>
+          <p class="hero-kicker">Personal Archive · 2026</p>
+          <h1 class="hero-name">S. Khavin</h1>
+          <p class="hero-motto">
+            Independent researcher — understanding intelligence, one mechanism at a time.
+          </p>
 
           <p class="hero-intro">
             I am <strong>S. Khavin</strong>, a computer science student and independent researcher
-            based in Chennai, India. My work explores how language and vision-language models
-            represent, process, and retrieve information—testing whether uncovering their internal
-            computational mechanisms can yield training-free efficient inference without altering
-            pretrained weights.
+            based in Chennai, India. My work investigates how language and vision-language models
+            represent, transform, and retrieve information—testing whether mapping those internal
+            mechanisms enables training-free efficient inference without modifying pretrained weights.
           </p>
 
           <p class="hero-meta-line">
-            Chennai, India · Computer Science · 2023–2027 · Mechanistic Interpretability ·
-            Efficient Inference · Multimodal Systems
+            Chennai, India · Computer Science · 2023–2027
           </p>
 
           <div class="hero-actions">
-            <a href="#research">Research ↗</a>
-            <a href="#about">About ↗</a>
+            <a href="#research">Research</a>
+            <a href="#about">About</a>
             <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">
               GitHub ↗
             </a>
             <a href={MAIN_SITE_ORIGIN} target="_blank" rel="noopener noreferrer">
-              Portfolio (skhavin.in) ↗
+              skhavin.in ↗
             </a>
-            <a href="#contact">Contact ↗</a>
+            <a href="#contact">Contact</a>
           </div>
         </div>
 
-        <aside class="dossier-box" aria-label="Current research activity">
-          <div class="dossier-head">
-            <span class="dossier-label">Currently · Active</span>
-            <span class="dossier-date">November 2026</span>
-          </div>
-          <ol class="dossier-list">
+        <aside class="marginalia-currently" aria-label="Currently active work">
+          <p class="marginalia-head">Currently · November 2026</p>
+          <ol class="marginalia-list">
             <li>Investigating why conserved task geometries stay causally inert in residual streams.</li>
-            <li>Validating JCCS &amp; Layer-4 zero-training routing beyond N=1 models per family.</li>
-            <li>Exploring proactive O(1) KV-cache eviction and multimodal temporal event graphs.</li>
+            <li>Validating JCCS and Layer-4 zero-training routing across additional models.</li>
+            <li>Exploring proactive O(1) KV-cache eviction and multimodal temporal graphs.</li>
             <li>Open to collaborative research in interpretability and inference efficiency.</li>
           </ol>
-          <p class="dossier-foot">FILE REF // 2026-ISA · CHENNAI (IST)</p>
         </aside>
       </div>
     </section>
 
-    <section id="about" class="ruder-section">
-      <div class="page-wrap ruder-grid">
-        <div class="margin-rail">
-          <p class="section-code">ABOUT / 001</p>
-          <h2 class="section-heading">Biography &amp; Foundation</h2>
+    <section id="about" class="editorial-section">
+      <div class="page-wrap editorial-grid">
+        <div class="rail-column">
+          <p class="chapter-label">01</p>
+          <h2 class="chapter-heading">About</h2>
 
-          <div class="rail-block">
-            <h3 class="rail-title">Education</h3>
-            <ul class="rail-list">
+          <div class="rail-meta-group">
+            <h3 class="rail-meta-title">Education</h3>
+            <ul class="rail-meta-list">
               <li>
                 <strong>B.E. Computer Science Engineering</strong>
                 Sathyabama Institute of Science and Technology, Chennai · 2023–2027
               </li>
               <li>
                 <strong>Generative AI Nanodegree</strong>
-                Udacity × Bertelsmann Scholarship (500 / 17,000 applicants)
+                Udacity × Bertelsmann Scholarship (500 of 17,000 global)
               </li>
             </ul>
           </div>
 
-          <div class="rail-block">
-            <h3 class="rail-title">Methods</h3>
-            <ul class="rail-list">
+          <div class="rail-meta-group">
+            <h3 class="rail-meta-title">Methods</h3>
+            <ul class="rail-meta-list">
               <li>Joint Causal Circuit Search (JCCS)</li>
               <li>Causal patching &amp; head knockouts</li>
               <li>CKA &amp; constrained Dynamic Time Warping</li>
-              <li>Direct Logit Attribution &amp; Procrustes alignment</li>
+              <li>Procrustes alignment &amp; Direct Logit Attribution</li>
               <li>Proactive KV eviction &amp; dual FAISS graphs</li>
             </ul>
           </div>
 
-          <div class="rail-block">
-            <h3 class="rail-title">Languages</h3>
-            <ul class="rail-list">
+          <div class="rail-meta-group">
+            <h3 class="rail-meta-title">Languages</h3>
+            <ul class="rail-meta-list">
               <li>English (Fluent) · Tamil (Native)</li>
             </ul>
           </div>
         </div>
 
-        <div class="content-col">
-          <h3 class="editorial-title">Curiosity drives the work.</h3>
-          <div class="prose-stack">
+        <div class="main-column">
+          <h3 class="editorial-lead">Curiosity drives the work.</h3>
+          <div class="prose-flow">
             <p>
               I'm <strong>S. Khavin</strong>, a final-year Computer Science Engineering student at
-              Sathyabama Institute of Science and Technology, Chennai. Looking back, my trajectory
-              started around age seven building redstone and command-block circuits in Minecraft—I
-              have always gravitated toward taking systems apart to trace what actually computes.
+              Sathyabama Institute of Science and Technology, Chennai. My instinct to inspect how
+              systems compute began around age seven building redstone and command-block circuits
+              in Minecraft—taking mechanisms apart before trying to build something cleaner.
             </p>
             <p>
-              My research investigates the internal computational mechanisms of modern neural
+              Today my research examines the internal computational structure of modern neural
               networks. Using causal interventions, representation geometry, and
-              neuroscience-inspired ablation protocols, I study how language and vision-language
-              models represent tasks, transform residual activations, and route long-range context.
+              neuroscience-inspired ablations, I study how language and vision-language models
+              encode tasks, transform residual activations, and route long-range context.
             </p>
             <p>
-              That line of inquiry grew out of systems friction while building <em>AgentFox</em> (a
-              local agentic browser) and <em>Trinetra</em>: even when an LLM ingests only selected
-              video frames, quadratic transformer attention still bottlenecks scaling. Today, standard
-              inference burns the same forward pass evaluating <code>3 + 7</code> as synthesizing
-              production code.
+              That inquiry emerged from practical bottlenecks while building <em>AgentFox</em> (a
+              local agentic browser) and <em>Trinetra</em>: even when a language model only ingests
+              selected video frames, quadratic attention still dominates cost. Standard inference
+              allocates the same compute evaluating <code>3 + 7</code> as synthesizing production
+              code.
             </p>
             <p>
-              My core question is narrower and empirically falsifiable: <strong>find the minimal
-              causal circuit doing task-relevant work, and you naturally obtain both zero-training
-              sparse routing and a concrete structure for mechanistic oversight.</strong>
+              My focus is narrower and empirically testable: <strong>isolate the minimal causal
+              circuit doing task-relevant work, and you naturally obtain both training-free sparse
+              routing and an inspectable handle for oversight.</strong>
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="research" class="ruder-section">
-      <div class="page-wrap ruder-grid">
-        <div class="margin-rail">
-          <p class="section-code">RESEARCH / 002</p>
-          <h2 class="section-heading">Research Record</h2>
-          <p class="rail-list">
-            <span class="dir-note">
-              Manuscript status is marked explicitly: submitted work under peer review is never
-              presented as accepted publication.
-            </span>
+    <section id="research" class="editorial-section">
+      <div class="page-wrap editorial-grid">
+        <div class="rail-column">
+          <p class="chapter-label">02</p>
+          <h2 class="chapter-heading">Research</h2>
+          <p class="rail-note">
+            Submitted manuscripts under peer review are distinguished explicitly from preprints.
           </p>
-          <div class="rail-block">
-            <h3 class="rail-title">External Profiles</h3>
-            <ul class="rail-list">
+
+          <div class="rail-meta-group">
+            <h3 class="rail-meta-title">Profiles &amp; Feed</h3>
+            <ul class="rail-meta-list">
               <li>
                 <a
                   href="https://openreview.net/profile?id=~S_Khavin1"
@@ -195,44 +186,44 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
               </li>
               <li>
                 <a href={REMOTE_PUBLICATIONS_URL} target="_blank" rel="noopener noreferrer">
-                  Live JSON Feed ↗
+                  publications.json ↗
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="content-col">
-          <div class="research-toolbar">
-            <div id="theme-filters" class="theme-filters" role="group" aria-label="Filter by theme">
+        <div class="main-column">
+          <div class="research-controls">
+            <div id="theme-filters" class="theme-tabs" role="group" aria-label="Filter by theme">
               <button type="button" class="filter-tab is-active" data-theme-filter="all">
-                all directions
+                All
               </button>
               <button type="button" class="filter-tab" data-theme-filter="geometry">
-                01. geometry &amp; mech-interp
+                01. Geometry &amp; Interpretability
               </button>
               <button type="button" class="filter-tab" data-theme-filter="inference">
-                02. efficient inference
+                02. Efficient Inference
               </button>
               <button type="button" class="filter-tab" data-theme-filter="multimodal">
-                03. multimodal
+                03. Multimodal
               </button>
             </div>
 
-            <div class="search-inline">
-              <input
-                id="research-search"
-                class="flat-search"
-                type="search"
-                placeholder="search papers or tags…"
-                aria-label="Search manuscripts"
-                autocomplete="off"
-              />
-            </div>
+            <input
+              id="research-search"
+              class="search-line"
+              type="search"
+              placeholder="Filter manuscripts…"
+              aria-label="Filter manuscripts"
+              autocomplete="off"
+            />
           </div>
 
           <p id="sync-note" class="sync-note">
-            source: {initialSource === 'live' ? 'synced live from skhavin.in/publications.json' : 'snapshot synced · connecting to skhavin.in/publications.json'}
+            {initialSource === 'live'
+              ? 'Synchronized live with skhavin.in/publications.json'
+              : 'Synced local baseline · checking skhavin.in/publications.json'}
           </p>
 
           <div
@@ -243,53 +234,52 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
       </div>
     </section>
 
-    <section id="program" class="ruder-section">
-      <div class="page-wrap ruder-grid">
-        <div class="margin-rail">
-          <p class="section-code">PROGRAM / 003</p>
-          <h2 class="section-heading">Standards &amp; Open Questions</h2>
+    <section id="program" class="editorial-section">
+      <div class="page-wrap editorial-grid">
+        <div class="rail-column">
+          <p class="chapter-label">03</p>
+          <h2 class="chapter-heading">Program &amp; Limits</h2>
         </div>
 
-        <div class="content-col">
-          <div class="two-col-notes">
-            <div class="note-box">
-              <h3 class="note-heading">Falsification Filters</h3>
-              <ol class="note-list">
+        <div class="main-column">
+          <div class="open-columns">
+            <div>
+              <h3 class="sub-heading">Falsification Filters</h3>
+              <ol class="calm-list">
                 <li>
-                  <strong>Weeks-not-years falsifiability:</strong> hypotheses must be refutable by
-                  clean ablations (e.g., knocking out counting vs. sorting circuits).
+                  <strong>Weeks-not-years falsifiability:</strong> claims must be refutable by direct
+                  causal interventions—such as knocking out counting vs. sorting heads.
                 </li>
                 <li>
-                  <strong>Inspectable mechanistic artifact:</strong> every study must yield a
-                  concrete taxonomy, ablation matrix, or deployable routing table—not just an
-                  efficiency curve.
+                  <strong>Inspectable artifacts:</strong> every project aims to yield a concrete
+                  head taxonomy, ablation table, or routing gate rather than an opaque loss curve.
                 </li>
                 <li>
-                  <strong>Real-world benchmark validity:</strong> evaluated across 4K long-context
-                  tasks (RULER, LongBench-Qasper), Python synthesis, and HumanEval rather than
-                  isolated toy circuits.
+                  <strong>Real benchmark scale:</strong> evaluated on 4K long-context benchmarks
+                  (RULER, LongBench-Qasper), Python synthesis, and HumanEval.
                 </li>
               </ol>
             </div>
 
-            <div class="note-box">
-              <h3 class="note-heading">Open Problems &amp; Honest Limits</h3>
-              <ul class="note-list">
+            <div>
+              <h3 class="sub-heading">Open Questions &amp; Caveats</h3>
+              <ul class="calm-list">
                 <li>
-                  <strong>Fixed-head ISA falsified:</strong> assuming fixed head labels collapsed on
-                  held-out data (WRITE = 0.311, LOAD = 0.079); ISA turned out dynamic and circuit-level.
+                  <strong>Fixed-head ISA falsified:</strong> held-out recall collapsed (WRITE = 0.311,
+                  LOAD = 0.079), shifting the program from static head labels to dynamic circuits.
                 </li>
                 <li>
-                  <strong>Suppressor blind spot:</strong> greedy JCCS deflation misses components
-                  whose removal improves accuracy (two NIAH suppressors emerged during joint ablation).
+                  <strong>Greedy suppressor blind spot:</strong> greedy JCCS deflation misses
+                  components whose removal improves task score (two NIAH suppressors emerged by
+                  joint ablation).
                 </li>
                 <li>
                   <strong>Dense variable tracking:</strong> resists sparsification across K ∈ [6, 64]
-                  and requires full dense heads on Qwen2.5-1.5B.
+                  on Qwen2.5-1.5B.
                 </li>
                 <li>
-                  <strong>Central puzzle:</strong> why conserved cross-architecture task geometry
-                  (DTW p ≈ 0.00139) remains causally inert under activation injection.
+                  <strong>Central open puzzle:</strong> why cross-architecture residual geometry
+                  conserves reliably (p ≈ 0.00139 via DTW) yet remains causally inert when steered.
                 </li>
               </ul>
             </div>
@@ -298,24 +288,24 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
       </div>
     </section>
 
-    <section id="projects" class="ruder-section">
-      <div class="page-wrap ruder-grid">
-        <div class="margin-rail">
-          <p class="section-code">BEYOND / 004</p>
-          <h2 class="section-heading">Engineering &amp; Record</h2>
+    <section id="projects" class="editorial-section">
+      <div class="page-wrap editorial-grid">
+        <div class="rail-column">
+          <p class="chapter-label">04</p>
+          <h2 class="chapter-heading">Beyond Research</h2>
         </div>
 
-        <div class="content-col">
-          <table class="beyond-table">
+        <div class="main-column">
+          <table class="ledger-table">
             <tbody>
               <tr>
                 <th>Engineering</th>
                 <td>
                   <strong><a href="https://github.com/skhavin/taskgeometry" target="_blank" rel="noopener noreferrer">taskgeometry</a></strong>,
                   <strong><a href="https://github.com/skhavin/necstuff" target="_blank" rel="noopener noreferrer">necstuff</a></strong>,
-                  <strong><a href="https://github.com/skhavin/headgenome" target="_blank" rel="noopener noreferrer">headgenome</a></strong> (open-source interpretability codebases) ·
+                  <strong><a href="https://github.com/skhavin/headgenome" target="_blank" rel="noopener noreferrer">headgenome</a></strong> (interpretability codebases) ·
                   <strong>AgentFox</strong> (local self-contained agentic browser) ·
-                  <strong>AlgoUniversity</strong> engineering · <strong>SIST Transit+</strong> · <strong>Marin</strong>
+                  <strong>AlgoUniversity</strong> · <strong>SIST Transit+</strong> · <strong>Marin</strong>
                 </td>
               </tr>
               <tr>
@@ -349,14 +339,14 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
       </div>
     </section>
 
-    <section id="writing" class="ruder-section">
-      <div class="page-wrap ruder-grid">
-        <div class="margin-rail">
-          <p class="section-code">WRITING / 005</p>
-          <h2 class="section-heading">Field Notes &amp; Essays</h2>
+    <section id="writing" class="editorial-section">
+      <div class="page-wrap editorial-grid">
+        <div class="rail-column">
+          <p class="chapter-label">05</p>
+          <h2 class="chapter-heading">Writing</h2>
         </div>
 
-        <div class="content-col">
+        <div class="main-column">
           <ul class="writing-list">
             <li>
               <a
@@ -380,9 +370,9 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
             </li>
             <li>
               <a href={`${MAIN_SITE_ORIGIN}/blog/`} target="_blank" rel="noopener noreferrer">
-                All Field Dispatches on skhavin.in
+                Field Dispatches Archive
               </a>
-              <span class="writing-meta">Archive · Research Notes</span>
+              <span class="writing-meta">skhavin.in/blog</span>
             </li>
             <li>
               <a
@@ -392,22 +382,22 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
               >
                 Transformer ISA Research Program Notes
               </a>
-              <span class="writing-meta">Working Document · 2026</span>
+              <span class="writing-meta">Working Note · 2026</span>
             </li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="ruder-section">
-      <div class="page-wrap ruder-grid">
-        <div class="margin-rail">
-          <p class="section-code">CONTACT / 006</p>
-          <h2 class="section-heading">Direct Links</h2>
+    <section id="contact" class="editorial-section">
+      <div class="page-wrap editorial-grid">
+        <div class="rail-column">
+          <p class="chapter-label">06</p>
+          <h2 class="chapter-heading">Contact</h2>
         </div>
 
-        <div class="content-col">
-          <table class="beyond-table">
+        <div class="main-column">
+          <table class="ledger-table">
             <tbody>
               <tr>
                 <th>Email</th>
@@ -446,7 +436,7 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
                 </td>
               </tr>
               <tr>
-                <th>Main Portfolio</th>
+                <th>Portfolio</th>
                 <td>
                   <a href={MAIN_SITE_ORIGIN} target="_blank" rel="noopener noreferrer">
                     skhavin.in
@@ -464,16 +454,15 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
     <div class="page-wrap">
       <div class="footer-top">
         <p class="footer-motto">An independent mind, exploring intelligent systems.</p>
-        <span class="footer-stamp">SKHAVIN · 2026</span>
+        <span class="footer-stamp">SKHAVIN</span>
       </div>
       <p class="colophon">
-        <strong>Colophon &amp; Typography Sources:</strong> Built as a single-page static Astro
-        document with zero runtime framework overhead and inline CSS. Measure constrained to
-        <code>64ch</code> (Bringhurst, <em>The Elements of Typographic Style</em>; Dyson &amp;
-        Haselgrove, 2001); <code>17px</code> reading body size and <code>1.62</code> leading informed
-        by eye-tracking readability findings (Rello &amp; Pielot, CHI 2016); asymmetric two-column
-        hierarchy structured for F-pattern scanning (Nielsen Norman Group) and Emil Ruder grid
-        discipline. Papers synchronized live from <code>skhavin.in/publications.json</code>.
+        <strong>Colophon &amp; Sources:</strong> Built in plain HTML, CSS, and static Astro with
+        inline styles. Warm positive-polarity palette (#FCFBF7 / #1F1E1B) tuned for low halation
+        (Piepenbrock, Mayr &amp; Buchner, 2013/2014); 60ch measure and 18px desktop body type with
+        1.72 leading grounded in Bringhurst (<em>The Elements of Typographic Style</em>), Dyson &amp;
+        Haselgrove (2001), Rello &amp; Pielot (CHI 2016), and Chaparro et al. (2004); F-pattern
+        asymmetric rail adapted from Nielsen Norman Group &amp; Emil Ruder.
       </p>
     </div>
   </footer>
@@ -577,7 +566,7 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
       const current =
         document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
       if (themeBtnEl) {
-        themeBtnEl.textContent = current === 'dark' ? '[light]' : '[dark]';
+        themeBtnEl.textContent = current === 'dark' ? 'Light' : 'Dark';
       }
     }
 
@@ -609,11 +598,10 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
       if (syncNoteEl) {
         syncNoteEl.textContent =
           result.source === 'live'
-            ? 'source: synced live from skhavin.in/publications.json'
-            : 'source: local research snapshot (skhavin.in offline or awaiting CORS deploy)';
+            ? 'Synchronized live with skhavin.in/publications.json'
+            : 'Synced local snapshot (skhavin.in unreachable or CORS pending)';
       }
 
-      // Preserve user's open <details> state when live snapshot is identical; re-render on update.
       if (result.source === 'live') {
         renderResearch();
       }
@@ -663,12 +651,12 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
         if (!pub) return;
         try {
           await navigator.clipboard.writeText(toBibtex(pub));
-          citeBtn.textContent = '[copied]';
+          citeBtn.textContent = 'Copied BibTeX';
           setTimeout(() => {
-            citeBtn.textContent = '[bibtex]';
+            citeBtn.textContent = 'BibTeX';
           }, 1500);
         } catch {
-          citeBtn.textContent = '[copy failed]';
+          citeBtn.textContent = 'Copy unavailable';
         }
       }
     });
