@@ -1,0 +1,533 @@
+---
+import ResearchLayout from '../layouts/ResearchLayout.astro';
+import fallbackPayload from '../data/publications.fallback.json';
+import {
+  MAIN_SITE_ORIGIN,
+  REMOTE_PUBLICATIONS_URL,
+  fetchPublications,
+  getAvailableFilters,
+  sortPublications,
+} from '../lib/publications';
+import { renderFilterPillsHtml, renderPublicationsListHtml } from '../lib/render';
+
+const { publications: fetchedPublications, source: initialSource } = await fetchPublications(
+  fallbackPayload,
+  { timeoutMs: 3500 }
+);
+
+const initialPublications = sortPublications(fetchedPublications, 'newest');
+const initialFilters = getAvailableFilters(initialPublications);
+const initialYears = initialPublications.map((p) => p.year).filter((y) => y > 0);
+const latestYear = initialYears.length > 0 ? Math.max(...initialYears) : new Date().getFullYear();
+
+const serializedPayload = JSON.stringify({ publications: initialPublications }).replace(
+  /</g,
+  '\\u003c'
+);
+---
+
+<ResearchLayout>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand-link" aria-label="SKHAVIN Research Home">
+        <svg class="brand-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <circle cx="32" cy="32" r="25" stroke="currentColor" stroke-width="2.6" />
+          <circle cx="32" cy="32" r="15" stroke="var(--accent)" stroke-width="2" stroke-dasharray="10 4" />
+          <circle cx="32" cy="32" r="4.5" fill="var(--accent)" />
+        </svg>
+        <span class="brand-wordmark">SKHAVIN</span>
+        <span class="brand-divider" aria-hidden="true">/</span>
+        <span class="brand-section">Research</span>
+      </a>
+
+      <div class="header-actions">
+        <span
+          id="sync-pill"
+          class={`sync-pill${initialSource === 'live' ? ' is-live' : ''}`}
+          title={`Synced with ${REMOTE_PUBLICATIONS_URL}`}
+        >
+          <span class="sync-dot" aria-hidden="true"></span>
+          <span id="sync-text">
+            {initialSource === 'live' ? 'Live · skhavin.in' : 'Syncing · skhavin.in'}
+          </span>
+        </span>
+
+        <a
+          href={`${MAIN_SITE_ORIGIN}/research`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="header-ext-link"
+        >
+          ↗ skhavin.in
+        </a>
+
+        <button
+          type="button"
+          id="theme-toggle"
+          class="theme-toggle"
+          aria-label="Toggle light and dark theme"
+        >
+          <svg
+            class="theme-icon icon-moon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+          <svg
+            class="theme-icon icon-sun"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4.5" />
+            <path d="M12 2v2.2M12 19.8V22M4.93 4.93l1.56 1.56M17.51 17.51l1.56 1.56M2 12h2.2M19.8 12H22M4.93 19.07l1.56-1.56M17.51 6.49l1.56-1.56" />
+          </svg>
+          <span id="theme-label">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="hero-eyebrow">Research Archive · Preprints &amp; Monographs</p>
+        <h1 class="hero-title">
+          <span class="hero-brand">SKHAVIN</span>
+          <span class="hero-editorial">Research</span>
+        </h1>
+        <p class="hero-summary">
+          Selected papers and technical notes on neural circuit geometry, sub-quadratic attention,
+          and causal interpretability — fetched live from
+          <a href={`${MAIN_SITE_ORIGIN}/research`} target="_blank" rel="noopener noreferrer">
+            skhavin.in
+          </a>.
+        </p>
+
+        <div class="hero-stats" aria-label="Archive summary">
+          <div class="stat-item">
+            <span id="stat-count" class="stat-value">
+              {String(initialPublications.length).padStart(2, '0')}
+            </span>
+            <span class="stat-label">Papers</span>
+          </div>
+          <div class="stat-item">
+            <span id="stat-tracks" class="stat-value">
+              {String(Math.max(0, initialFilters.length - 1)).padStart(2, '0')}
+            </span>
+            <span class="stat-label">Tracks</span>
+          </div>
+          <div class="stat-item">
+            <span id="stat-year" class="stat-value">{latestYear}</span>
+            <span class="stat-label">Latest</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls-section" aria-label="Filter and search publications">
+      <div class="container">
+        <div
+          id="filter-row"
+          class="filter-row"
+          role="group"
+          aria-label="Filter by research area"
+          set:html={renderFilterPillsHtml(initialFilters, 'all')}
+        />
+
+        <div class="toolbar-row">
+          <div class="search-wrap">
+            <svg
+              class="search-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+            <input
+              id="search-input"
+              class="search-input"
+              type="search"
+              placeholder="Search title, abstract, venue, or tag…"
+              aria-label="Search publications"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="toolbar-right">
+            <span id="result-count" class="result-count">
+              {initialPublications.length} of {initialPublications.length}
+            </span>
+
+            <select id="sort-select" class="sort-select" aria-label="Sort papers">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+            </select>
+
+            <div class="view-switch" role="group" aria-label="Layout mode">
+              <button
+                type="button"
+                class="view-btn is-active"
+                data-view="list"
+                aria-pressed="true"
+              >
+                List
+              </button>
+              <button
+                type="button"
+                class="view-btn"
+                data-view="grid"
+                aria-pressed="false"
+              >
+                Grid
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="publications-section" aria-label="Publications">
+      <div class="container">
+        <div
+          id="publications-list"
+          class="publications-list"
+          set:html={renderPublicationsListHtml(initialPublications, {
+            totalCount: initialPublications.length,
+            isLoading: initialPublications.length === 0,
+          })}
+        />
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="footer-wordmark">SKHAVIN</span>
+        <p class="footer-note">
+          Independent Research Archive · Live feed synchronized from skhavin.in
+        </p>
+      </div>
+      <nav class="footer-links" aria-label="External links">
+        <a href={MAIN_SITE_ORIGIN} target="_blank" rel="noopener noreferrer">Portfolio</a>
+        <a href={`${MAIN_SITE_ORIGIN}/research`} target="_blank" rel="noopener noreferrer">
+          Main Research
+        </a>
+        <a href={REMOTE_PUBLICATIONS_URL} target="_blank" rel="noopener noreferrer">JSON Feed</a>
+      </nav>
+    </div>
+  </footer>
+
+  <dialog id="figure-lightbox" class="lightbox" aria-labelledby="lightbox-caption">
+    <div class="lightbox-head">
+      <p id="lightbox-caption" class="lightbox-caption"></p>
+      <button type="button" id="lightbox-close" class="lightbox-close" aria-label="Close figure">
+        Esc / Close
+      </button>
+    </div>
+    <div class="lightbox-body">
+      <img id="lightbox-img" src="" alt="" />
+    </div>
+  </dialog>
+
+  <script
+    id="ssr-publications"
+    type="application/json"
+    is:inline
+    set:html={serializedPayload}
+  ></script>
+
+  <script>
+    import {
+      fetchPublications,
+      filterPublications,
+      getAvailableFilters,
+      parsePublicationsPayload,
+      toBibtex,
+      type Publication,
+      type SortOrder,
+      type ViewMode,
+    } from '../lib/publications';
+    import { renderFilterPillsHtml, renderPublicationsListHtml } from '../lib/render';
+
+    interface AppState {
+      publications: Publication[];
+      filter: string;
+      query: string;
+      sort: SortOrder;
+      view: ViewMode;
+      loading: boolean;
+    }
+
+    const ssrEl = document.getElementById('ssr-publications');
+    let initialPayload: unknown = { publications: [] };
+    if (ssrEl?.textContent) {
+      try {
+        initialPayload = JSON.parse(ssrEl.textContent);
+      } catch {
+        initialPayload = { publications: [] };
+      }
+    }
+
+    const state: AppState = {
+      publications: parsePublicationsPayload(initialPayload),
+      filter: 'all',
+      query: '',
+      sort: 'newest',
+      view: 'list',
+      loading: true,
+    };
+
+    const listEl = document.getElementById('publications-list');
+    const filterRowEl = document.getElementById('filter-row');
+    const searchEl = document.getElementById('search-input') as HTMLInputElement | null;
+    const sortEl = document.getElementById('sort-select') as HTMLSelectElement | null;
+    const resultCountEl = document.getElementById('result-count');
+    const statCountEl = document.getElementById('stat-count');
+    const statTracksEl = document.getElementById('stat-tracks');
+    const statYearEl = document.getElementById('stat-year');
+    const syncPillEl = document.getElementById('sync-pill');
+    const syncTextEl = document.getElementById('sync-text');
+    const themeToggleEl = document.getElementById('theme-toggle');
+    const themeLabelEl = document.getElementById('theme-label');
+    const lightboxEl = document.getElementById('figure-lightbox') as HTMLDialogElement | null;
+    const lightboxImgEl = document.getElementById('lightbox-img') as HTMLImageElement | null;
+    const lightboxCaptionEl = document.getElementById('lightbox-caption');
+    const lightboxCloseEl = document.getElementById('lightbox-close');
+
+    function typesetMath(root: HTMLElement | null): void {
+      if (!root) return;
+      const renderMath = (
+        window as unknown as {
+          renderMathInElement?: (el: HTMLElement, opts: Record<string, unknown>) => void;
+        }
+      ).renderMathInElement;
+
+      if (typeof renderMath !== 'function') return;
+
+      renderMath(root, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true },
+        ],
+        throwOnError: false,
+      });
+    }
+
+    function syncThemeUi(): void {
+      const current =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      if (themeLabelEl) {
+        themeLabelEl.textContent = current === 'dark' ? 'Light' : 'Dark';
+      }
+      if (themeToggleEl) {
+        themeToggleEl.setAttribute(
+          'aria-label',
+          current === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'
+        );
+      }
+    }
+
+    function updateStats(): void {
+      const filters = getAvailableFilters(state.publications);
+      const years = state.publications.map((p) => p.year).filter((y) => y > 0);
+      const maxYear = years.length > 0 ? Math.max(...years) : new Date().getFullYear();
+
+      if (statCountEl) {
+        statCountEl.textContent = String(state.publications.length).padStart(2, '0');
+      }
+      if (statTracksEl) {
+        statTracksEl.textContent = String(Math.max(0, filters.length - 1)).padStart(2, '0');
+      }
+      if (statYearEl) {
+        statYearEl.textContent = String(maxYear);
+      }
+    }
+
+    function renderAll(): void {
+      const filters = getAvailableFilters(state.publications);
+      if (!filters.includes(state.filter)) {
+        state.filter = 'all';
+      }
+
+      if (filterRowEl) {
+        filterRowEl.innerHTML = renderFilterPillsHtml(filters, state.filter);
+      }
+
+      const visible = filterPublications(
+        state.publications,
+        state.filter,
+        state.query,
+        state.sort
+      );
+
+      if (resultCountEl) {
+        resultCountEl.textContent = `${visible.length} of ${state.publications.length}`;
+      }
+
+      if (listEl) {
+        listEl.classList.toggle('is-grid', state.view === 'grid');
+        listEl.innerHTML = renderPublicationsListHtml(visible, {
+          totalCount: state.publications.length,
+          isLoading: state.loading,
+        });
+        typesetMath(listEl);
+      }
+
+      updateStats();
+    }
+
+    async function syncFromMainSite(): Promise<void> {
+      state.loading = true;
+      if (syncPillEl) syncPillEl.classList.remove('is-live');
+      if (syncTextEl) syncTextEl.textContent = 'Syncing · skhavin.in';
+
+      const result = await fetchPublications(
+        { publications: state.publications },
+        { timeoutMs: 6500, noCache: true }
+      );
+
+      state.loading = false;
+      if (result.publications.length > 0) {
+        state.publications = result.publications;
+      }
+
+      if (syncPillEl) {
+        syncPillEl.classList.toggle('is-live', result.source === 'live');
+      }
+      if (syncTextEl) {
+        syncTextEl.textContent =
+          result.source === 'live' ? 'Live · skhavin.in' : 'Snapshot · skhavin.in';
+      }
+
+      renderAll();
+    }
+
+    themeToggleEl?.addEventListener('click', () => {
+      const current =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try {
+        localStorage.setItem('skhavin-theme', next);
+      } catch {
+        // Ignore storage errors in restricted browsing contexts.
+      }
+      syncThemeUi();
+    });
+
+    filterRowEl?.addEventListener('click', (event) => {
+      const btn = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-filter]');
+      if (!btn) return;
+      state.filter = btn.dataset.filter ?? 'all';
+      renderAll();
+    });
+
+    searchEl?.addEventListener('input', () => {
+      state.query = searchEl.value;
+      renderAll();
+    });
+
+    sortEl?.addEventListener('change', () => {
+      state.sort = sortEl.value === 'oldest' ? 'oldest' : 'newest';
+      renderAll();
+    });
+
+    document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const nextView: ViewMode = btn.dataset.view === 'grid' ? 'grid' : 'list';
+        state.view = nextView;
+        document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach((other) => {
+          const active = other.dataset.view === nextView;
+          other.classList.toggle('is-active', active);
+          other.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        listEl?.classList.toggle('is-grid', nextView === 'grid');
+      });
+    });
+
+    listEl?.addEventListener(
+      'error',
+      (event) => {
+        const target = event.target;
+        if (target instanceof HTMLImageElement) {
+          target.closest('.paper-media')?.remove();
+        }
+      },
+      true
+    );
+
+    listEl?.addEventListener('click', async (event) => {
+      const target = event.target as HTMLElement;
+
+      const retryBtn = target.closest('[data-retry-sync]');
+      if (retryBtn) {
+        void syncFromMainSite();
+        return;
+      }
+
+      const resetBtn = target.closest('[data-reset-filters]');
+      if (resetBtn) {
+        state.filter = 'all';
+        state.query = '';
+        if (searchEl) searchEl.value = '';
+        renderAll();
+        return;
+      }
+
+      const citeBtn = target.closest<HTMLButtonElement>('[data-cite-id]');
+      if (citeBtn) {
+        const pub = state.publications.find((p) => p.id === citeBtn.dataset.citeId);
+        if (!pub) return;
+        try {
+          await navigator.clipboard.writeText(toBibtex(pub));
+          citeBtn.textContent = '✓ Copied BibTeX';
+          citeBtn.classList.add('is-copied');
+          setTimeout(() => {
+            citeBtn.textContent = 'BibTeX';
+            citeBtn.classList.remove('is-copied');
+          }, 1800);
+        } catch {
+          citeBtn.textContent = 'Copy unavailable';
+        }
+        return;
+      }
+
+      const mediaBtn = target.closest<HTMLButtonElement>('[data-lightbox-src]');
+      if (mediaBtn && lightboxEl && lightboxImgEl) {
+        const src = mediaBtn.dataset.lightboxSrc ?? '';
+        const title = mediaBtn.dataset.lightboxTitle ?? '';
+        if (!src) return;
+        lightboxImgEl.src = src;
+        lightboxImgEl.alt = title;
+        if (lightboxCaptionEl) lightboxCaptionEl.textContent = title;
+        lightboxEl.showModal();
+      }
+    });
+
+    lightboxCloseEl?.addEventListener('click', () => lightboxEl?.close());
+    lightboxEl?.addEventListener('click', (event) => {
+      if (event.target === lightboxEl) {
+        lightboxEl.close();
+      }
+    });
+
+    window.addEventListener('load', () => typesetMath(listEl));
+    syncThemeUi();
+    typesetMath(listEl);
+    void syncFromMainSite();
+  </script>
+</ResearchLayout>

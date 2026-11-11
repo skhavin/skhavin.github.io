@@ -1,0 +1,227 @@
+{
+  "publications": [
+    {
+      "id": "k-heads-is-all-you-need",
+      "title": "K HEADS IS ALL YOU NEED: TASK-DEPENDENT CIRCUIT GRANULARITY AND ZERO-TRAINING ROUTING IN LLMS",
+      "authors": "S. Khavin",
+      "venue": "OpenReview / Zenodo",
+      "year": 2026,
+      "date": "August 24, 2026",
+      "timestamp": "2026-08-24",
+      "image": "/kheads-thumbnail.png",
+      "abstract": "I show that a single computational behavior – <strong>needle-in-a-haystack (NIAH) retrieval</strong> in Qwen2.5-1.5B – is supported by a <strong>causal circuit of just six attention heads</strong>, sufficient to recover the behavior under isolation and necessary under knockout, validated against layer-matched random controls rather than raw ablation deltas. The same six-head class of circuit recovers NIAH-MultiKey retrieval with minor expansion (with partial accuracy retention at base K pending capacitymatched circuit expansion), and a five-head compression of the original circuit produces a <strong>100% causal steering flip</strong> on a counterfactual retrieval target.<br><br>This raises an immediate question: is transformer computation generally this sparse? I test this directly by asking whether the same circuits and steering vectors generalize to other computational primitives – counting, sorting, variable tracking, and document-level QA – using the identical causal validation protocol (sufficiency, necessity, specificity, and layer-matched controls) throughout. The answer is no, in a structured way: linear steering vectors extracted from retrieval circuits fail to improve accuracy on algorithmic primitives at any tested scale, some tasks (variable tracking) resist sparsification below full dense attention entirely, and naive gradient attribution – a cheap alternative to causal search – actively destroys working sparse circuits rather than merely underperforming them.<br><br>I map this boundary across four model families (Qwen2.5-0.5B/1.5B, Llama-3.2-1B, Gemma-2-2B) and a hierarchy of Python computational tasks, and use it to build a <strong>zero-training, gradient-free geometric router</strong> that detects – from a single early-layer cosine gate – whether a given input belongs to the sparse-compressible regime, validated on the official NVIDIA RULER 4K long-context benchmark with zero false activations on 100 out-of-distribution samples. The result is a precise, falsifiable answer to “how sparse is transformer computation”: <strong>sparse for retrieval, not for reasoning</strong>, and the boundary between the two is geometrically detectable at inference time without training a single parameter.",
+      "tags": [
+        "Mechanistic Interpretability",
+        "Transformers",
+        "Causal Circuits",
+        "Sparse Routing",
+        "NLP",
+        "Efficient AI",
+        "LLMs"
+      ],
+      "filters": [
+        "nlp",
+        "interpretability",
+        "efficient"
+      ],
+      "links": [
+        {
+          "label": "↗ OpenReview",
+          "url": "https://openreview.net/forum?id=eFLz0H38En",
+          "primary": true
+        },
+        {
+          "label": "Zenodo",
+          "url": "https://zenodo.org/records/22082191",
+          "primary": false
+        }
+      ]
+    },
+    {
+      "id": "shape-of-computation",
+      "title": "THE SHAPE OF COMPUTATION: LANGUAGE MODELS BUILD UNIVERSAL, CONSERVED TASK GEOMETRIES THAT ARE CAUSALLY INERT",
+      "authors": "S. Khavin",
+      "venue": "Zenodo",
+      "year": 2026,
+      "date": "August 1, 2026",
+      "timestamp": "2026-08-01",
+      "image": "/assets/trunkandbranchthumbnail.png",
+      "abstract": "Large language models appear to represent distinct cognitive operations (arithmetic, sorting, comparison, fact recall) as separable regions of their residual stream, but it is unclear whether this separation reflects a real, causally load-bearing computational structure or a superficial artifact of probing methodology. We conduct a six-part investigation that first eliminates a major confound, <strong>template leakage</strong>, which produces spuriously perfect classification at the embedding layer, and then tracks the true layer-wise emergence of task representations across three architecturally distinct models.<br><br>Using a train/test-separated PCA and a layer-wise F-statistic with rigorous shuffle controls, we show that task representations follow a consistent <strong>“trunk-and-branch” geometry</strong>: categories begin from a shared lexical trunk, diverge progressively with depth, and then undergo a late-stage scattering driven by within-category dispersion rather than category merging. Using <strong>CKA-aligned dynamic time warping</strong> with Sakoe–Chiba constraints and permutation tests, we show this geometric trajectory is significantly conserved across models of different depth and width, passing strict temporal-shuffle and category-confusion null controls.<br><br>We then test whether this geometry is causally sufficient for behavior using contrastive activation steering with magnitude-matched random controls and out-of-distribution generalization checks, and find a hard null result: <strong>causal efficacy does not track geometric maturation</strong>, and the few apparent successes are shown to be either dataset-specific overfits or degenerate generation artifacts. Finally, using a novel dual-metric direct trajectory attribution method, we find that <strong>MLP layers, not attention heads, construct this geometry almost entirely</strong>, while attempts to localize a discrete readout circuit fail under causal ablation, revealing a distributed and generically fragile late-layer computation. Together, these results show that language models build a real, universal geometric map of task identity, but that this map is an <strong>epiphenomenal byproduct of computation</strong> rather than the mechanism by which behavior is actually produced.",
+      "tags": [
+        "Mechanistic Interpretability",
+        "Representation Geometry",
+        "Residual Stream",
+        "Transformers",
+        "NLP",
+        "Causal Analysis",
+        "CKA & DTW"
+      ],
+      "filters": [
+        "nlp",
+        "interpretability",
+        "neuro"
+      ],
+      "links": [
+        {
+          "label": "↗ Zenodo",
+          "url": "https://zenodo.org/records/21738187",
+          "primary": true
+        },
+        {
+          "label": "Field Note",
+          "url": "/blog/trunk-and-branch-theory-of-computation",
+          "primary": false
+        }
+      ]
+    },
+    {
+      "id": "necessary-but-not-sufficient",
+      "title": "NECESSARY BUT NOT SUFFICIENT: CONVERGENT COMPUTATIONAL GEOMETRY IN THE TRANSFORMER RESIDUAL STREAM",
+      "authors": "S. Khavin",
+      "venue": "OpenReview / Zenodo",
+      "year": 2026,
+      "date": "July 10, 2026",
+      "timestamp": "2026-07-10",
+      "image": "/assets/research_bar.png",
+      "abstract": "Do transformers implement fixed, hardware-level instructions - dedicated attention heads or MLPs for specific operations like retrieval, comparison, or counting? We test this hypothesis directly and falsify it: canonical head-level taxonomies fail to generalize across prompts within a single model, and coarse computational roles (e.g., attention vs. MLP dominance in factual recall) fragment entirely across architectures. Motivated by this failure, we shift from hardware to representation, asking whether computation instead exists as a <strong>geometric property of the residual stream</strong>.<br><br>Across 12 operation categories and three structurally distinct architectures (Qwen2.5, Llama-3.2, Phi-1.5), we show that after regressing out lexical (prompt length, target frequency, token density) and difficulty (output entropy, top-1 confidence) confounds, the <strong>relational geometry of computation-type representations is significantly conserved</strong> (ρ = 0.38–0.75, Mantel p < 0.003 across all architecture pairs), generalizes to entirely held-out operations via cross-architecture Procrustes alignment, and is invariant to operand content (e.g., the same direction underlies numeric, symbolic, and lexical comparison).<br><br>Causal ablation confirms these directions are <strong>necessary</strong>: removing a category’s direction selectively destroys performance on its own task while leaving unrelated tasks intact. However, neither additive steering nor representation substitution renders them <strong>sufficient</strong> to induce the operation in unrelated contexts. We characterize this <strong>necessity-without-sufficiency gap</strong> and discuss its implications for mechanistic accounts of transformer computation.",
+      "tags": [
+        "Mechanistic Interpretability",
+        "Transformers",
+        "NLP",
+        "Computational Geometry",
+        "Representation Learning",
+        "Residual Stream"
+      ],
+      "filters": [
+        "nlp",
+        "interpretability",
+        "neuro"
+      ],
+      "links": [
+        {
+          "label": "↗ OpenReview",
+          "url": "https://openreview.net/forum?id=PZOx6oz6TT&referrer=%5Bthe%20profile%20of%20S%20Khavin%5D(%2Fprofile%3Fid%3D~S_Khavin1)",
+          "primary": true
+        },
+        {
+          "label": "Zenodo",
+          "url": "https://zenodo.org/records/21300225",
+          "primary": false
+        }
+      ]
+    },
+    {
+      "id": "headgenome",
+      "title": "The HeadGenome Taxonomy: A Structural and Causal Map of Attention Head Specialization in Transformers",
+      "authors": "S. Khavin",
+      "venue": "OpenReview / Zenodo",
+      "year": 2026,
+      "date": "July 1, 2026",
+      "timestamp": "2026-07-01",
+      "image": "/assets/research_atlas.png",
+      "abstract": "Attention heads in transformer language models are routinely treated as homogeneous units in systems work, yet <strong>mechanistic interpretability</strong> has long suggested otherwise. We classify <strong>1,568 attention heads</strong> across four architectures (GPT-2 Medium, Qwen-2.5-0.5B, Qwen-2.5-1.5B, Llama-3.2-1B) into four functional classes - <strong>Sink, Local, Retrieval, and Induction</strong> - using a dynamic entropy-collapse probe, and show that static weight geometry alone cannot recover these labels.<br><br>We report a <strong>scaling law</strong> linking the Frobenius norm ratio ∥W_V ∥_F / ∥W_Q∥_F to relative network depth across all four architectures (p = 1.92 × 10−127), and a structural split of the Induction class into depth-separated Early and Late subpopulations (Mann-Whitney p = 4.17 × 10−32). Causal ablation shows Retrieval heads collapse Needle-in-a-Haystack accuracy to 0% when Induction heads are masked, and recover to 96.5% only when both circuits are jointly active, demonstrating that the two circuits are <strong>not independently sufficient</strong>.<br><br>We further document a <strong>perplexity illusion</strong>: a sparsified model retains near-baseline perplexity (13.07 vs. 11.71) while collapsing long-range retrieval accuracy from 100% to 42%, and trace this gap to positional leakage rather than genuine long-range routing. Applying our taxonomy to KV-cache eviction, we obtain a <strong>13.3× compression ratio</strong> over StreamingLLM at zero perplexity degradation on Llama-3.2-1B.",
+      "tags": [
+        "Mechanistic Interpretability",
+        "Transformers",
+        "Scaling Laws",
+        "NLP",
+        "Causal Ablation",
+        "Inference Efficiency"
+      ],
+      "filters": [
+        "nlp",
+        "interpretability",
+        "efficient"
+      ],
+      "links": [
+        {
+          "label": "↗ OpenReview",
+          "url": "https://openreview.net/forum?id=iG4i2pc4wg&referrer=%5Bthe%20profile%20of%20S%20Khavin%5D(%2Fprofile%3Fid%3D~S_Khavin1)",
+          "primary": true
+        },
+        {
+          "label": "Zenodo",
+          "url": "https://zenodo.org/records/21108324",
+          "primary": false
+        },
+        {
+          "label": "Code",
+          "url": "https://github.com/skhavin/headgenome",
+          "primary": false
+        },
+        {
+          "label": "Website",
+          "url": "https://skhavin.github.io/attentionheadgenome/",
+          "primary": false
+        }
+      ]
+    },
+    {
+      "id": "o1-decode-step-attention",
+      "title": "O(1) Decode Step Attention for Any Transformer via Training-Free Proactive KV Cache Eviction",
+      "authors": "S. Khavin",
+      "venue": "Zenodo / OpenReview",
+      "year": 2026,
+      "date": "May 30, 2026",
+      "timestamp": "2026-05-30",
+      "image": "/assets/o(1)thumbnail.png",
+      "abstract": "The standard transformer decode step attends over all N cached key-value pairs, making per-token generation cost <strong>O(N) in context length</strong>. Existing KV cache eviction methods — StreamingLLM and H2O — are reactive: they compute attention scores first, then discard tokens, yielding no asymptotic benefit per decode step. We present a fundamentally different paradigm: <strong>proactive KV cache eviction</strong>.<br><br>Our method profiles a frozen pretrained model’s attention heads on an offline calibration corpus, clusters per-head attention patterns into a compact behavioral prototype library, and at inference time uses a lightweight TF-IDF encoder to predict which attention prototype each head will activate before any query token arrives. Tokens predicted irrelevant are evicted at ingest, bounding the KV cache to a fixed budget B regardless of sequence length. The result: each decode step attends over at most B keys — making per-decode-step attention cost <strong>O(B²), a fixed constant independent of N, i.e. O(1) in sequence length</strong>.<br><br>Critically, our method requires <strong>zero gradient updates</strong> and works on any frozen pretrained model. On WikiText-103 long documents, our method achieves PPL 76.8 at budget 256, decisively outperforming StreamingLLM (152.7) and H2O (220.2). On PG-19 ultra-long books (~70,000 tokens), we achieve PPL 77.4 at budget 128, beating both baselines with identical memory footprint. On LLaMA 3.1 8B at budget 512, our method achieves PPL 10.25 while StreamingLLM degrades to 47.34 — a <strong>4.6× improvement</strong>, with a <strong>3.09× decode speedup</strong> at 2048-token context.",
+      "tags": [
+        "KV Cache",
+        "Efficient Inference",
+        "Transformers",
+        "Proactive Eviction",
+        "NLP",
+        "Scaling"
+      ],
+      "filters": [
+        "nlp",
+        "efficient",
+        "interpretability"
+      ],
+      "links": [
+        {
+          "label": "↗ Zenodo",
+          "url": "https://zenodo.org/records/20465915",
+          "primary": true
+        }
+      ]
+    },
+    {
+      "id": "trinetra-2026",
+      "title": "Trinetra: O(N) Video Ingest, O(1) Query — A Proactive Temporal Event Graph for Long-Form Video Understanding",
+      "authors": "S. Khavin",
+      "venue": "OpenReview / Zenodo",
+      "year": 2026,
+      "date": "March 20, 2026",
+      "timestamp": "2026-03-20",
+      "image": "/assets/research_phase.png",
+      "abstract": "Current video understanding systems are fundamentally reactive: they re-process every frame at query time, incurring quadratic <strong>O(T²) attention complexity</strong> that caps practical span at 30–60 minutes and costs $1,500–2,430 for frontier models vs $0.01 per 100 queries. We present <strong>Trinetra</strong>, an <strong>O(N) ingest / O(1) query</strong> proactive temporal event graph architecture for long-form video intelligence.<br><br>Introduces the <strong>Temporal Event Graph (TEG)</strong>, <strong>Multi-Scale Temporal Attention Shift (TAS)</strong> with wavelet-like decomposition across three frequency bands ($TAS_2, TAS_8, TAS_{32}$), and <strong>dual FAISS indexing</strong> for semantic + temporal retrieval. Ingests video once in linear time; queries execute in constant time via indexed graph search.<br><br>Ablation on a 20-minute video shows <strong>9× temporal awareness improvement</strong>, <strong>317,500× fewer query-time FLOPs</strong>, and <strong>70% clean output</strong> vs. 20% for static attention.",
+      "tags": [
+        "Video Understanding",
+        "Temporal Reasoning",
+        "Event Graphs",
+        "Computer Vision",
+        "FAISS",
+        "Efficient AI"
+      ],
+      "filters": [
+        "video",
+        "cv",
+        "efficient"
+      ],
+      "links": [
+        {
+          "label": "↗ OpenReview",
+          "url": "https://openreview.net/forum?id=jUtTzSVplk&referrer=%5Bthe%20profile%20of%20S%20Khavin%5D(%2Fprofile%3Fid%3D~S_Khavin1)",
+          "primary": true
+        },
+        {
+          "label": "Zenodo",
+          "url": "https://zenodo.org/records/19144365",
+          "primary": false
+        }
+      ]
+    }
+  ]
+}
