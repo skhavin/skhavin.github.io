@@ -1,9 +1,140 @@
 ---
 import ResearchLayout from '../layouts/ResearchLayout.astro';
+
+interface PreprintLink {
+  label: string;
+  url: string;
+}
+
+interface Preprint {
+  index: string;
+  category: 'interpretability' | 'geometry' | 'efficiency';
+  date: string;
+  venue: string;
+  title: string;
+  summary: string;
+  abstract: string;
+  links: PreprintLink[];
+}
+
+const PREPRINTS: Preprint[] = [
+  {
+    index: '01',
+    category: 'interpretability',
+    date: 'Aug 2026',
+    venue: 'OpenReview · Zenodo',
+    title: 'K Heads is All You Need: Task-Dependent Circuit Granularity and Zero-Training Routing in LLMs',
+    summary:
+      'Isolates a 6-head retrieval circuit in Qwen2.5 and builds a training-free cosine router validated on NVIDIA RULER 4K.',
+    abstract:
+      'Shows needle-in-a-haystack retrieval in Qwen2.5-1.5B relies on a 6-head causal circuit against layer-matched controls, maps where algorithmic tasks resist sparsification, and introduces an early-layer cosine router with zero false activations on 100 OOD samples.',
+    links: [
+      { label: 'OpenReview', url: 'https://openreview.net/forum?id=eFLz0H38En' },
+      { label: 'Zenodo', url: 'https://zenodo.org/records/22082191' },
+    ],
+  },
+  {
+    index: '02',
+    category: 'geometry',
+    date: 'Aug 2026',
+    venue: 'Zenodo',
+    title: 'The Shape of Computation: Universal, Conserved Task Geometries That Are Causally Inert',
+    summary:
+      'Uncovers CKA-DTW conserved trunk-and-branch manifolds built by MLPs and shows they are causally inert under steering controls.',
+    abstract:
+      'Eliminates embedding template leakage across three models to isolate conserved task trajectories via PCA and CKA-DTW alignment, showing magnitude-matched steering fails to generalize and geometry is an epiphenomenal byproduct.',
+    links: [
+      { label: 'Zenodo', url: 'https://zenodo.org/records/21738187' },
+      { label: 'Note', url: 'https://skhavin.in/blog/trunk-and-branch-theory-of-computation' },
+    ],
+  },
+  {
+    index: '03',
+    category: 'geometry',
+    date: 'Jul 2026',
+    venue: 'OpenReview · Zenodo',
+    title: 'Necessary but Not Sufficient: Convergent Computational Geometry in the Transformer Residual Stream',
+    summary:
+      'Finds conserved relational geometry across 3 architectures (ρ = 0.38–0.75) that is necessary on ablation yet insufficient for steering.',
+    abstract:
+      'Across 12 operations in Qwen2.5, Llama-3.2, and Phi-1.5, residual relational geometry aligns via Procrustes after confound regression (Mantel p < 0.003); ablation selectively impairs tasks while additive steering fails to induce them.',
+    links: [
+      { label: 'OpenReview', url: 'https://openreview.net/forum?id=PZOx6oz6TT' },
+      { label: 'Zenodo', url: 'https://zenodo.org/records/21300225' },
+    ],
+  },
+  {
+    index: '04',
+    category: 'interpretability',
+    date: 'Jul 2026',
+    venue: 'OpenReview · Zenodo',
+    title: 'The HeadGenome Taxonomy: A Structural and Causal Map of Attention Head Specialization',
+    summary:
+      'Maps 1,568 heads across 4 architectures into 4 functional classes and achieves 13.3× KV-cache compression over StreamingLLM.',
+    abstract:
+      'Classifies 1,568 heads across GPT-2 Medium, Qwen-2.5, and Llama-3.2 into Sink, Local, Retrieval, and Induction classes, uncovering a norm depth scaling law (p = 1.92 × 10⁻¹²⁷) and zero-degradation KV compression.',
+    links: [
+      { label: 'OpenReview', url: 'https://openreview.net/forum?id=iG4i2pc4wg' },
+      { label: 'Zenodo', url: 'https://zenodo.org/records/21108324' },
+      { label: 'Code', url: 'https://github.com/skhavin/headgenome' },
+      { label: 'Site', url: 'https://skhavin.github.io/attentionheadgenome/' },
+    ],
+  },
+  {
+    index: '05',
+    category: 'efficiency',
+    date: 'May 2026',
+    venue: 'Zenodo · OpenReview',
+    title: 'O(1) Decode Step Attention for Any Transformer via Training-Free Proactive KV Cache Eviction',
+    summary:
+      'Predicts relevant KV prototypes proactively at ingest for O(1) decode attention, achieving 3.09× speedup on LLaMA 3.1 8B.',
+    abstract:
+      'Clusters per-head attention prototypes offline and predicts keys via TF-IDF before query arrival, bounding cache size to fixed budget B (PPL 10.25 vs. 47.34 for StreamingLLM on LLaMA 3.1 8B at 3.09× decode speedup).',
+    links: [
+      { label: 'Zenodo', url: 'https://zenodo.org/records/20465915' },
+    ],
+  },
+  {
+    index: '06',
+    category: 'efficiency',
+    date: 'Mar 2026',
+    venue: 'OpenReview · Zenodo',
+    title: 'Trinetra: O(N) Video Ingest, O(1) Query — A Proactive Temporal Event Graph for Long Video',
+    summary:
+      'Replaces O(T²) video re-processing with dual-FAISS temporal event graphs for 9× temporal gain and 317,500× fewer query FLOPs.',
+    abstract:
+      'Combines Temporal Event Graphs, multi-scale Temporal Attention Shift (TAS₂, TAS₈, TAS₃₂), and dual FAISS indexing for linear ingest and constant-time query across long-form video.',
+    links: [
+      { label: 'OpenReview', url: 'https://openreview.net/forum?id=jUtTzSVplk' },
+      { label: 'Zenodo', url: 'https://zenodo.org/records/19144365' },
+    ],
+  },
+];
+
+const FILTERS = [
+  { id: 'all', label: 'All (06)' },
+  { id: 'interpretability', label: 'Interpretability' },
+  { id: 'geometry', label: 'Geometry' },
+  { id: 'efficiency', label: 'Efficient Inference' },
+];
+
+const EXPERIENCE = [
+  { period: '2025', role: 'SWE Co-Op Intern', org: 'AlgoUniversity (YC)' },
+  { period: '2024', role: 'Team Lead · National Top Project', org: 'Google GenAI Hackathon' },
+  { period: '2024', role: 'ML Research Intern (Co-Lead)', org: 'Omdena' },
+  { period: '2024', role: 'AI & Automation Intern', org: 'Chennai Airport' },
+  { period: '2023', role: 'Business Analytics Intern', org: 'Business.io · IITM' },
+];
+
+const RECOGNITION = [
+  { period: '2024', title: 'AlgoUniversity Technology Fellowship', detail: 'Top 5% of 20,000 applicants nationwide' },
+  { period: '2023', title: 'Udacity Next Gen Tech Booster Scholarship', detail: '1 of 500 selected from 17,000 global applicants' },
+  { period: '2024', title: 'National Entrepreneurship Challenge · IIT Bombay', detail: '5th Place nationwide' },
+];
 ---
 
 <ResearchLayout>
-  <!-- 1. Black Blurry Navbar -->
+  <!-- 1. Black Blurry Navbar (links on right, clean) -->
   <nav id="mainNav" class="site-nav">
     <div class="nav-left">
       <a class="nav-logo" href="#top">
@@ -20,38 +151,40 @@ import ResearchLayout from '../layouts/ResearchLayout.astro';
       </a>
     </div>
 
-    <ul class="nav-center">
-      <li>
-        <a href="#about" class="active">
-          <span class="nav-num">I.</span>
-          <span class="nav-label">ABOUT</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer">
-          <span class="nav-num">II.</span>
-          <span class="nav-label">OPENREVIEW</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">
-          <span class="nav-num">III.</span>
-          <span class="nav-label">GITHUB</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://skhavin.in" target="_blank" rel="noopener noreferrer">
-          <span class="nav-num">IV.</span>
-          <span class="nav-label">PORTFOLIO</span>
-        </a>
-      </li>
-    </ul>
+    <div class="nav-right-wrap">
+      <ul class="nav-center" id="navCenter">
+        <li>
+          <a href="#about" class="active" data-nav="about">
+            <span class="nav-num">I.</span>
+            <span class="nav-label">ABOUT</span>
+          </a>
+        </li>
+        <li>
+          <a href="#preprints" data-nav="preprints">
+            <span class="nav-num">II.</span>
+            <span class="nav-label">PREPRINTS</span>
+          </a>
+        </li>
+        <li>
+          <a href="#blog" data-nav="blog">
+            <span class="nav-num">III.</span>
+            <span class="nav-label">BLOG</span>
+          </a>
+        </li>
+        <li>
+          <a href="#record" data-nav="record">
+            <span class="nav-num">IV.</span>
+            <span class="nav-label">RECORD</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://skhavin.in" target="_blank" rel="noopener noreferrer">
+            <span class="nav-num">V.</span>
+            <span class="nav-label">SKHAVIN.IN ↗</span>
+          </a>
+        </li>
+      </ul>
 
-    <div class="nav-right">
-      <div class="nav-iff-status">
-        <span class="iff-dot" aria-hidden="true"></span>
-        <span>ARCHIVE // LIVE</span>
-      </div>
       <button type="button" class="nav-burger" id="burgerBtn" aria-label="Menu">
         <span></span><span></span>
       </button>
@@ -59,13 +192,14 @@ import ResearchLayout from '../layouts/ResearchLayout.astro';
   </nav>
 
   <div class="mob-menu" id="mobMenu">
-    <a href="#about" id="mobAboutLink"><span class="nav-num">I.</span> ABOUT</a>
-    <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer"><span class="nav-num">II.</span> OPENREVIEW</a>
-    <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer"><span class="nav-num">III.</span> GITHUB</a>
-    <a href="https://skhavin.in" target="_blank" rel="noopener noreferrer"><span class="nav-num">IV.</span> PORTFOLIO</a>
+    <a href="#about"><span class="nav-num">I.</span> ABOUT</a>
+    <a href="#preprints"><span class="nav-num">II.</span> PREPRINTS</a>
+    <a href="#blog"><span class="nav-num">III.</span> BLOG</a>
+    <a href="#record"><span class="nav-num">IV.</span> RECORD</a>
+    <a href="https://skhavin.in" target="_blank" rel="noopener noreferrer"><span class="nav-num">V.</span> SKHAVIN.IN ↗</a>
   </div>
 
-  <!-- 2. Full-width clipped gunbarrel + S+KHAVIN -->
+  <!-- 2. Tall, Heavily Zoomed Gunbarrel Hero Starting From Top Rim -->
   <section class="gunbarrel-band" id="top">
     <div class="gunbarrel-stage">
       <img
@@ -80,71 +214,265 @@ import ResearchLayout from '../layouts/ResearchLayout.astro';
     </div>
   </section>
 
-  <!-- 3. White section: Centred Research Archive title, hairline rules, left +About, bio left & photo right -->
-  <main class="bio-section" id="about">
-    <header class="archive-header">
-      <h1 class="archive-title">Research Archive - S Khavin</h1>
-      <div class="archive-rule"></div>
-      <div class="page-container">
-        <h2 class="plus-about-text">+About</h2>
-      </div>
-      <div class="archive-rule"></div>
-    </header>
+  <!-- 3. White Editorial Body -->
+  <main class="research-main">
+    <!-- Section I: Centered Title, Hairline Rules, Left +About, Bio & Portrait -->
+    <section class="bio-section" id="about">
+      <header class="archive-header">
+        <h1 class="archive-title">Research Archive - S Khavin</h1>
+        <div class="archive-rule"></div>
+        <div class="page-container">
+          <h2 class="plus-about-text">+About</h2>
+        </div>
+        <div class="archive-rule"></div>
+      </header>
 
-    <div class="page-container bio-grid-wrap">
-      <div class="bio-grid">
-        <div class="bio-text-col">
-          <div class="bio-copy">
-            <p>
-              <strong>S. Khavin</strong> is a final-year Computer Science Engineering student at
-              Sathyabama Institute of Science and Technology, Chennai, and an independent researcher
-              studying mechanistic interpretability, computational geometry in residual streams, and
-              training-free efficient inference.
-            </p>
-            <p>
-              His work examines which circuits and directions inside language and vision-language
-              models are causally necessary versus geometrically epiphenomenal, using those findings
-              for zero-training sparse routing, proactive O(1) KV-cache eviction, and linear-time
-              video memory graphs.
-            </p>
+      <div class="page-container bio-grid-wrap">
+        <div class="bio-grid">
+          <div class="bio-text-col">
+            <div class="bio-copy">
+              <p>
+                <strong>S. Khavin</strong> is a final-year Computer Science Engineering student at
+                Sathyabama Institute of Science and Technology, Chennai, and an independent researcher
+                studying mechanistic interpretability, computational geometry in residual streams, and
+                training-free efficient inference.
+              </p>
+              <p>
+                His work tests which circuits and representations inside language and vision-language
+                models are causally necessary versus geometrically epiphenomenal, using those maps for
+                zero-training sparse routing, proactive O(1) KV-cache eviction, and linear-time video
+                memory graphs.
+              </p>
+            </div>
+
+            <div class="bio-meta">
+              <div class="bio-meta-group">
+                <div class="bio-meta-label">Affiliation</div>
+                <div class="bio-meta-primary">Sathyabama Institute of Science and Technology</div>
+                <div class="bio-meta-sub">B.E. CSE · 2023–2027 · Chennai</div>
+              </div>
+              <div class="bio-meta-group">
+                <div class="bio-meta-label">Research</div>
+                <ul class="bio-focus-list">
+                  <li><span class="focus-idx">01</span><span>Mechanistic Interpretability</span></li>
+                  <li><span class="focus-idx">02</span><span>Representation Geometry</span></li>
+                  <li><span class="focus-idx">03</span><span>Efficient Inference</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <nav class="bio-links" aria-label="Research links">
+              <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer">OpenReview ↗</a>
+              <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              <a href="https://skhavin.in" target="_blank" rel="noopener noreferrer">skhavin.in ↗</a>
+              <a href="mailto:skhavin.res@gmail.com">skhavin.res@gmail.com</a>
+            </nav>
           </div>
 
-          <dl class="bio-meta">
-            <div class="bio-meta-row">
-              <dt>Affiliation</dt>
-              <dd>Sathyabama Institute of Science and Technology · B.E. CSE (2023–2027)</dd>
-            </div>
-            <div class="bio-meta-row">
-              <dt>Research</dt>
-              <dd>Mechanistic Interpretability · Representation Geometry · Efficient Inference</dd>
-            </div>
-          </dl>
-
-          <nav class="bio-links" aria-label="Research links">
-            <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer">OpenReview ↗</a>
-            <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-            <a href="https://skhavin.in" target="_blank" rel="noopener noreferrer">skhavin.in ↗</a>
-            <a href="mailto:skhavin.res@gmail.com">skhavin.res@gmail.com</a>
-          </nav>
-        </div>
-
-        <div class="bio-photo-col">
-          <figure class="bio-figure">
-            <img
-              src="/portrait.jpg"
-              onerror="this.onerror=null;this.src='https://skhavin.in/assets/profile_1.jpg';"
-              alt="S. Khavin"
-              class="bio-photo"
-            />
-            <figcaption class="bio-caption">S. KHAVIN · CHENNAI, INDIA</figcaption>
-          </figure>
+          <div class="bio-photo-col">
+            <figure class="bio-figure">
+              <img
+                src="/portrait.jpg"
+                onerror="this.onerror=null;this.src='https://skhavin.in/assets/profile_1.jpg';"
+                alt="S. Khavin"
+                class="bio-photo"
+              />
+              <figcaption class="bio-caption">S. KHAVIN · CHENNAI, INDIA</figcaption>
+            </figure>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Section II: Compact Preprints List -->
+    <section class="archive-band" id="preprints">
+      <div class="archive-rule"></div>
+      <div class="page-container section-band-inner">
+        <div class="section-head-row">
+          <div>
+            <div class="section-kicker">01 // WORKING PAPERS</div>
+            <h2 class="section-goldeneye-title">Selected Preprints</h2>
+          </div>
+          <div class="filter-bar" role="group" aria-label="Filter preprints by area">
+            {FILTERS.map((f, i) => (
+              <button
+                type="button"
+                class={`filter-btn ${i === 0 ? 'active' : ''}`}
+                data-filter={f.id}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <ol class="papers-list" id="papersList">
+          {PREPRINTS.map((paper) => (
+            <li class="paper-row" data-category={paper.category}>
+              <div class="paper-idx-col">
+                <span class="paper-idx">{paper.index}</span>
+                <span class="paper-date">{paper.date}</span>
+              </div>
+              <div class="paper-body">
+                <h3 class="paper-title">
+                  <a href={paper.links[0]?.url} target="_blank" rel="noopener noreferrer">
+                    {paper.title}
+                  </a>
+                </h3>
+                <p class="paper-summary">{paper.summary}</p>
+                <div class="paper-meta-bar">
+                  <span class="paper-venue">{paper.venue}</span>
+                  <div class="paper-link-group">
+                    {paper.links.map((link) => (
+                      <a href={link.url} target="_blank" rel="noopener noreferrer">
+                        {link.label} ↗
+                      </a>
+                    ))}
+                  </div>
+                  <details class="paper-details">
+                    <summary>Abstract</summary>
+                    <p class="paper-abstract">{paper.abstract}</p>
+                  </details>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Section III: Blog Linking to Main Website -->
+    <section class="archive-band" id="blog">
+      <div class="archive-rule"></div>
+      <div class="page-container section-band-inner">
+        <div class="section-head-row">
+          <div>
+            <div class="section-kicker">02 // FIELD NOTES ON SKHAVIN.IN</div>
+            <h2 class="section-goldeneye-title">Blog</h2>
+          </div>
+          <a
+            href="https://skhavin.in/blog"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="section-ext-link"
+          >
+            ALL FIELD NOTES (skhavin.in/blog) ↗
+          </a>
+        </div>
+
+        <div class="blog-list">
+          <a
+            href="https://skhavin.in/blog/trunk-and-branch-theory-of-computation"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="blog-row"
+          >
+            <span class="blog-tag">ESSAY 01</span>
+            <div class="blog-row-body">
+              <h3 class="blog-row-title">The Trunk and Branch Theory of Computation</h3>
+              <p class="blog-row-desc">
+                Why task representations diverge progressively from a shared semantic trunk across
+                architectures—and what null steering controls tell us about causal readouts.
+              </p>
+            </div>
+            <span class="blog-arrow">Read ↗</span>
+          </a>
+
+          <a
+            href="https://skhavin.in/blog"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="blog-row"
+          >
+            <span class="blog-tag">ARCHIVE</span>
+            <div class="blog-row-body">
+              <h3 class="blog-row-title">Field Notes — Ideas, Experiments &amp; Working Fragments</h3>
+              <p class="blog-row-desc">
+                Browse all research essays, open mechanistic interpretability questions, and lab
+                notes hosted on the main website.
+              </p>
+            </div>
+            <span class="blog-arrow">Open Blog ↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section IV: Record & Recognition -->
+    <section class="archive-band archive-band-last" id="record">
+      <div class="archive-rule"></div>
+      <div class="page-container section-band-inner">
+        <div class="section-kicker">03 // BACKGROUND</div>
+        <h2 class="section-goldeneye-title record-heading">Record &amp; Recognition</h2>
+
+        <div class="ledger-grid">
+          <div class="ledger-col">
+            <div class="ledger-subhead">Experience</div>
+            <ul class="ledger-list">
+              {EXPERIENCE.map((item) => (
+                <li class="ledger-row">
+                  <span class="ledger-period">{item.period}</span>
+                  <div class="ledger-text">
+                    <span class="ledger-primary">{item.role}</span>
+                    <span class="ledger-secondary">{item.org}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="ledger-col">
+            <div class="ledger-subhead">Honors &amp; Distinctions</div>
+            <ul class="ledger-list">
+              {RECOGNITION.map((item) => (
+                <li class="ledger-row">
+                  <span class="ledger-period">{item.period}</span>
+                  <div class="ledger-text">
+                    <span class="ledger-primary">{item.title}</span>
+                    <span class="ledger-secondary">{item.detail}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- 4. Blur overlay fixed to bottom of screen -->
-  <div class="bottom-blur-overlay" aria-hidden="true"></div>
+  <!-- 4. Bottom Bar / Black Footer from skhavin.in -->
+  <footer id="siteFooter">
+    <div class="footer-container" id="fContainer">
+      <div class="f-logo-wrap">
+        <div class="f-logo-stage">
+          <a class="f-logo-metal" href="#top" id="fLogo">s+khavin</a>
+          <div class="f-logo-metal-ref" aria-hidden="true">s+khavin</div>
+        </div>
+        <div class="f-tagline">
+          Understanding how intelligent systems compute.<br />
+          Building systems that perceive, remember, and reason.
+        </div>
+      </div>
+
+      <div class="f-links">
+        <a href="#about">About</a>
+        <a href="#preprints">Preprints</a>
+        <a href="https://skhavin.in/blog" target="_blank" rel="noopener noreferrer">Blog</a>
+        <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer">OpenReview</a>
+        <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://skhavin.in" target="_blank" rel="noopener noreferrer">skhavin.in</a>
+        <a href="mailto:skhavin.res@gmail.com">Email</a>
+      </div>
+
+      <div class="f-bottom">
+        <div>© <span id="yr">2026</span> S Khavin</div>
+        <div>Chennai • India</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Fixed Bottom Screen Blur Overlay (auto-fades over black footer) -->
+  <div class="bottom-blur-overlay" id="bottomBlur" aria-hidden="true"></div>
 
   <script>
     const burgerBtn = document.getElementById('burgerBtn');
@@ -159,5 +487,78 @@ import ResearchLayout from '../layouts/ResearchLayout.astro';
         mobMenu.classList.remove('open');
       });
     });
+
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const paperRows = document.querySelectorAll<HTMLElement>('.paper-row');
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.filter || 'all';
+        filterButtons.forEach((b) => b.classList.toggle('active', b === btn));
+        paperRows.forEach((row) => {
+          const match = target === 'all' || row.dataset.category === target;
+          row.hidden = !match;
+        });
+      });
+    });
+
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-center a[data-nav]');
+    const sections = ['about', 'preprints', 'blog', 'record']
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    if ('IntersectionObserver' in window && sections.length > 0) {
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          const visible = entries.filter((e) => e.isIntersecting);
+          if (visible.length === 0) return;
+          visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+          const activeId = visible[0].target.id;
+          navLinks.forEach((link) => {
+            link.classList.toggle('active', link.dataset.nav === activeId);
+          });
+        },
+        { rootMargin: '-25% 0px -55% 0px', threshold: [0.05, 0.25] }
+      );
+      sections.forEach((sec) => sectionObserver.observe(sec));
+    }
+
+    const yrEl = document.getElementById('yr');
+    if (yrEl) yrEl.textContent = String(new Date().getFullYear());
+
+    const fContainer = document.getElementById('fContainer');
+    const fLogo = document.getElementById('fLogo');
+    const siteFooter = document.getElementById('siteFooter');
+    const bottomBlur = document.getElementById('bottomBlur');
+
+    if ('IntersectionObserver' in window && fContainer && fLogo) {
+      const footerObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              fContainer.classList.add('reveal');
+              setTimeout(() => fLogo.classList.add('shimmer'), 650);
+              footerObserver.disconnect();
+            }
+          });
+        },
+        { rootMargin: '80px 0px', threshold: 0.05 }
+      );
+      footerObserver.observe(fContainer);
+    } else {
+      fContainer?.classList.add('reveal');
+    }
+
+    if ('IntersectionObserver' in window && siteFooter && bottomBlur) {
+      const blurObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            bottomBlur.classList.toggle('hidden', entry.isIntersecting);
+          });
+        },
+        { threshold: 0.02 }
+      );
+      blurObserver.observe(siteFooter);
+    }
   </script>
 </ResearchLayout>
