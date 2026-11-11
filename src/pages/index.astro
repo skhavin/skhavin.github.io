@@ -3,7 +3,7 @@ import ResearchLayout from '../layouts/ResearchLayout.astro';
 ---
 
 <ResearchLayout>
-  <!-- 1. Black Blurry Navbar (matching skhavin.in) -->
+  <!-- 1. Black Blurry Navbar -->
   <nav id="mainNav" class="site-nav">
     <div class="nav-left">
       <a class="nav-logo" href="#top">
@@ -16,27 +16,33 @@ import ResearchLayout from '../layouts/ResearchLayout.astro';
             </g>
           </svg>
         </span>
-        <span class="brand-wordmark nav-logo-text">S+KHAVIN</span>
+        <span class="nav-logo-text">S+KHAVIN</span>
       </a>
     </div>
 
     <ul class="nav-center">
       <li>
-        <a href="https://skhavin.in/research" target="_blank" rel="noopener noreferrer">
+        <a href="#about" class="active">
           <span class="nav-num">I.</span>
-          <span class="nav-label">RESEARCH</span>
+          <span class="nav-label">ABOUT</span>
         </a>
       </li>
       <li>
-        <a href="#bio" class="active">
+        <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer">
           <span class="nav-num">II.</span>
-          <span class="nav-label">DOSSIER</span>
+          <span class="nav-label">OPENREVIEW</span>
         </a>
       </li>
       <li>
-        <a href="https://skhavin.in/blog" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">
           <span class="nav-num">III.</span>
-          <span class="nav-label">NOTES</span>
+          <span class="nav-label">GITHUB</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://skhavin.in" target="_blank" rel="noopener noreferrer">
+          <span class="nav-num">IV.</span>
+          <span class="nav-label">PORTFOLIO</span>
         </a>
       </li>
     </ul>
@@ -44,7 +50,7 @@ import ResearchLayout from '../layouts/ResearchLayout.astro';
     <div class="nav-right">
       <div class="nav-iff-status">
         <span class="iff-dot" aria-hidden="true"></span>
-        <span>IFF // MODE 5</span>
+        <span>ARCHIVE // LIVE</span>
       </div>
       <button type="button" class="nav-burger" id="burgerBtn" aria-label="Menu">
         <span></span><span></span>
@@ -53,12 +59,13 @@ import ResearchLayout from '../layouts/ResearchLayout.astro';
   </nav>
 
   <div class="mob-menu" id="mobMenu">
-    <a href="https://skhavin.in/research" target="_blank" rel="noopener noreferrer">I. RESEARCH</a>
-    <a href="#bio" id="mobBioLink">II. DOSSIER</a>
-    <a href="https://skhavin.in/blog" target="_blank" rel="noopener noreferrer">III. NOTES</a>
+    <a href="#about" id="mobAboutLink"><span class="nav-num">I.</span> ABOUT</a>
+    <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer"><span class="nav-num">II.</span> OPENREVIEW</a>
+    <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer"><span class="nav-num">III.</span> GITHUB</a>
+    <a href="https://skhavin.in" target="_blank" rel="noopener noreferrer"><span class="nav-num">IV.</span> PORTFOLIO</a>
   </div>
 
-  <!-- 2. Gunbarrel + S Khavin (~55px below) -->
+  <!-- 2. Full-width clipped gunbarrel + S+KHAVIN -->
   <section class="gunbarrel-band" id="top">
     <div class="gunbarrel-stage">
       <img
@@ -73,12 +80,20 @@ import ResearchLayout from '../layouts/ResearchLayout.astro';
     </div>
   </section>
 
-  <!-- 3 & 4. White bg black text: left "S. Khavin is a ...", right photo -->
-  <main class="bio-section" id="bio">
-    <div class="bio-container">
+  <!-- 3. White section: Centred Research Archive title, hairline rules, left +About, bio left & photo right -->
+  <main class="bio-section" id="about">
+    <header class="archive-header">
+      <h1 class="archive-title">Research Archive - S Khavin</h1>
+      <div class="archive-rule"></div>
+      <div class="page-container">
+        <h2 class="plus-about-text">+About</h2>
+      </div>
+      <div class="archive-rule"></div>
+    </header>
+
+    <div class="page-container bio-grid-wrap">
       <div class="bio-grid">
         <div class="bio-text-col">
-          <h1 class="bio-heading">S+KHAVIN</h1>
           <div class="bio-copy">
             <p>
               <strong>S. Khavin</strong> is a final-year Computer Science Engineering student at
@@ -93,40 +108,56 @@ import ResearchLayout from '../layouts/ResearchLayout.astro';
               video memory graphs.
             </p>
           </div>
-          <div class="bio-links">
-            <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer">OpenReview</a>
-            <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://skhavin.in" target="_blank" rel="noopener noreferrer">skhavin.in</a>
+
+          <dl class="bio-meta">
+            <div class="bio-meta-row">
+              <dt>Affiliation</dt>
+              <dd>Sathyabama Institute of Science and Technology · B.E. CSE (2023–2027)</dd>
+            </div>
+            <div class="bio-meta-row">
+              <dt>Research</dt>
+              <dd>Mechanistic Interpretability · Representation Geometry · Efficient Inference</dd>
+            </div>
+          </dl>
+
+          <nav class="bio-links" aria-label="Research links">
+            <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer">OpenReview ↗</a>
+            <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            <a href="https://skhavin.in" target="_blank" rel="noopener noreferrer">skhavin.in ↗</a>
             <a href="mailto:skhavin.res@gmail.com">skhavin.res@gmail.com</a>
-          </div>
+          </nav>
         </div>
 
         <div class="bio-photo-col">
-          <img
-            src="/portrait.jpg"
-            onerror="this.onerror=null;this.src='https://skhavin.in/assets/profile_1.jpg';"
-            alt="S. Khavin"
-            class="bio-photo"
-          />
+          <figure class="bio-figure">
+            <img
+              src="/portrait.jpg"
+              onerror="this.onerror=null;this.src='https://skhavin.in/assets/profile_1.jpg';"
+              alt="S. Khavin"
+              class="bio-photo"
+            />
+            <figcaption class="bio-caption">S. KHAVIN · CHENNAI, INDIA</figcaption>
+          </figure>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- 5. Blur overlay fixed to bottom of screen -->
+  <!-- 4. Blur overlay fixed to bottom of screen -->
   <div class="bottom-blur-overlay" aria-hidden="true"></div>
 
   <script>
     const burgerBtn = document.getElementById('burgerBtn');
     const mobMenu = document.getElementById('mobMenu');
-    const mobBioLink = document.getElementById('mobBioLink');
 
     burgerBtn?.addEventListener('click', () => {
       mobMenu?.classList.toggle('open');
     });
 
-    mobBioLink?.addEventListener('click', () => {
-      mobMenu?.classList.remove('open');
+    mobMenu?.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobMenu.classList.remove('open');
+      });
     });
   </script>
 </ResearchLayout>
