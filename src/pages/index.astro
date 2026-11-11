@@ -1,31 +1,13 @@
 ---
 import ResearchLayout from '../layouts/ResearchLayout.astro';
-import fallbackPayload from '../data/publications.fallback.json';
-import {
-  MAIN_SITE_ORIGIN,
-  REMOTE_PUBLICATIONS_URL,
-  fetchPublications,
-  sortPublications,
-} from '../lib/publications';
-import { renderGroupedResearchHtml } from '../lib/render';
-
-const { publications: fetchedPublications, source: initialSource } = await fetchPublications(
-  fallbackPayload,
-  { timeoutMs: 2200 }
-);
-
-const initialPublications = sortPublications(fetchedPublications);
-const serializedPayload = JSON.stringify({ publications: initialPublications }).replace(
-  /</g,
-  '\\u003c'
-);
 ---
 
 <ResearchLayout>
-  <header class="topbar">
-    <div class="page-wrap topbar-inner">
-      <a href="#top" class="brand-link">
-        <span class="brand-icon" aria-hidden="true">
+  <!-- 1. Black Blurry Navbar (matching skhavin.in) -->
+  <nav id="mainNav" class="site-nav">
+    <div class="nav-left">
+      <a class="nav-logo" href="#top">
+        <span class="nav-bond-icon" aria-hidden="true">
           <svg viewBox="0 0 945 945" width="15" height="15" fill="currentColor">
             <g transform="translate(-50, 945) scale(1, -1)">
               <path
@@ -34,604 +16,117 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
             </g>
           </svg>
         </span>
-        <span class="brand-wordmark">S+KHAVIN</span>
-        <span class="brand-tag">Research Profile</span>
+        <span class="brand-wordmark nav-logo-text">S+KHAVIN</span>
       </a>
-
-      <nav class="topbar-nav" aria-label="Quick navigation">
-        <a href="#bio">Bio</a>
-        <a href="#research">Research</a>
-        <a href="#program">Program</a>
-        <a href="#projects">Record</a>
-        <a href="#writing">Writing</a>
-        <button type="button" id="theme-toggle" class="theme-btn">Dark</button>
-      </nav>
     </div>
-  </header>
 
-  <section class="profile-banner" id="top">
-    <div class="page-wrap banner-grid">
-      <div class="banner-identity">
-        <h1 class="banner-title">S. Khavin</h1>
-        <p class="banner-role">
-          Independent Researcher — Mechanistic Interpretability, Computational Geometry &amp; Efficient Inference
-        </p>
-        <p class="banner-affil">
-          B.E. Computer Science Engineering (2023–2027) · Sathyabama Institute of Science and Technology, Chennai
-        </p>
+    <ul class="nav-center">
+      <li>
+        <a href="https://skhavin.in/research" target="_blank" rel="noopener noreferrer">
+          <span class="nav-num">I.</span>
+          <span class="nav-label">RESEARCH</span>
+        </a>
+      </li>
+      <li>
+        <a href="#bio" class="active">
+          <span class="nav-num">II.</span>
+          <span class="nav-label">DOSSIER</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://skhavin.in/blog" target="_blank" rel="noopener noreferrer">
+          <span class="nav-num">III.</span>
+          <span class="nav-label">NOTES</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="nav-iff-status">
+        <span class="iff-dot" aria-hidden="true"></span>
+        <span>IFF // MODE 5</span>
       </div>
+      <button type="button" class="nav-burger" id="burgerBtn" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
 
-      <div class="banner-actions">
-        <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer">
-          OpenReview ↗
-        </a>
-        <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">
-          GitHub ↗
-        </a>
-        <a href={MAIN_SITE_ORIGIN} target="_blank" rel="noopener noreferrer">
-          skhavin.in ↗
-        </a>
-        <a href="mailto:skhavin.res@gmail.com">skhavin.res@gmail.com</a>
+  <div class="mob-menu" id="mobMenu">
+    <a href="https://skhavin.in/research" target="_blank" rel="noopener noreferrer">I. RESEARCH</a>
+    <a href="#bio" id="mobBioLink">II. DOSSIER</a>
+    <a href="https://skhavin.in/blog" target="_blank" rel="noopener noreferrer">III. NOTES</a>
+  </div>
+
+  <!-- 2. Gunbarrel + S Khavin (~55px below) -->
+  <section class="gunbarrel-band" id="top">
+    <div class="gunbarrel-stage">
+      <img
+        src="/hero_circular_albedo.webp"
+        onerror="this.onerror=null;this.src='https://skhavin.in/hero_circular_albedo.webp';"
+        alt="007 Gunbarrel"
+        class="gunbarrel-img"
+      />
+      <div class="center-stack">
+        <span class="text-skhavin">S+KHAVIN</span>
       </div>
     </div>
   </section>
 
-  <main class="sheet-shell">
-    <div class="page-wrap">
-      <div class="tab-strip" id="sheet-tabs" role="tablist" aria-label="Profile views">
-        <button type="button" class="tab-btn is-active" role="tab" aria-selected="true" data-sheet-tab="all">
-          Overview (All)
-        </button>
-        <button type="button" class="tab-btn" role="tab" aria-selected="false" data-sheet-tab="research" id="tab-research-btn">
-          Research ({initialPublications.length})
-        </button>
-        <button type="button" class="tab-btn" role="tab" aria-selected="false" data-sheet-tab="bio">
-          Bio &amp; Program
-        </button>
-        <button type="button" class="tab-btn" role="tab" aria-selected="false" data-sheet-tab="record">
-          Projects, Record &amp; Writing
-        </button>
-      </div>
-
-      <div class="sheet-card">
-        <div class="sheet-grid">
-          <div class="sheet-main">
-            <section id="bio" class="sheet-section" data-sheet-panel="bio">
-              <div class="sec-head">
-                <div class="sec-title-wrap">
-                  <span class="sec-num">01</span>
-                  <h2 class="sec-title">Bio &amp; Research Overview</h2>
-                </div>
-                <span class="sec-sub">Chennai, India</span>
-              </div>
-
-              <div class="bio-prose">
-                <p>
-                  I'm <strong>S. Khavin</strong>, a final-year Computer Science Engineering student at
-                  Sathyabama Institute of Science and Technology. My habit of taking systems apart to
-                  see how they compute began around age seven building redstone and command-block
-                  circuits in Minecraft, and now focuses on the internal computation of language and
-                  vision-language models.
-                </p>
-                <p>
-                  This line of work came from bottlenecks hit while building <em>AgentFox</em> (a
-                  local agentic browser) and <em>Trinetra</em>: even with compressed visual inputs,
-                  transformer inference remains quadratic, allocating the same compute for
-                  <code>3 + 7</code> as for production code synthesis.
-                </p>
-              </div>
-
-              <p class="thesis-callout">
-                <strong>Working hypothesis:</strong> Isolate the minimal causal circuit doing
-                task-relevant work, and you naturally obtain both training-free sparse routing and
-                an inspectable handle for oversight without touching pretrained weights.
-              </p>
-            </section>
-
-            <section id="research" class="sheet-section" data-sheet-panel="research">
-              <div class="sec-head">
-                <div class="sec-title-wrap">
-                  <span class="sec-num">02</span>
-                  <h2 class="sec-title">Publications &amp; Preprints</h2>
-                </div>
-                <span class="sec-sub">Submitted manuscript separated from preprints</span>
-              </div>
-
-              <div class="research-controls">
-                <div id="theme-filters" class="theme-tabs" role="group" aria-label="Filter by theme">
-                  <button type="button" class="filter-tab is-active" data-theme-filter="all">All</button>
-                  <button type="button" class="filter-tab" data-theme-filter="geometry">
-                    01 Geometry
-                  </button>
-                  <button type="button" class="filter-tab" data-theme-filter="inference">
-                    02 Efficient Inference
-                  </button>
-                  <button type="button" class="filter-tab" data-theme-filter="multimodal">
-                    03 Multimodal
-                  </button>
-                </div>
-
-                <input
-                  id="research-search"
-                  class="search-line"
-                  type="search"
-                  placeholder="Filter papers…"
-                  aria-label="Filter papers"
-                  autocomplete="off"
-                />
-              </div>
-
-              <p id="sync-note" class="sync-note">
-                {initialSource === 'live'
-                  ? 'Synchronized live with skhavin.in/publications.json'
-                  : 'Local archive loaded · checking skhavin.in/publications.json'}
-              </p>
-
-              <div
-                id="research-themes-container"
-                set:html={renderGroupedResearchHtml(initialPublications, 'all', '')}
-              />
-            </section>
-
-            <section id="program" class="sheet-section" data-sheet-panel="bio">
-              <div class="sec-head">
-                <div class="sec-title-wrap">
-                  <span class="sec-num">03</span>
-                  <h2 class="sec-title">Program &amp; Limits</h2>
-                </div>
-                <span class="sec-sub">Falsification criteria &amp; open questions</span>
-              </div>
-
-              <div class="open-columns">
-                <div>
-                  <h3 class="sub-heading">Falsification Filters</h3>
-                  <ol class="calm-list">
-                    <li>
-                      <strong>Weeks-not-years falsifiability:</strong> claims must be refutable by
-                      direct causal interventions (e.g. counting vs. sorting head knockouts).
-                    </li>
-                    <li>
-                      <strong>Inspectable artifacts:</strong> every project yields a head taxonomy,
-                      ablation table, or routing gate rather than an opaque loss curve.
-                    </li>
-                    <li>
-                      <strong>Real benchmark scale:</strong> evaluated on 4K long-context suites
-                      (RULER, LongBench-Qasper), Python synthesis, and HumanEval.
-                    </li>
-                  </ol>
-                </div>
-
-                <div>
-                  <h3 class="sub-heading">Open Questions &amp; Caveats</h3>
-                  <ul class="calm-list">
-                    <li>
-                      <strong>Fixed-head ISA falsified:</strong> held-out recall collapsed (WRITE =
-                      0.311, LOAD = 0.079), shifting the focus to dynamic circuits.
-                    </li>
-                    <li>
-                      <strong>Greedy suppressor blind spot:</strong> greedy JCCS deflation misses
-                      suppressive heads (two NIAH suppressors found via joint ablation).
-                    </li>
-                    <li>
-                      <strong>Dense variable tracking:</strong> resists sparsification across K ∈
-                      [6, 64] on Qwen2.5-1.5B.
-                    </li>
-                    <li>
-                      <strong>Open puzzle:</strong> conserved cross-architecture geometry (DTW p ≈
-                      0.00139) remains causally inert under steering.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            <section id="projects" class="sheet-section" data-sheet-panel="record">
-              <div class="sec-head">
-                <div class="sec-title-wrap">
-                  <span class="sec-num">04</span>
-                  <h2 class="sec-title">Engineering, Experience &amp; Recognition</h2>
-                </div>
-                <span class="sec-sub">Selected technical &amp; academic record</span>
-              </div>
-
-              <table class="ledger-table">
-                <tbody>
-                  <tr>
-                    <th>Codebases</th>
-                    <td>
-                      <strong><a href="https://github.com/skhavin/taskgeometry" target="_blank" rel="noopener noreferrer">taskgeometry</a></strong>,
-                      <strong><a href="https://github.com/skhavin/necstuff" target="_blank" rel="noopener noreferrer">necstuff</a></strong>,
-                      <strong><a href="https://github.com/skhavin/headgenome" target="_blank" rel="noopener noreferrer">headgenome</a></strong> (interpretability suites) ·
-                      <strong><a href="https://skhavin.github.io/attentionheadgenome/" target="_blank" rel="noopener noreferrer">HeadGenome Atlas</a></strong> ·
-                      <strong>AgentFox</strong> (local agentic browser) · <strong>SIST Transit+</strong> · <strong>Marin</strong>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Experience</th>
-                    <td>
-                      <strong>SWE Co-op Intern</strong>, AlgoUniversity (YC) (2025) ·
-                      <strong>ML Research Intern (Co-Lead)</strong>, Omdena ·
-                      <strong>AI &amp; Automation Intern</strong>, Chennai Airport ·
-                      <strong>Software Engineer Intern</strong>, Headstarter (YC) ·
-                      <strong>Business Analytics Intern</strong>, Business.io (IITM)
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Honors</th>
-                    <td>
-                      <strong>AlgoUniversity Technology Fellowship</strong> (Top 5% / 20,000) ·
-                      <strong>Udacity × Bertelsmann Scholar</strong> (500 / 17,000 global) ·
-                      <strong>Google GenAI Exchange / Hackathon</strong> Team Lead (Top Project Nationwide) ·
-                      <strong>IIT Bombay NEC</strong> (5th Nationwide)
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Community</th>
-                    <td>
-                      <strong>GDSC SIST</strong> · <strong>TEDx SIST</strong> · University Philosophy Club
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </section>
-
-            <section id="writing" class="sheet-section" data-sheet-panel="record">
-              <div class="sec-head">
-                <div class="sec-title-wrap">
-                  <span class="sec-num">05</span>
-                  <h2 class="sec-title">Writing &amp; Notes</h2>
-                </div>
-                <span class="sec-sub">Essays &amp; working documents</span>
-              </div>
-
-              <ul class="writing-list">
-                <li>
-                  <a
-                    href={`${MAIN_SITE_ORIGIN}/blog/trunk-and-branch-theory-of-computation`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    The Trunk and Branch Theory of Computation
-                  </a>
-                  <span class="writing-meta">Essay · Representation Geometry</span>
-                </li>
-                <li>
-                  <a
-                    href={`${MAIN_SITE_ORIGIN}/blog/trinetra-overview`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Trinetra: Linear-Time Video Ingest &amp; Temporal Event Graphs
-                  </a>
-                  <span class="writing-meta">Essay · Multimodal Systems</span>
-                </li>
-                <li>
-                  <a href={`${MAIN_SITE_ORIGIN}/blog/`} target="_blank" rel="noopener noreferrer">
-                    Field Dispatches Archive
-                  </a>
-                  <span class="writing-meta">skhavin.in/blog</span>
-                </li>
-                <li>
-                  <a
-                    href="https://docs.google.com/document/d/1e5oTakOVCsuiDKINbt9btoS7i6cpU-Ja-sYKwn4znuw/edit?usp=drivesdk"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Transformer ISA Research Program Notes
-                  </a>
-                  <span class="writing-meta">Working Note · 2026</span>
-                </li>
-              </ul>
-            </section>
+  <!-- 3 & 4. White bg black text: left "S. Khavin is a ...", right photo -->
+  <main class="bio-section" id="bio">
+    <div class="bio-container">
+      <div class="bio-grid">
+        <div class="bio-text-col">
+          <h1 class="bio-heading">S. Khavin</h1>
+          <div class="bio-copy">
+            <p>
+              <strong>S. Khavin</strong> is a final-year Computer Science Engineering student at
+              Sathyabama Institute of Science and Technology, Chennai, and an independent researcher
+              studying mechanistic interpretability, computational geometry in residual streams, and
+              training-free efficient inference.
+            </p>
+            <p>
+              His work examines which circuits and directions inside language and vision-language
+              models are causally necessary versus geometrically epiphenomenal, using those findings
+              for zero-training sparse routing, proactive O(1) KV-cache eviction, and linear-time
+              video memory graphs.
+            </p>
           </div>
+          <div class="bio-links">
+            <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer">OpenReview</a>
+            <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://skhavin.in" target="_blank" rel="noopener noreferrer">skhavin.in</a>
+            <a href="mailto:skhavin.res@gmail.com">skhavin.res@gmail.com</a>
+          </div>
+        </div>
 
-          <aside class="sheet-aside" aria-label="Quick reference sidebar">
-            <div class="aside-block">
-              <h2 class="aside-title">Currently · Nov 2026</h2>
-              <ol class="aside-bullets">
-                <li>Probing why conserved task geometries stay causally inert.</li>
-                <li>Validating JCCS &amp; Layer-4 routing beyond N=1 per family.</li>
-                <li>Proactive O(1) KV eviction &amp; video temporal event graphs.</li>
-              </ol>
-            </div>
-
-            <div class="aside-block">
-              <h2 class="aside-title">Education</h2>
-              <ul class="aside-list">
-                <li>
-                  <strong>B.E. Computer Science Engineering</strong>
-                  Sathyabama Institute of Science and Technology · 2023–2027
-                </li>
-                <li>
-                  <strong>Generative AI Nanodegree</strong>
-                  Udacity × Bertelsmann Scholar (500 / 17,000)
-                </li>
-              </ul>
-            </div>
-
-            <div class="aside-block">
-              <h2 class="aside-title">Core Methods</h2>
-              <p class="aside-tags">
-                JCCS · Causal patching · Head knockouts · CKA &amp; constrained DTW · Procrustes
-                alignment · Direct Logit Attribution · Proactive KV eviction · Dual FAISS graphs
-              </p>
-            </div>
-
-            <div class="aside-block">
-              <h2 class="aside-title">Contact &amp; Links</h2>
-              <ul class="aside-links">
-                <li><a href="mailto:skhavin.res@gmail.com">skhavin.res@gmail.com</a></li>
-                <li>
-                  <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer">
-                    OpenReview Profile ↗
-                  </a>
-                </li>
-                <li>
-                  <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">
-                    github.com/skhavin ↗
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/s-khavin33/" target="_blank" rel="noopener noreferrer">
-                    linkedin.com/in/s-khavin33 ↗
-                  </a>
-                </li>
-                <li>
-                  <a href={MAIN_SITE_ORIGIN} target="_blank" rel="noopener noreferrer">
-                    skhavin.in (Portfolio) ↗
-                  </a>
-                </li>
-                <li>
-                  <a href={REMOTE_PUBLICATIONS_URL} target="_blank" rel="noopener noreferrer">
-                    publications.json ↗
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </aside>
+        <div class="bio-photo-col">
+          <img
+            src="/portrait.jpg"
+            onerror="this.onerror=null;this.src='https://skhavin.in/assets/profile_1.jpg';"
+            alt="S. Khavin"
+            class="bio-photo"
+          />
         </div>
       </div>
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="page-wrap footer-wrap">
-      <span class="footer-wordmark">S+KHAVIN</span>
-      <p class="colophon">
-        Static Astro · Warm ivory sheet (#FCFBF7 / #1E1D1A) · Live synced with skhavin.in/publications.json
-      </p>
-    </div>
-  </footer>
-
-  <script
-    id="ssr-publications"
-    type="application/json"
-    is:inline
-    set:html={serializedPayload}
-  ></script>
+  <!-- 5. Blur overlay fixed to bottom of screen -->
+  <div class="bottom-blur-overlay" aria-hidden="true"></div>
 
   <script>
-    import {
-      fetchPublications,
-      parsePublicationsPayload,
-      toBibtex,
-      type Publication,
-    } from '../lib/publications';
-    import { renderGroupedResearchHtml } from '../lib/render';
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobMenu = document.getElementById('mobMenu');
+    const mobBioLink = document.getElementById('mobBioLink');
 
-    type ThemeFilter = 'all' | 'geometry' | 'inference' | 'multimodal';
-    type SheetTab = 'all' | 'research' | 'bio' | 'record';
-
-    const ssrEl = document.getElementById('ssr-publications');
-    let initialPayload: unknown = { publications: [] };
-    if (ssrEl?.textContent) {
-      try {
-        initialPayload = JSON.parse(ssrEl.textContent);
-      } catch {
-        initialPayload = { publications: [] };
-      }
-    }
-
-    const state = {
-      publications: parsePublicationsPayload(initialPayload) as Publication[],
-      theme: 'all' as ThemeFilter,
-      query: '',
-      tab: 'all' as SheetTab,
-    };
-
-    const containerEl = document.getElementById('research-themes-container');
-    const filtersEl = document.getElementById('theme-filters');
-    const searchEl = document.getElementById('research-search') as HTMLInputElement | null;
-    const syncNoteEl = document.getElementById('sync-note');
-    const themeBtnEl = document.getElementById('theme-toggle');
-    const sheetTabsEl = document.getElementById('sheet-tabs');
-    const researchTabBtn = document.getElementById('tab-research-btn');
-
-    let katexPromise: Promise<void> | null = null;
-
-    function maybeLoadAndTypesetMath(root: HTMLElement | null): void {
-      if (!root) return;
-      const text = root.textContent ?? '';
-      if (!/\$[A-Za-z\\][^$\n]{0,80}\$|\\\(|\\\[/.test(text)) return;
-
-      const win = window as unknown as {
-        renderMathInElement?: (el: HTMLElement, opts: Record<string, unknown>) => void;
-      };
-
-      const applyMath = () => {
-        if (typeof win.renderMathInElement === 'function') {
-          win.renderMathInElement(root, {
-            delimiters: [
-              { left: '$$', right: '$$', display: true },
-              { left: '$', right: '$', display: false },
-              { left: '\\(', right: '\\)', display: false },
-            ],
-            ignoredClasses: ['no-math'],
-            throwOnError: false,
-          });
-        }
-      };
-
-      if (typeof win.renderMathInElement === 'function') {
-        applyMath();
-        return;
-      }
-
-      if (!katexPromise) {
-        katexPromise = new Promise<void>((resolve) => {
-          const css = document.createElement('link');
-          css.rel = 'stylesheet';
-          css.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css';
-          document.head.appendChild(css);
-
-          const core = document.createElement('script');
-          core.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js';
-          core.onload = () => {
-            const auto = document.createElement('script');
-            auto.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js';
-            auto.onload = () => resolve();
-            auto.onerror = () => resolve();
-            document.head.appendChild(auto);
-          };
-          core.onerror = () => resolve();
-          document.head.appendChild(core);
-        });
-      }
-
-      void katexPromise.then(applyMath);
-    }
-
-    function syncThemeButton(): void {
-      const current =
-        document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-      if (themeBtnEl) {
-        themeBtnEl.textContent = current === 'dark' ? 'Light' : 'Dark';
-      }
-    }
-
-    function applySheetTab(tab: SheetTab): void {
-      state.tab = tab;
-      sheetTabsEl?.querySelectorAll<HTMLButtonElement>('[data-sheet-tab]').forEach((btn) => {
-        const active = btn.dataset.sheetTab === tab;
-        btn.classList.toggle('is-active', active);
-        btn.setAttribute('aria-selected', active ? 'true' : 'false');
-      });
-
-      document.querySelectorAll<HTMLElement>('[data-sheet-panel]').forEach((panel) => {
-        panel.hidden = tab !== 'all' && panel.dataset.sheetPanel !== tab;
-      });
-    }
-
-    function renderResearch(): void {
-      filtersEl?.querySelectorAll<HTMLButtonElement>('[data-theme-filter]').forEach((btn) => {
-        btn.classList.toggle('is-active', btn.dataset.themeFilter === state.theme);
-      });
-
-      if (containerEl) {
-        containerEl.innerHTML = renderGroupedResearchHtml(
-          state.publications,
-          state.theme,
-          state.query
-        );
-        maybeLoadAndTypesetMath(containerEl);
-      }
-    }
-
-    async function syncFromMainSite(): Promise<void> {
-      const result = await fetchPublications(
-        { publications: state.publications },
-        { timeoutMs: 5000, noCache: true }
-      );
-
-      if (result.publications.length > 0) {
-        state.publications = result.publications;
-        if (researchTabBtn) {
-          researchTabBtn.textContent = `Research (${state.publications.length})`;
-        }
-      }
-
-      if (syncNoteEl) {
-        syncNoteEl.textContent =
-          result.source === 'live'
-            ? 'Synchronized live with skhavin.in/publications.json'
-            : 'Local snapshot active (skhavin.in unreachable or CORS pending)';
-      }
-
-      if (result.source === 'live') {
-        renderResearch();
-      }
-    }
-
-    themeBtnEl?.addEventListener('click', () => {
-      const current =
-        document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      try {
-        localStorage.setItem('skhavin-theme', next);
-      } catch {
-        // Ignore restricted storage contexts.
-      }
-      syncThemeButton();
+    burgerBtn?.addEventListener('click', () => {
+      mobMenu?.classList.toggle('open');
     });
 
-    sheetTabsEl?.addEventListener('click', (event) => {
-      const btn = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-sheet-tab]');
-      if (!btn) return;
-      const val = btn.dataset.sheetTab as SheetTab | undefined;
-      if (val) applySheetTab(val);
+    mobBioLink?.addEventListener('click', () => {
+      mobMenu?.classList.remove('open');
     });
-
-    // If user clicks an anchor in the topbar while on a filtered tab, switch back to Overview.
-    document.querySelectorAll<HTMLAnchorElement>('.topbar-nav a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener('click', () => {
-        if (state.tab !== 'all') applySheetTab('all');
-      });
-    });
-
-    filtersEl?.addEventListener('click', (event) => {
-      const btn = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-theme-filter]');
-      if (!btn) return;
-      const val = btn.dataset.themeFilter as ThemeFilter | undefined;
-      if (!val) return;
-      state.theme = val;
-      renderResearch();
-    });
-
-    searchEl?.addEventListener('input', () => {
-      state.query = searchEl.value;
-      renderResearch();
-    });
-
-    containerEl?.addEventListener('click', async (event) => {
-      const target = event.target as HTMLElement;
-
-      if (target.closest('[data-reset-research]')) {
-        state.theme = 'all';
-        state.query = '';
-        if (searchEl) searchEl.value = '';
-        renderResearch();
-        return;
-      }
-
-      const citeBtn = target.closest<HTMLButtonElement>('[data-cite-id]');
-      if (citeBtn) {
-        const pub = state.publications.find((p) => p.id === citeBtn.dataset.citeId);
-        if (!pub) return;
-        try {
-          await navigator.clipboard.writeText(toBibtex(pub));
-          citeBtn.textContent = 'Copied BibTeX';
-          setTimeout(() => {
-            citeBtn.textContent = 'BibTeX';
-          }, 1500);
-        } catch {
-          citeBtn.textContent = 'Copy unavailable';
-        }
-      }
-    });
-
-    syncThemeButton();
-    maybeLoadAndTypesetMath(containerEl);
-    void syncFromMainSite();
   </script>
 </ResearchLayout>

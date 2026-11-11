@@ -7,13 +7,13 @@ interface Props {
 }
 
 const {
-  title = 'S+KHAVIN — Research Profile & Publications',
-  description = 'S. Khavin — Independent researcher investigating mechanistic interpretability, computational geometry in residual streams, training-free efficient inference, and multimodal temporal reasoning.',
+  title = 'S+KHAVIN — S. Khavin',
+  description = 'S. Khavin — Independent researcher working on mechanistic interpretability, computational geometry, and efficient inference.',
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,24 +27,19 @@ const {
     <title>{title}</title>
 
     <link rel="preload" href="/fonts/GoldenEye.ttf" as="font" type="font/ttf" crossorigin />
+    <link
+      rel="preload"
+      href="https://skhavin.in/assets/fonts/PPEditorialNew-UltralightItalic.otf"
+      as="font"
+      type="font/otf"
+      crossorigin
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Libertinus+Mono&display=swap"
       rel="stylesheet"
     />
-
-    <script is:inline>
-      (() => {
-        try {
-          const saved = localStorage.getItem('skhavin-theme');
-          const theme = saved === 'dark' || saved === 'light' ? saved : 'light';
-          document.documentElement.setAttribute('data-theme', theme);
-        } catch {
-          document.documentElement.setAttribute('data-theme', 'light');
-        }
-      })();
-    </script>
   </head>
   <body>
     <slot />
