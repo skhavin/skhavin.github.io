@@ -214,7 +214,7 @@ body {
 }
 
 /* =========================================================================
-   2. TALL, HEAVILY ZOOMED FULL-WIDTH GUNBARREL + BIGGER S+KHAVIN
+   2. FULL EDITORIAL GUNBARREL HERO
    ========================================================================= */
 .gunbarrel-band {
   background: #050505;
@@ -227,7 +227,7 @@ body {
 .gunbarrel-stage {
   position: relative;
   width: 100%;
-  height: clamp(270px, 26vw, 330px);
+  height: clamp(310px, 26vw, 355px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -239,7 +239,7 @@ body {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transform: scale(4.3);
+  transform: scale(4.25);
   transform-origin: 49% 49%;
   display: block;
 }
@@ -248,24 +248,91 @@ body {
   position: absolute;
   left: 50%;
   top: calc(50% + 26px);
-  transform: translate(-50%, -50%) rotate(-1.2deg);
+  transform: translate(-50%, -50%);
+  width: min(560px, 78vw);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  white-space: nowrap;
-  pointer-events: none;
+  text-align: center;
   z-index: 2;
 }
 
 .text-skhavin {
   font-family: "GoldenEye", serif;
-  font-size: clamp(42px, 5.4vw, 72px);
+  font-size: clamp(34px, 4.4vw, 58px);
+  font-weight: 400;
   letter-spacing: -0.02em;
   color: #000000;
-  line-height: 1;
+  line-height: 0.96;
+  transform: rotate(-1.2deg);
+  margin-bottom: 8px;
+}
+
+.hero-role {
+  font-family: "PPEditorialNew", "Instrument Serif", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(15px, 1.35vw, 18.5px);
+  line-height: 1.25;
+  color: #141414;
+  margin-bottom: 6px;
+}
+
+.hero-lead {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(12.5px, 1.05vw, 14px);
+  font-weight: 400;
+  line-height: 1.48;
+  color: #2c2c2c;
+  max-width: 44ch;
+  margin-bottom: 9px;
+}
+
+.hero-domains {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px 10px;
+  font-family: "Libertinus Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #555555;
+  margin-bottom: 11px;
+}
+
+.hero-sep {
+  opacity: 0.45;
+}
+
+.hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 22px;
+}
+
+.hero-cta {
+  font-family: "Libertinus Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  text-decoration: underline;
+  text-decoration-color: rgba(10, 10, 10, 0.4);
+  text-underline-offset: 4px;
+  transition: opacity 0.18s ease, text-decoration-color 0.18s ease;
+}
+
+.hero-cta:hover {
+  opacity: 0.65;
+  text-decoration-color: #0a0a0a;
 }
 
 /* =========================================================================
-   3. WHITE EDITORIAL HEADER ("Research Archive - S Khavin" + "+About") & BIO
+   3. WHITE EDITORIAL HEADER ("+About") & BIO
    ========================================================================= */
 .bio-section,
 .archive-band {
@@ -288,12 +355,12 @@ body {
   font-family: "PPEditorialNew", "Instrument Serif", Georgia, serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(24px, 2.6vw, 34px);
-  line-height: 1.35;
+  font-size: clamp(22px, 2.2vw, 28px);
+  line-height: 1.2;
   letter-spacing: -0.01em;
   color: #0a0a0a;
   text-align: center;
-  padding: 28px 20px 14px;
+  padding: 18px clamp(20px, 4vw, 36px) 16px;
 }
 
 .archive-rule {
@@ -310,7 +377,7 @@ body {
   letter-spacing: -0.01em;
   color: #0a0a0a;
   text-align: left;
-  padding: 10px 0 8px;
+  padding: 12px 0 10px;
 }
 
 .bio-grid-wrap {
@@ -337,6 +404,19 @@ body {
 .bio-copy strong {
   color: #000000;
   font-weight: 600;
+}
+
+.bio-editorial-line {
+  margin-top: 18px;
+  margin-bottom: 0;
+  padding-left: 13px;
+  border-left: 1.5px solid rgba(10, 10, 10, 0.52);
+  font-family: "PPEditorialNew", "Instrument Serif", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(15.5px, 1.35vw, 17.5px);
+  line-height: 1.38;
+  color: #242424;
 }
 
 .bio-meta {
@@ -453,76 +533,132 @@ body {
 }
 
 /* =========================================================================
-   4. PREPRINTS, BLOG & RECORD SECTIONS
+   4. RESEARCH & DISCOVERIES, BLOG & EXPERIENCE SECTIONS
    ========================================================================= */
 .section-band-inner {
-  padding-top: 44px;
-  padding-bottom: 54px;
+  padding-top: 46px;
+  padding-bottom: 58px;
 }
 
 .archive-band-last .section-band-inner {
   padding-bottom: 72px;
 }
 
-.section-kicker {
+.section-goldeneye-title {
+  font-family: "GoldenEye", serif;
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+}
+
+.goldeneye-amp {
+  display: inline-block;
+  font-size: 0.62em;
+  vertical-align: 0.1em;
+  margin-inline: 0.08em;
+}
+
+.record-heading {
+  margin-bottom: 26px;
+}
+
+.section-head-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px 20px;
+  margin-bottom: 24px;
+}
+
+/* Featured Research (clean open hierarchy, no card box) */
+.featured-paper {
+  padding-top: 8px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.2);
+}
+
+.featured-eyebrow {
   font-family: "Libertinus Mono", monospace;
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #707070;
-  margin-bottom: 6px;
-}
-
-.section-goldeneye-title {
-  font-family: "GoldenEye", serif;
-  font-size: clamp(26px, 2.9vw, 36px);
-  font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.01em;
-  color: #0a0a0a;
-}
-
-.record-heading {
-  margin-bottom: 24px;
-}
-
-.section-head-row {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px 20px;
   margin-bottom: 22px;
 }
 
-.filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 20px;
+.featured-figure {
+  margin: 0 auto 28px;
+  max-width: 720px;
+  text-align: center;
 }
 
-.filter-btn {
-  appearance: none;
-  background: none;
-  border: none;
-  border-bottom: 1.5px solid transparent;
-  padding: 4px 0;
+.featured-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.featured-caption {
+  margin-top: 10px;
   font-family: "Libertinus Mono", monospace;
-  font-size: 12px;
+  font-size: 10.5px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #737373;
-  cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.filter-btn:hover {
+.featured-title {
+  font-size: clamp(21px, 2.2vw, 26px);
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: -0.015em;
   color: #0a0a0a;
+  max-width: 58ch;
 }
 
-.filter-btn.active {
-  color: #0a0a0a;
-  border-bottom-color: #0a0a0a;
+.featured-oneliner {
+  margin-top: 10px;
+  font-family: "PPEditorialNew", "Instrument Serif", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(18px, 1.7vw, 21px);
+  line-height: 1.42;
+  color: #1f1f1f;
+  max-width: 60ch;
+}
+
+.featured-abstract {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.68;
+  color: #363636;
+  max-width: 68ch;
+}
+
+.featured-links {
+  margin-top: 18px;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-family: "Libertinus Mono", monospace;
+  font-size: 11.5px;
+}
+
+.archive-subhead {
+  margin-top: 34px;
+  margin-bottom: 12px;
+  font-family: "Libertinus Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #707070;
 }
 
 .papers-list {
@@ -534,12 +670,8 @@ body {
   display: grid;
   grid-template-columns: 112px minmax(0, 1fr);
   gap: 8px 28px;
-  padding: 15px 0;
+  padding: 18px 0;
   border-bottom: 1px solid rgba(10, 10, 10, 0.12);
-}
-
-.paper-row[hidden] {
-  display: none;
 }
 
 .paper-idx-col {
@@ -547,7 +679,7 @@ body {
   flex-direction: column;
   gap: 2px;
   font-family: "Libertinus Mono", monospace;
-  padding-top: 2px;
+  padding-top: 3px;
 }
 
 .paper-idx {
@@ -565,39 +697,28 @@ body {
 }
 
 .paper-title {
-  font-size: 15.5px;
-  font-weight: 600;
-  line-height: 1.32;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.35;
   color: #0a0a0a;
 }
 
-.paper-title a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.paper-title a:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-}
-
 .paper-summary {
-  margin-top: 4px;
-  font-size: 14px;
-  line-height: 1.52;
-  color: #3a3a3a;
+  margin-top: 6px;
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: #363636;
   max-width: 72ch;
 }
 
 .paper-meta-bar {
-  margin-top: 7px;
+  margin-top: 10px;
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
   gap: 4px 16px;
   font-family: "Libertinus Mono", monospace;
-  font-size: 11.5px;
+  font-size: 11px;
 }
 
 .paper-venue {
@@ -611,14 +732,15 @@ body {
 }
 
 .paper-link-group a {
-  color: #0a0a0a;
+  color: #444444;
   text-decoration: underline;
-  text-decoration-color: rgba(10, 10, 10, 0.35);
+  text-decoration-color: rgba(10, 10, 10, 0.24);
   text-underline-offset: 4px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
 .paper-link-group a:hover {
-  opacity: 0.7;
+  color: #0a0a0a;
   text-decoration-color: #0a0a0a;
 }
 
@@ -634,7 +756,7 @@ body {
 .paper-details summary {
   display: inline-block;
   font-family: "Libertinus Mono", monospace;
-  font-size: 11.5px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #555555;
@@ -668,6 +790,28 @@ body {
   line-height: 1.62;
   color: #3a3a3a;
   max-width: 70ch;
+}
+
+.archive-more-wrap {
+  margin-top: 26px;
+}
+
+.archive-more-link {
+  display: inline-block;
+  font-family: "Libertinus Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  text-decoration: underline;
+  text-decoration-color: rgba(10, 10, 10, 0.38);
+  text-underline-offset: 5px;
+  transition: opacity 0.18s ease, text-decoration-color 0.18s ease;
+}
+
+.archive-more-link:hover {
+  opacity: 0.68;
+  text-decoration-color: #0a0a0a;
 }
 
 /* Blog / Field Notes Section */
@@ -755,12 +899,17 @@ body {
   text-decoration-color: #0a0a0a;
 }
 
-/* Record & Recognition Ledger */
-
+/* Experience & Recognition Ledger */
 .ledger-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(32px, 5vw, 64px);
+}
+
+.ledger-col-stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
 }
 
 .ledger-subhead {
@@ -779,7 +928,7 @@ body {
 
 .ledger-row {
   display: grid;
-  grid-template-columns: 58px minmax(0, 1fr);
+  grid-template-columns: 64px minmax(0, 1fr);
   gap: 16px;
   padding: 12px 0;
   border-bottom: 1px solid rgba(10, 10, 10, 0.1);
@@ -788,8 +937,10 @@ body {
 
 .ledger-period {
   font-family: "Libertinus Mono", monospace;
-  font-size: 11.5px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
   color: #757575;
+  white-space: nowrap;
 }
 
 .ledger-text {
@@ -1090,23 +1241,59 @@ footer::before {
   }
 
   .gunbarrel-stage {
-    height: clamp(210px, 50vw, 250px);
+    height: clamp(290px, 72vw, 340px);
   }
 
   .gunbarrel-img {
-    transform: scale(4.55);
+    transform: scale(4.95);
   }
 
   .center-stack {
-    top: calc(50% + 24px);
+    top: calc(50% + 22px);
+    width: min(252px, 72vw);
   }
 
   .text-skhavin {
-    font-size: clamp(30px, 8.5vw, 44px);
+    font-size: clamp(26px, 7.5vw, 36px);
+    margin-bottom: 5px;
+  }
+
+  .hero-role {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .hero-lead {
+    font-size: 11.5px;
+    line-height: 1.44;
+    margin-bottom: 7px;
+  }
+
+  .hero-domains {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    margin-bottom: 9px;
+  }
+
+  .hero-cta-row {
+    gap: 8px 16px;
+  }
+
+  .hero-cta {
+    font-size: 10px;
   }
 
   .archive-title {
-    padding: 20px 16px 12px;
+    font-size: clamp(20px, 5vw, 24px);
+    padding: 14px 20px 12px;
+  }
+
+  .plus-about-text {
+    font-size: clamp(24px, 6.5vw, 32px);
+  }
+
+  .section-goldeneye-title {
+    font-size: clamp(19px, 5.2vw, 24px);
   }
 
   .bio-grid-wrap {
@@ -1134,6 +1321,11 @@ footer::before {
     flex-direction: row;
     align-items: baseline;
     gap: 10px;
+  }
+
+  .ledger-row {
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 12px;
   }
 
   footer {
