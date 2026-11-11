@@ -22,447 +22,383 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
 ---
 
 <ResearchLayout>
-  <header class="site-nav">
-    <div class="page-wrap nav-inner">
-      <a href="#top" class="nav-wordmark">SKHAVIN</a>
+  <header class="topbar">
+    <div class="page-wrap topbar-inner">
+      <a href="#top" class="brand-link">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 945 945" width="15" height="15" fill="currentColor">
+            <g transform="translate(-50, 945) scale(1, -1)">
+              <path
+                d="M50 945H995V0H50ZM431 23C431 22.3333 431.667 21.3333 433 20L436 17C438.667 16.3333 442.667 15.5 448 14.5C453.333 13.5 457 12.6667 459 12H471C477.667 12 484.333 11.8333 491 11.5C497.667 11.1667 504 11 510 11H522H540C546.667 11 553.167 11.1667 559.5 11.5C565.833 11.8333 571.667 12 577 12H586C588.667 12 592.667 12.1667 598 12.5C603.333 12.8333 608.5 13.6667 613.5 15C618.5 16.3333 623 18.1667 627 20.5C631 22.8333 633 26.3333 633 31C633 35.6667 632.667 39.5 632 42.5C631.333 45.5 629.333 48.6667 626 52C614.667 114 602 177.667 588 243C574 308.333 558 371.333 540 432C540 435.333 538 437 534 437L533 437.5C532.333 437.833 531.667 438 531 438C530.333 438 529.833 437.833 529.5 437.5L529 437C527.667 436.333 526.333 434 525 430C523.667 426 522.667 422.667 522 420L442 52C440.667 48.6667 438.5 43.6667 435.5 37C432.5 30.3333 431 25.6667 431 23ZM61 475C61 435.667 65.6667 396.333 75 357C84.3333 317.667 98.3333 280.5 117 245.5C135.667 210.5 158.667 178.333 186 149C213.333 119.667 244.667 95 280 75C284.667 73 290.333 70 297 66C303.667 62 310.833 58.1667 318.5 54.5C326.167 50.8333 334 47.5 342 44.5C350 41.5 357.667 40 365 40C367 40 369.667 40.1667 373 40.5C376.333 40.8333 378 42.6667 378 46L442 432V436C442 440.667 440.833 443.667 438.5 445C436.167 446.333 435 450.333 435 457C435 476.333 437.333 495.667 442 515C446.667 534.333 449 553.667 449 573C449 574.333 448.833 576.833 448.5 580.5C448.167 584.167 448 586.667 448 588C440 588.667 433.333 592.333 428 599C422.667 605.667 418.5 614 415.5 624C412.5 634 410.333 644.833 409 656.5C407.667 668.167 407 679 407 689V723V749C410.333 745.667 413.167 743.667 415.5 743C417.833 742.333 421 742 425 742C430.333 742 434.5 743.833 437.5 747.5C440.5 751.167 442 755.333 442 760V766C440.667 765.333 437.833 764.333 433.5 763C429.167 761.667 426 760.667 424 760H421C415 760 410.5 762.833 407.5 768.5C404.5 774.167 402.5 780.667 401.5 788C400.5 795.333 400.167 802.667 400.5 810C400.833 817.333 401 823 401 827C401 842.333 402.833 855.833 406.5 867.5C410.167 879.167 412.667 893.333 414 910H419L420.5 903C421.5 898.333 422.667 893 424 887C425.333 881 426.667 874.667 428 868C429.333 861.333 430.333 856 431 852C433 838.667 435.5 827.333 438.5 818C441.5 808.667 443 796.667 443 782C450.333 782 459.333 784.167 470 788.5C480.667 792.833 486.667 795 488 795C490.667 793.667 494.167 786.333 498.5 773C502.833 759.667 507.167 744.833 511.5 728.5C515.833 712.167 520.167 696.833 524.5 682.5C528.833 668.167 532 659.667 534 657L540 668L568 783L575 795C576.333 794.333 580.5 792.833 587.5 790.5C594.5 788.167 603.167 785.167 613.5 781.5C623.833 777.833 632 774.667 638 772C646 768.667 651.333 765 654 761C656.667 757 657 749 655 737L632 599C631.333 595.667 630 593.5 628 592.5C626 591.5 624 590.667 622 590C620 589.333 618.167 588.333 616.5 587C614.833 585.667 614 583.333 614 580C614 578.667 614.167 576.833 614.5 574.5L615 571L632 455V448C632 444 631 441.5 629 440.5C627 439.5 626 437 626 433V427L690 52C690.667 48.6667 692.167 46.6667 694.5 46C696.833 45.3333 699 45 701 45C712.333 45 723.833 48.8333 735.5 56.5C747.167 64.1667 757 70.3333 765 75C799 96.3333 829.5 121 856.5 149C883.5 177 906.5 207.667 925.5 241C944.5 274.333 959 309.833 969 347.5C979 385.167 984 424 984 464C984 528.667 972.333 589.5 949 646.5C925.667 703.5 893.333 753.333 852 796C810.667 838.667 761.833 872.333 705.5 897C649.167 921.667 588 934 522 934C458.667 934 399.167 922 343.5 898C287.833 874 239 841.167 197 799.5C155 757.833 121.833 709.167 97.5 653.5C73.1667 597.833 61 538.333 61 475ZM476 628V620C476 616 476.667 612.167 478 608.5C479.333 604.833 482.667 603 488 603V659C482.667 659 479.333 656.333 478 651C476.667 645.667 476 640.333 476 635ZM609 727C606.333 727 603.167 726.667 599.5 726C595.833 725.333 593.333 723.333 592 720H609ZM504 789H558C558 787.667 557.833 785.5 557.5 782.5C557.167 779.5 556.833 776.333 556.5 773C556.167 769.667 555.5 766.667 554.5 764C553.5 761.333 552.333 760 551 760H511C509.667 760 508.667 761.333 508 764C507.333 766.667 506.667 769.667 506 773C505.333 776.333 504.833 779.5 504.5 782.5C504.167 785.5 504 787.667 504 789ZM493 871C493 885 494.833 897 498.5 907C502.167 917 512.667 922 530 922C545.333 922 555.667 917.833 561 909.5C566.333 901.167 569 889.333 569 874C569 868.667 568.667 861.5 568 852.5C567.333 843.5 565.667 834.667 563 826C560.333 817.333 556.5 809.833 551.5 803.5C546.5 797.167 539.667 794 531 794C522.333 794 515.5 797 510.5 803C505.5 809 501.667 816.167 499 824.5C496.333 832.833 494.667 841.333 494 850C493.333 858.667 493 865.667 493 871Z"
+              />
+            </g>
+          </svg>
+        </span>
+        <span class="brand-wordmark">S+KHAVIN</span>
+        <span class="brand-tag">Research Profile</span>
+      </a>
 
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#about">About</a>
+      <nav class="topbar-nav" aria-label="Quick navigation">
+        <a href="#bio">Bio</a>
         <a href="#research">Research</a>
-        <a href="#projects">Projects</a>
+        <a href="#program">Program</a>
+        <a href="#projects">Record</a>
         <a href="#writing">Writing</a>
-        <a href="#contact">Contact</a>
         <button type="button" id="theme-toggle" class="theme-btn">Dark</button>
       </nav>
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero-section">
-      <div class="page-wrap hero-layout">
-        <div>
-          <p class="hero-kicker">Personal Archive · 2026</p>
-          <h1 class="hero-name">S. Khavin</h1>
-          <p class="hero-motto">
-            Independent researcher — understanding intelligence, one mechanism at a time.
-          </p>
-
-          <p class="hero-intro">
-            I am <strong>S. Khavin</strong>, a computer science student and independent researcher
-            based in Chennai, India. My work investigates how language and vision-language models
-            represent, transform, and retrieve information—testing whether mapping those internal
-            mechanisms enables training-free efficient inference without modifying pretrained weights.
-          </p>
-
-          <p class="hero-meta-line">
-            Chennai, India · Computer Science · 2023–2027
-          </p>
-
-          <div class="hero-actions">
-            <a href="#research">Research</a>
-            <a href="#about">About</a>
-            <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">
-              GitHub ↗
-            </a>
-            <a href={MAIN_SITE_ORIGIN} target="_blank" rel="noopener noreferrer">
-              skhavin.in ↗
-            </a>
-            <a href="#contact">Contact</a>
-          </div>
-        </div>
-
-        <aside class="marginalia-currently" aria-label="Currently active work">
-          <p class="marginalia-head">Currently · November 2026</p>
-          <ol class="marginalia-list">
-            <li>Investigating why conserved task geometries stay causally inert in residual streams.</li>
-            <li>Validating JCCS and Layer-4 zero-training routing across additional models.</li>
-            <li>Exploring proactive O(1) KV-cache eviction and multimodal temporal graphs.</li>
-            <li>Open to collaborative research in interpretability and inference efficiency.</li>
-          </ol>
-        </aside>
+  <section class="profile-banner" id="top">
+    <div class="page-wrap banner-grid">
+      <div class="banner-identity">
+        <h1 class="banner-title">S. Khavin</h1>
+        <p class="banner-role">
+          Independent Researcher — Mechanistic Interpretability, Computational Geometry &amp; Efficient Inference
+        </p>
+        <p class="banner-affil">
+          B.E. Computer Science Engineering (2023–2027) · Sathyabama Institute of Science and Technology, Chennai
+        </p>
       </div>
-    </section>
 
-    <section id="about" class="editorial-section">
-      <div class="page-wrap editorial-grid">
-        <div class="rail-column">
-          <p class="chapter-label">01</p>
-          <h2 class="chapter-heading">About</h2>
-
-          <div class="rail-meta-group">
-            <h3 class="rail-meta-title">Education</h3>
-            <ul class="rail-meta-list">
-              <li>
-                <strong>B.E. Computer Science Engineering</strong>
-                Sathyabama Institute of Science and Technology, Chennai · 2023–2027
-              </li>
-              <li>
-                <strong>Generative AI Nanodegree</strong>
-                Udacity × Bertelsmann Scholarship (500 of 17,000 global)
-              </li>
-            </ul>
-          </div>
-
-          <div class="rail-meta-group">
-            <h3 class="rail-meta-title">Methods</h3>
-            <ul class="rail-meta-list">
-              <li>Joint Causal Circuit Search (JCCS)</li>
-              <li>Causal patching &amp; head knockouts</li>
-              <li>CKA &amp; constrained Dynamic Time Warping</li>
-              <li>Procrustes alignment &amp; Direct Logit Attribution</li>
-              <li>Proactive KV eviction &amp; dual FAISS graphs</li>
-            </ul>
-          </div>
-
-          <div class="rail-meta-group">
-            <h3 class="rail-meta-title">Languages</h3>
-            <ul class="rail-meta-list">
-              <li>English (Fluent) · Tamil (Native)</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="main-column">
-          <h3 class="editorial-lead">Curiosity drives the work.</h3>
-          <div class="prose-flow">
-            <p>
-              I'm <strong>S. Khavin</strong>, a final-year Computer Science Engineering student at
-              Sathyabama Institute of Science and Technology, Chennai. My instinct to inspect how
-              systems compute began around age seven building redstone and command-block circuits
-              in Minecraft—taking mechanisms apart before trying to build something cleaner.
-            </p>
-            <p>
-              Today my research examines the internal computational structure of modern neural
-              networks. Using causal interventions, representation geometry, and
-              neuroscience-inspired ablations, I study how language and vision-language models
-              encode tasks, transform residual activations, and route long-range context.
-            </p>
-            <p>
-              That inquiry emerged from practical bottlenecks while building <em>AgentFox</em> (a
-              local agentic browser) and <em>Trinetra</em>: even when a language model only ingests
-              selected video frames, quadratic attention still dominates cost. Standard inference
-              allocates the same compute evaluating <code>3 + 7</code> as synthesizing production
-              code.
-            </p>
-            <p>
-              My focus is narrower and empirically testable: <strong>isolate the minimal causal
-              circuit doing task-relevant work, and you naturally obtain both training-free sparse
-              routing and an inspectable handle for oversight.</strong>
-            </p>
-          </div>
-        </div>
+      <div class="banner-actions">
+        <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer">
+          OpenReview ↗
+        </a>
+        <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">
+          GitHub ↗
+        </a>
+        <a href={MAIN_SITE_ORIGIN} target="_blank" rel="noopener noreferrer">
+          skhavin.in ↗
+        </a>
+        <a href="mailto:skhavin.res@gmail.com">skhavin.res@gmail.com</a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="research" class="editorial-section">
-      <div class="page-wrap editorial-grid">
-        <div class="rail-column">
-          <p class="chapter-label">02</p>
-          <h2 class="chapter-heading">Research</h2>
-          <p class="rail-note">
-            Submitted manuscripts under peer review are distinguished explicitly from preprints.
-          </p>
-
-          <div class="rail-meta-group">
-            <h3 class="rail-meta-title">Profiles &amp; Feed</h3>
-            <ul class="rail-meta-list">
-              <li>
-                <a
-                  href="https://openreview.net/profile?id=~S_Khavin1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  OpenReview Profile ↗
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`${MAIN_SITE_ORIGIN}/research`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Main Archive (skhavin.in) ↗
-                </a>
-              </li>
-              <li>
-                <a href={REMOTE_PUBLICATIONS_URL} target="_blank" rel="noopener noreferrer">
-                  publications.json ↗
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="main-column">
-          <div class="research-controls">
-            <div id="theme-filters" class="theme-tabs" role="group" aria-label="Filter by theme">
-              <button type="button" class="filter-tab is-active" data-theme-filter="all">
-                All
-              </button>
-              <button type="button" class="filter-tab" data-theme-filter="geometry">
-                01. Geometry &amp; Interpretability
-              </button>
-              <button type="button" class="filter-tab" data-theme-filter="inference">
-                02. Efficient Inference
-              </button>
-              <button type="button" class="filter-tab" data-theme-filter="multimodal">
-                03. Multimodal
-              </button>
-            </div>
-
-            <input
-              id="research-search"
-              class="search-line"
-              type="search"
-              placeholder="Filter manuscripts…"
-              aria-label="Filter manuscripts"
-              autocomplete="off"
-            />
-          </div>
-
-          <p id="sync-note" class="sync-note">
-            {initialSource === 'live'
-              ? 'Synchronized live with skhavin.in/publications.json'
-              : 'Synced local baseline · checking skhavin.in/publications.json'}
-          </p>
-
-          <div
-            id="research-themes-container"
-            set:html={renderGroupedResearchHtml(initialPublications, 'all', '')}
-          />
-        </div>
+  <main class="sheet-shell">
+    <div class="page-wrap">
+      <div class="tab-strip" id="sheet-tabs" role="tablist" aria-label="Profile views">
+        <button type="button" class="tab-btn is-active" role="tab" aria-selected="true" data-sheet-tab="all">
+          Overview (All)
+        </button>
+        <button type="button" class="tab-btn" role="tab" aria-selected="false" data-sheet-tab="research" id="tab-research-btn">
+          Research ({initialPublications.length})
+        </button>
+        <button type="button" class="tab-btn" role="tab" aria-selected="false" data-sheet-tab="bio">
+          Bio &amp; Program
+        </button>
+        <button type="button" class="tab-btn" role="tab" aria-selected="false" data-sheet-tab="record">
+          Projects, Record &amp; Writing
+        </button>
       </div>
-    </section>
 
-    <section id="program" class="editorial-section">
-      <div class="page-wrap editorial-grid">
-        <div class="rail-column">
-          <p class="chapter-label">03</p>
-          <h2 class="chapter-heading">Program &amp; Limits</h2>
-        </div>
+      <div class="sheet-card">
+        <div class="sheet-grid">
+          <div class="sheet-main">
+            <section id="bio" class="sheet-section" data-sheet-panel="bio">
+              <div class="sec-head">
+                <div class="sec-title-wrap">
+                  <span class="sec-num">01</span>
+                  <h2 class="sec-title">Bio &amp; Research Overview</h2>
+                </div>
+                <span class="sec-sub">Chennai, India</span>
+              </div>
 
-        <div class="main-column">
-          <div class="open-columns">
-            <div>
-              <h3 class="sub-heading">Falsification Filters</h3>
-              <ol class="calm-list">
+              <div class="bio-prose">
+                <p>
+                  I'm <strong>S. Khavin</strong>, a final-year Computer Science Engineering student at
+                  Sathyabama Institute of Science and Technology. My habit of taking systems apart to
+                  see how they compute began around age seven building redstone and command-block
+                  circuits in Minecraft, and now focuses on the internal computation of language and
+                  vision-language models.
+                </p>
+                <p>
+                  This line of work came from bottlenecks hit while building <em>AgentFox</em> (a
+                  local agentic browser) and <em>Trinetra</em>: even with compressed visual inputs,
+                  transformer inference remains quadratic, allocating the same compute for
+                  <code>3 + 7</code> as for production code synthesis.
+                </p>
+              </div>
+
+              <p class="thesis-callout">
+                <strong>Working hypothesis:</strong> Isolate the minimal causal circuit doing
+                task-relevant work, and you naturally obtain both training-free sparse routing and
+                an inspectable handle for oversight without touching pretrained weights.
+              </p>
+            </section>
+
+            <section id="research" class="sheet-section" data-sheet-panel="research">
+              <div class="sec-head">
+                <div class="sec-title-wrap">
+                  <span class="sec-num">02</span>
+                  <h2 class="sec-title">Publications &amp; Preprints</h2>
+                </div>
+                <span class="sec-sub">Submitted manuscript separated from preprints</span>
+              </div>
+
+              <div class="research-controls">
+                <div id="theme-filters" class="theme-tabs" role="group" aria-label="Filter by theme">
+                  <button type="button" class="filter-tab is-active" data-theme-filter="all">All</button>
+                  <button type="button" class="filter-tab" data-theme-filter="geometry">
+                    01 Geometry
+                  </button>
+                  <button type="button" class="filter-tab" data-theme-filter="inference">
+                    02 Efficient Inference
+                  </button>
+                  <button type="button" class="filter-tab" data-theme-filter="multimodal">
+                    03 Multimodal
+                  </button>
+                </div>
+
+                <input
+                  id="research-search"
+                  class="search-line"
+                  type="search"
+                  placeholder="Filter papers…"
+                  aria-label="Filter papers"
+                  autocomplete="off"
+                />
+              </div>
+
+              <p id="sync-note" class="sync-note">
+                {initialSource === 'live'
+                  ? 'Synchronized live with skhavin.in/publications.json'
+                  : 'Local archive loaded · checking skhavin.in/publications.json'}
+              </p>
+
+              <div
+                id="research-themes-container"
+                set:html={renderGroupedResearchHtml(initialPublications, 'all', '')}
+              />
+            </section>
+
+            <section id="program" class="sheet-section" data-sheet-panel="bio">
+              <div class="sec-head">
+                <div class="sec-title-wrap">
+                  <span class="sec-num">03</span>
+                  <h2 class="sec-title">Program &amp; Limits</h2>
+                </div>
+                <span class="sec-sub">Falsification criteria &amp; open questions</span>
+              </div>
+
+              <div class="open-columns">
+                <div>
+                  <h3 class="sub-heading">Falsification Filters</h3>
+                  <ol class="calm-list">
+                    <li>
+                      <strong>Weeks-not-years falsifiability:</strong> claims must be refutable by
+                      direct causal interventions (e.g. counting vs. sorting head knockouts).
+                    </li>
+                    <li>
+                      <strong>Inspectable artifacts:</strong> every project yields a head taxonomy,
+                      ablation table, or routing gate rather than an opaque loss curve.
+                    </li>
+                    <li>
+                      <strong>Real benchmark scale:</strong> evaluated on 4K long-context suites
+                      (RULER, LongBench-Qasper), Python synthesis, and HumanEval.
+                    </li>
+                  </ol>
+                </div>
+
+                <div>
+                  <h3 class="sub-heading">Open Questions &amp; Caveats</h3>
+                  <ul class="calm-list">
+                    <li>
+                      <strong>Fixed-head ISA falsified:</strong> held-out recall collapsed (WRITE =
+                      0.311, LOAD = 0.079), shifting the focus to dynamic circuits.
+                    </li>
+                    <li>
+                      <strong>Greedy suppressor blind spot:</strong> greedy JCCS deflation misses
+                      suppressive heads (two NIAH suppressors found via joint ablation).
+                    </li>
+                    <li>
+                      <strong>Dense variable tracking:</strong> resists sparsification across K ∈
+                      [6, 64] on Qwen2.5-1.5B.
+                    </li>
+                    <li>
+                      <strong>Open puzzle:</strong> conserved cross-architecture geometry (DTW p ≈
+                      0.00139) remains causally inert under steering.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section id="projects" class="sheet-section" data-sheet-panel="record">
+              <div class="sec-head">
+                <div class="sec-title-wrap">
+                  <span class="sec-num">04</span>
+                  <h2 class="sec-title">Engineering, Experience &amp; Recognition</h2>
+                </div>
+                <span class="sec-sub">Selected technical &amp; academic record</span>
+              </div>
+
+              <table class="ledger-table">
+                <tbody>
+                  <tr>
+                    <th>Codebases</th>
+                    <td>
+                      <strong><a href="https://github.com/skhavin/taskgeometry" target="_blank" rel="noopener noreferrer">taskgeometry</a></strong>,
+                      <strong><a href="https://github.com/skhavin/necstuff" target="_blank" rel="noopener noreferrer">necstuff</a></strong>,
+                      <strong><a href="https://github.com/skhavin/headgenome" target="_blank" rel="noopener noreferrer">headgenome</a></strong> (interpretability suites) ·
+                      <strong><a href="https://skhavin.github.io/attentionheadgenome/" target="_blank" rel="noopener noreferrer">HeadGenome Atlas</a></strong> ·
+                      <strong>AgentFox</strong> (local agentic browser) · <strong>SIST Transit+</strong> · <strong>Marin</strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Experience</th>
+                    <td>
+                      <strong>SWE Co-op Intern</strong>, AlgoUniversity (YC) (2025) ·
+                      <strong>ML Research Intern (Co-Lead)</strong>, Omdena ·
+                      <strong>AI &amp; Automation Intern</strong>, Chennai Airport ·
+                      <strong>Software Engineer Intern</strong>, Headstarter (YC) ·
+                      <strong>Business Analytics Intern</strong>, Business.io (IITM)
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Honors</th>
+                    <td>
+                      <strong>AlgoUniversity Technology Fellowship</strong> (Top 5% / 20,000) ·
+                      <strong>Udacity × Bertelsmann Scholar</strong> (500 / 17,000 global) ·
+                      <strong>Google GenAI Exchange / Hackathon</strong> Team Lead (Top Project Nationwide) ·
+                      <strong>IIT Bombay NEC</strong> (5th Nationwide)
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Community</th>
+                    <td>
+                      <strong>GDSC SIST</strong> · <strong>TEDx SIST</strong> · University Philosophy Club
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section id="writing" class="sheet-section" data-sheet-panel="record">
+              <div class="sec-head">
+                <div class="sec-title-wrap">
+                  <span class="sec-num">05</span>
+                  <h2 class="sec-title">Writing &amp; Notes</h2>
+                </div>
+                <span class="sec-sub">Essays &amp; working documents</span>
+              </div>
+
+              <ul class="writing-list">
                 <li>
-                  <strong>Weeks-not-years falsifiability:</strong> claims must be refutable by direct
-                  causal interventions—such as knocking out counting vs. sorting heads.
+                  <a
+                    href={`${MAIN_SITE_ORIGIN}/blog/trunk-and-branch-theory-of-computation`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    The Trunk and Branch Theory of Computation
+                  </a>
+                  <span class="writing-meta">Essay · Representation Geometry</span>
                 </li>
                 <li>
-                  <strong>Inspectable artifacts:</strong> every project aims to yield a concrete
-                  head taxonomy, ablation table, or routing gate rather than an opaque loss curve.
+                  <a
+                    href={`${MAIN_SITE_ORIGIN}/blog/trinetra-overview`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Trinetra: Linear-Time Video Ingest &amp; Temporal Event Graphs
+                  </a>
+                  <span class="writing-meta">Essay · Multimodal Systems</span>
                 </li>
                 <li>
-                  <strong>Real benchmark scale:</strong> evaluated on 4K long-context benchmarks
-                  (RULER, LongBench-Qasper), Python synthesis, and HumanEval.
+                  <a href={`${MAIN_SITE_ORIGIN}/blog/`} target="_blank" rel="noopener noreferrer">
+                    Field Dispatches Archive
+                  </a>
+                  <span class="writing-meta">skhavin.in/blog</span>
                 </li>
+                <li>
+                  <a
+                    href="https://docs.google.com/document/d/1e5oTakOVCsuiDKINbt9btoS7i6cpU-Ja-sYKwn4znuw/edit?usp=drivesdk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Transformer ISA Research Program Notes
+                  </a>
+                  <span class="writing-meta">Working Note · 2026</span>
+                </li>
+              </ul>
+            </section>
+          </div>
+
+          <aside class="sheet-aside" aria-label="Quick reference sidebar">
+            <div class="aside-block">
+              <h2 class="aside-title">Currently · Nov 2026</h2>
+              <ol class="aside-bullets">
+                <li>Probing why conserved task geometries stay causally inert.</li>
+                <li>Validating JCCS &amp; Layer-4 routing beyond N=1 per family.</li>
+                <li>Proactive O(1) KV eviction &amp; video temporal event graphs.</li>
               </ol>
             </div>
 
-            <div>
-              <h3 class="sub-heading">Open Questions &amp; Caveats</h3>
-              <ul class="calm-list">
+            <div class="aside-block">
+              <h2 class="aside-title">Education</h2>
+              <ul class="aside-list">
                 <li>
-                  <strong>Fixed-head ISA falsified:</strong> held-out recall collapsed (WRITE = 0.311,
-                  LOAD = 0.079), shifting the program from static head labels to dynamic circuits.
+                  <strong>B.E. Computer Science Engineering</strong>
+                  Sathyabama Institute of Science and Technology · 2023–2027
                 </li>
                 <li>
-                  <strong>Greedy suppressor blind spot:</strong> greedy JCCS deflation misses
-                  components whose removal improves task score (two NIAH suppressors emerged by
-                  joint ablation).
-                </li>
-                <li>
-                  <strong>Dense variable tracking:</strong> resists sparsification across K ∈ [6, 64]
-                  on Qwen2.5-1.5B.
-                </li>
-                <li>
-                  <strong>Central open puzzle:</strong> why cross-architecture residual geometry
-                  conserves reliably (p ≈ 0.00139 via DTW) yet remains causally inert when steered.
+                  <strong>Generative AI Nanodegree</strong>
+                  Udacity × Bertelsmann Scholar (500 / 17,000)
                 </li>
               </ul>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section id="projects" class="editorial-section">
-      <div class="page-wrap editorial-grid">
-        <div class="rail-column">
-          <p class="chapter-label">04</p>
-          <h2 class="chapter-heading">Beyond Research</h2>
-        </div>
+            <div class="aside-block">
+              <h2 class="aside-title">Core Methods</h2>
+              <p class="aside-tags">
+                JCCS · Causal patching · Head knockouts · CKA &amp; constrained DTW · Procrustes
+                alignment · Direct Logit Attribution · Proactive KV eviction · Dual FAISS graphs
+              </p>
+            </div>
 
-        <div class="main-column">
-          <table class="ledger-table">
-            <tbody>
-              <tr>
-                <th>Engineering</th>
-                <td>
-                  <strong><a href="https://github.com/skhavin/taskgeometry" target="_blank" rel="noopener noreferrer">taskgeometry</a></strong>,
-                  <strong><a href="https://github.com/skhavin/necstuff" target="_blank" rel="noopener noreferrer">necstuff</a></strong>,
-                  <strong><a href="https://github.com/skhavin/headgenome" target="_blank" rel="noopener noreferrer">headgenome</a></strong> (interpretability codebases) ·
-                  <strong>AgentFox</strong> (local self-contained agentic browser) ·
-                  <strong>AlgoUniversity</strong> · <strong>SIST Transit+</strong> · <strong>Marin</strong>
-                </td>
-              </tr>
-              <tr>
-                <th>Experience</th>
-                <td>
-                  <strong>SWE Co-op Intern</strong>, AlgoUniversity (YC) (2025) ·
-                  <strong>ML Research Intern (Co-Lead)</strong>, Omdena ·
-                  <strong>AI &amp; Automation Intern</strong>, Chennai Airport ·
-                  <strong>Software Engineer Intern</strong>, Headstarter (YC) ·
-                  <strong>Business Analytics Intern</strong>, Business.io (IITM)
-                </td>
-              </tr>
-              <tr>
-                <th>Recognition</th>
-                <td>
-                  <strong>AlgoUniversity Technology Fellowship (ATF)</strong> — Top 5% of 20,000 applicants ·
-                  <strong>Udacity Next Gen Tech Booster Scholar</strong> — Top 500 of 17,000 global ·
-                  <strong>Google GenAI Exchange / Hackathon</strong> Team Lead (Top Project Nationwide) ·
-                  <strong>IIT Bombay National Entrepreneurship Challenge</strong> (5th Nationwide)
-                </td>
-              </tr>
-              <tr>
-                <th>Leadership</th>
-                <td>
-                  <strong>GDSC SIST</strong> · <strong>TEDx SIST</strong> · University Philosophy Club
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section id="writing" class="editorial-section">
-      <div class="page-wrap editorial-grid">
-        <div class="rail-column">
-          <p class="chapter-label">05</p>
-          <h2 class="chapter-heading">Writing</h2>
-        </div>
-
-        <div class="main-column">
-          <ul class="writing-list">
-            <li>
-              <a
-                href={`${MAIN_SITE_ORIGIN}/blog/trunk-and-branch-theory-of-computation`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                The Trunk and Branch Theory of Computation
-              </a>
-              <span class="writing-meta">Essay · Representation Geometry</span>
-            </li>
-            <li>
-              <a
-                href={`${MAIN_SITE_ORIGIN}/blog/trinetra-overview`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Trinetra: Linear-Time Video Ingest &amp; Temporal Event Graphs
-              </a>
-              <span class="writing-meta">Essay · Multimodal Systems</span>
-            </li>
-            <li>
-              <a href={`${MAIN_SITE_ORIGIN}/blog/`} target="_blank" rel="noopener noreferrer">
-                Field Dispatches Archive
-              </a>
-              <span class="writing-meta">skhavin.in/blog</span>
-            </li>
-            <li>
-              <a
-                href="https://docs.google.com/document/d/1e5oTakOVCsuiDKINbt9btoS7i6cpU-Ja-sYKwn4znuw/edit?usp=drivesdk"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Transformer ISA Research Program Notes
-              </a>
-              <span class="writing-meta">Working Note · 2026</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="editorial-section">
-      <div class="page-wrap editorial-grid">
-        <div class="rail-column">
-          <p class="chapter-label">06</p>
-          <h2 class="chapter-heading">Contact</h2>
-        </div>
-
-        <div class="main-column">
-          <table class="ledger-table">
-            <tbody>
-              <tr>
-                <th>Email</th>
-                <td><a href="mailto:skhavin.res@gmail.com">skhavin.res@gmail.com</a></td>
-              </tr>
-              <tr>
-                <th>GitHub</th>
-                <td>
+            <div class="aside-block">
+              <h2 class="aside-title">Contact &amp; Links</h2>
+              <ul class="aside-links">
+                <li><a href="mailto:skhavin.res@gmail.com">skhavin.res@gmail.com</a></li>
+                <li>
+                  <a href="https://openreview.net/profile?id=~S_Khavin1" target="_blank" rel="noopener noreferrer">
+                    OpenReview Profile ↗
+                  </a>
+                </li>
+                <li>
                   <a href="https://github.com/skhavin" target="_blank" rel="noopener noreferrer">
-                    github.com/skhavin
+                    github.com/skhavin ↗
                   </a>
-                </td>
-              </tr>
-              <tr>
-                <th>LinkedIn</th>
-                <td>
-                  <a
-                    href="https://www.linkedin.com/in/s-khavin33/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    linkedin.com/in/s-khavin33
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/s-khavin33/" target="_blank" rel="noopener noreferrer">
+                    linkedin.com/in/s-khavin33 ↗
                   </a>
-                </td>
-              </tr>
-              <tr>
-                <th>OpenReview</th>
-                <td>
-                  <a
-                    href="https://openreview.net/profile?id=~S_Khavin1"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    openreview.net/profile?id=~S_Khavin1
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <th>Portfolio</th>
-                <td>
+                </li>
+                <li>
                   <a href={MAIN_SITE_ORIGIN} target="_blank" rel="noopener noreferrer">
-                    skhavin.in
+                    skhavin.in (Portfolio) ↗
                   </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </li>
+                <li>
+                  <a href={REMOTE_PUBLICATIONS_URL} target="_blank" rel="noopener noreferrer">
+                    publications.json ↗
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
         </div>
       </div>
-    </section>
+    </div>
   </main>
 
   <footer class="site-footer">
-    <div class="page-wrap">
-      <div class="footer-top">
-        <p class="footer-motto">An independent mind, exploring intelligent systems.</p>
-        <span class="footer-stamp">SKHAVIN</span>
-      </div>
+    <div class="page-wrap footer-wrap">
+      <span class="footer-wordmark">S+KHAVIN</span>
       <p class="colophon">
-        <strong>Colophon &amp; Sources:</strong> Built in plain HTML, CSS, and static Astro with
-        inline styles. Warm positive-polarity palette (#FCFBF7 / #1F1E1B) tuned for low halation
-        (Piepenbrock, Mayr &amp; Buchner, 2013/2014); 60ch measure and 18px desktop body type with
-        1.72 leading grounded in Bringhurst (<em>The Elements of Typographic Style</em>), Dyson &amp;
-        Haselgrove (2001), Rello &amp; Pielot (CHI 2016), and Chaparro et al. (2004); F-pattern
-        asymmetric rail adapted from Nielsen Norman Group &amp; Emil Ruder.
+        Static Astro · Warm ivory sheet (#FCFBF7 / #1E1D1A) · Live synced with skhavin.in/publications.json
       </p>
     </div>
   </footer>
@@ -484,6 +420,7 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
     import { renderGroupedResearchHtml } from '../lib/render';
 
     type ThemeFilter = 'all' | 'geometry' | 'inference' | 'multimodal';
+    type SheetTab = 'all' | 'research' | 'bio' | 'record';
 
     const ssrEl = document.getElementById('ssr-publications');
     let initialPayload: unknown = { publications: [] };
@@ -499,6 +436,7 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
       publications: parsePublicationsPayload(initialPayload) as Publication[],
       theme: 'all' as ThemeFilter,
       query: '',
+      tab: 'all' as SheetTab,
     };
 
     const containerEl = document.getElementById('research-themes-container');
@@ -506,13 +444,14 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
     const searchEl = document.getElementById('research-search') as HTMLInputElement | null;
     const syncNoteEl = document.getElementById('sync-note');
     const themeBtnEl = document.getElementById('theme-toggle');
+    const sheetTabsEl = document.getElementById('sheet-tabs');
+    const researchTabBtn = document.getElementById('tab-research-btn');
 
     let katexPromise: Promise<void> | null = null;
 
     function maybeLoadAndTypesetMath(root: HTMLElement | null): void {
       if (!root) return;
       const text = root.textContent ?? '';
-      // Trigger lazy KaTeX only for TeX expressions (avoid currency amounts like $1,500).
       if (!/\$[A-Za-z\\][^$\n]{0,80}\$|\\\(|\\\[/.test(text)) return;
 
       const win = window as unknown as {
@@ -570,6 +509,19 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
       }
     }
 
+    function applySheetTab(tab: SheetTab): void {
+      state.tab = tab;
+      sheetTabsEl?.querySelectorAll<HTMLButtonElement>('[data-sheet-tab]').forEach((btn) => {
+        const active = btn.dataset.sheetTab === tab;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      document.querySelectorAll<HTMLElement>('[data-sheet-panel]').forEach((panel) => {
+        panel.hidden = tab !== 'all' && panel.dataset.sheetPanel !== tab;
+      });
+    }
+
     function renderResearch(): void {
       filtersEl?.querySelectorAll<HTMLButtonElement>('[data-theme-filter]').forEach((btn) => {
         btn.classList.toggle('is-active', btn.dataset.themeFilter === state.theme);
@@ -593,13 +545,16 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
 
       if (result.publications.length > 0) {
         state.publications = result.publications;
+        if (researchTabBtn) {
+          researchTabBtn.textContent = `Research (${state.publications.length})`;
+        }
       }
 
       if (syncNoteEl) {
         syncNoteEl.textContent =
           result.source === 'live'
             ? 'Synchronized live with skhavin.in/publications.json'
-            : 'Synced local snapshot (skhavin.in unreachable or CORS pending)';
+            : 'Local snapshot active (skhavin.in unreachable or CORS pending)';
       }
 
       if (result.source === 'live') {
@@ -618,6 +573,20 @@ const serializedPayload = JSON.stringify({ publications: initialPublications }).
         // Ignore restricted storage contexts.
       }
       syncThemeButton();
+    });
+
+    sheetTabsEl?.addEventListener('click', (event) => {
+      const btn = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-sheet-tab]');
+      if (!btn) return;
+      const val = btn.dataset.sheetTab as SheetTab | undefined;
+      if (val) applySheetTab(val);
+    });
+
+    // If user clicks an anchor in the topbar while on a filtered tab, switch back to Overview.
+    document.querySelectorAll<HTMLAnchorElement>('.topbar-nav a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', () => {
+        if (state.tab !== 'all') applySheetTab('all');
+      });
     });
 
     filtersEl?.addEventListener('click', (event) => {

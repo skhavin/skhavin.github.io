@@ -60,11 +60,11 @@ function renderPublicationEntryHtml(pub: Publication): string {
 
   return `
     <article class="paper-item" data-paper-id="${escapeHtml(pub.id)}">
-      <p class="paper-byline">
+      <div class="paper-byline">
         <span class="${statusClass}">${escapeHtml(meta.statusLabel)}</span>
-        <span class="byline-sep" aria-hidden="true">—</span>
+        <span class="byline-sep" aria-hidden="true">·</span>
         <span class="paper-date">${escapeHtml(pub.date)}</span>
-      </p>
+      </div>
 
       <h4 class="paper-title">${titleHtml}</h4>
       <p class="paper-oneliner">${escapeHtml(meta.summaryLine)}</p>
@@ -76,7 +76,7 @@ function renderPublicationEntryHtml(pub: Publication): string {
       </div>
 
       <details class="paper-details">
-        <summary>Methodology, findings &amp; limitations</summary>
+        <summary>Abstract, findings &amp; limitations</summary>
         <div class="paper-details-body">
           <div class="paper-abstract">${sanitizeAbstractHtml(pub.abstract)}</div>
           ${benchmarkAddon}
@@ -116,7 +116,7 @@ export function renderGroupedResearchHtml(
   });
 
   if (filtered.length === 0) {
-    return `<p class="empty-msg">No manuscripts match this filter. <button type="button" class="text-action-btn" data-reset-research>Show all directions</button></p>`;
+    return `<p class="empty-msg">No manuscripts match this filter. <button type="button" class="text-action-btn" data-reset-research>Show all</button></p>`;
   }
 
   const sections: string[] = [];
@@ -131,7 +131,7 @@ export function renderGroupedResearchHtml(
       <section class="theme-group" data-theme-group="${theme.id}">
         <header class="theme-head">
           <span class="theme-num">${theme.num}</span>
-          <div>
+          <div class="theme-head-text">
             <h3 class="theme-title">${escapeHtml(theme.title)}</h3>
             <p class="theme-subtitle">${escapeHtml(theme.subtitle)}</p>
           </div>
