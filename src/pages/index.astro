@@ -1,5 +1,6 @@
 ---
 import ResearchLayout from '../layouts/ResearchLayout.astro';
+import headerBg from '../../cosmiccliffs.jpg';
 import {
   SITE_LINKS,
   FEATURED_PAPER,
@@ -18,15 +19,16 @@ const totalPaperCount = PREPRINTS.length + 1;
   description="Mechanistic interpretability, representation geometry, and training-free efficient inference by S. Khavin."
   activePage="home"
 >
-  <!-- 2. Full Editorial Gunbarrel Hero -->
+  <!-- 2. Full Editorial Header Hero -->
   <section class="gunbarrel-band" id="top">
     <div class="gunbarrel-stage">
       <img
-        src="/hero_circular_albedo.webp"
-        onerror="this.onerror=null;this.src='https://skhavin.in/hero_circular_albedo.webp';"
-        alt="007 Gunbarrel"
+        src={headerBg.src}
+        alt=""
+        aria-hidden="true"
         class="gunbarrel-img"
       />
+      <div class="hero-blur-overlay" aria-hidden="true"></div>
       <header class="center-stack">
         <h1 class="text-skhavin">S+KHAVIN</h1>
         <p class="hero-role">
