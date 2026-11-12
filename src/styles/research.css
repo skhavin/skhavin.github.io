@@ -526,12 +526,12 @@ body {
 }
 
 .section-editorial-title {
-  font-family: "PPEditorialNew", "Instrument Serif", Georgia, serif;
-  font-style: italic;
+  font-family: "GoldenEye", serif;
+  font-style: normal;
   font-weight: 400;
-  font-size: clamp(32px, 3vw, 36px);
-  line-height: 1.08;
-  letter-spacing: -0.015em;
+  font-size: clamp(28px, 3.1vw, 40px);
+  line-height: 1;
+  letter-spacing: -0.01em;
   color: #0a0a0a;
 }
 
@@ -1371,12 +1371,9 @@ footer::before {
     padding: 14px 20px 12px;
   }
 
-  .plus-about-text {
-    font-size: clamp(24px, 6.5vw, 32px);
-  }
-
+  .plus-about-text,
   .section-editorial-title {
-    font-size: clamp(26px, 7vw, 32px);
+    font-size: clamp(24px, 6.5vw, 32px);
   }
 
   .section-divider {
