@@ -556,8 +556,12 @@ body {
 
 .goldeneye-amp {
   display: inline-block;
-  font-size: 0.62em;
-  vertical-align: 0.1em;
+  position: relative;
+  top: -0.34em;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.72em;
+  line-height: 1;
+  vertical-align: baseline;
   margin-inline: 0.08em;
 }
 
