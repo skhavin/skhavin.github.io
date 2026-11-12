@@ -1,15 +1,21 @@
 ---
 import '../styles/research.css';
+import { SITE_LINKS } from '../data/research';
 
 interface Props {
   title?: string;
   description?: string;
+  activePage?: 'home' | 'archive' | 'cv';
 }
 
 const {
   title = 'Research Archive — S. Khavin',
   description = 'S. Khavin — Independent researcher working on mechanistic interpretability, computational geometry, and efficient inference.',
+  activePage = 'home',
 } = Astro.props;
+
+const isHome = activePage === 'home';
+const navHref = (sectionId: string) => (isHome ? `#${sectionId}` : `/#${sectionId}`);
 ---
 
 <!doctype html>
@@ -41,7 +47,187 @@ const {
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body data-page={activePage}>
+    <!-- 1. Black Blurry Navbar -->
+    <nav id="mainNav" class="site-nav">
+      <div class="nav-left">
+        <a class="nav-logo" href={isHome ? '#top' : '/'}>
+          <span class="nav-bond-icon" aria-hidden="true">
+            <svg viewBox="0 0 945 945" width="15" height="15" fill="currentColor">
+              <g transform="translate(-50, 945) scale(1, -1)">
+                <path
+                  d="M50 945H995V0H50ZM431 23C431 22.3333 431.667 21.3333 433 20L436 17C438.667 16.3333 442.667 15.5 448 14.5C453.333 13.5 457 12.6667 459 12H471C477.667 12 484.333 11.8333 491 11.5C497.667 11.1667 504 11 510 11H522H540C546.667 11 553.167 11.1667 559.5 11.5C565.833 11.8333 571.667 12 577 12H586C588.667 12 592.667 12.1667 598 12.5C603.333 12.8333 608.5 13.6667 613.5 15C618.5 16.3333 623 18.1667 627 20.5C631 22.8333 633 26.3333 633 31C633 35.6667 632.667 39.5 632 42.5C631.333 45.5 629.333 48.6667 626 52C614.667 114 602 177.667 588 243C574 308.333 558 371.333 540 432C540 435.333 538 437 534 437L533 437.5C532.333 437.833 531.667 438 531 438C530.333 438 529.833 437.833 529.5 437.5L529 437C527.667 436.333 526.333 434 525 430C523.667 426 522.667 422.667 522 420L442 52C440.667 48.6667 438.5 43.6667 435.5 37C432.5 30.3333 431 25.6667 431 23ZM61 475C61 435.667 65.6667 396.333 75 357C84.3333 317.667 98.3333 280.5 117 245.5C135.667 210.5 158.667 178.333 186 149C213.333 119.667 244.667 95 280 75C284.667 73 290.333 70 297 66C303.667 62 310.833 58.1667 318.5 54.5C326.167 50.8333 334 47.5 342 44.5C350 41.5 357.667 40 365 40C367 40 369.667 40.1667 373 40.5C376.333 40.8333 378 42.6667 378 46L442 432V436C442 440.667 440.833 443.667 438.5 445C436.167 446.333 435 450.333 435 457C435 476.333 437.333 495.667 442 515C446.667 534.333 449 553.667 449 573C449 574.333 448.833 576.833 448.5 580.5C448.167 584.167 448 586.667 448 588C440 588.667 433.333 592.333 428 599C422.667 605.667 418.5 614 415.5 624C412.5 634 410.333 644.833 409 656.5C407.667 668.167 407 679 407 689V723V749C410.333 745.667 413.167 743.667 415.5 743C417.833 742.333 421 742 425 742C430.333 742 434.5 743.833 437.5 747.5C440.5 751.167 442 755.333 442 760V766C440.667 765.333 437.833 764.333 433.5 763C429.167 761.667 426 760.667 424 760H421C415 760 410.5 762.833 407.5 768.5C404.5 774.167 402.5 780.667 401.5 788C400.5 795.333 400.167 802.667 400.5 810C400.833 817.333 401 823 401 827C401 842.333 402.833 855.833 406.5 867.5C410.167 879.167 412.667 893.333 414 910H419L420.5 903C421.5 898.333 422.667 893 424 887C425.333 881 426.667 874.667 428 868C429.333 861.333 430.333 856 431 852C433 838.667 435.5 827.333 438.5 818C441.5 808.667 443 796.667 443 782C450.333 782 459.333 784.167 470 788.5C480.667 792.833 486.667 795 488 795C490.667 793.667 494.167 786.333 498.5 773C502.833 759.667 507.167 744.833 511.5 728.5C515.833 712.167 520.167 696.833 524.5 682.5C528.833 668.167 532 659.667 534 657L540 668L568 783L575 795C576.333 794.333 580.5 792.833 587.5 790.5C594.5 788.167 603.167 785.167 613.5 781.5C623.833 777.833 632 774.667 638 772C646 768.667 651.333 765 654 761C656.667 757 657 749 655 737L632 599C631.333 595.667 630 593.5 628 592.5C626 591.5 624 590.667 622 590C620 589.333 618.167 588.333 616.5 587C614.833 585.667 614 583.333 614 580C614 578.667 614.167 576.833 614.5 574.5L615 571L632 455V448C632 444 631 441.5 629 440.5C627 439.5 626 437 626 433V427L690 52C690.667 48.6667 692.167 46.6667 694.5 46C696.833 45.3333 699 45 701 45C712.333 45 723.833 48.8333 735.5 56.5C747.167 64.1667 757 70.3333 765 75C799 96.3333 829.5 121 856.5 149C883.5 177 906.5 207.667 925.5 241C944.5 274.333 959 309.833 969 347.5C979 385.167 984 424 984 464C984 528.667 972.333 589.5 949 646.5C925.667 703.5 893.333 753.333 852 796C810.667 838.667 761.833 872.333 705.5 897C649.167 921.667 588 934 522 934C458.667 934 399.167 922 343.5 898C287.833 874 239 841.167 197 799.5C155 757.833 121.833 709.167 97.5 653.5C73.1667 597.833 61 538.333 61 475ZM476 628V620C476 616 476.667 612.167 478 608.5C479.333 604.833 482.667 603 488 603V659C482.667 659 479.333 656.333 478 651C476.667 645.667 476 640.333 476 635ZM609 727C606.333 727 603.167 726.667 599.5 726C595.833 725.333 593.333 723.333 592 720H609ZM504 789H558C558 787.667 557.833 785.5 557.5 782.5C557.167 779.5 556.833 776.333 556.5 773C556.167 769.667 555.5 766.667 554.5 764C553.5 761.333 552.333 760 551 760H511C509.667 760 508.667 761.333 508 764C507.333 766.667 506.667 769.667 506 773C505.333 776.333 504.833 779.5 504.5 782.5C504.167 785.5 504 787.667 504 789ZM493 871C493 885 494.833 897 498.5 907C502.167 917 512.667 922 530 922C545.333 922 555.667 917.833 561 909.5C566.333 901.167 569 889.333 569 874C569 868.667 568.667 861.5 568 852.5C567.333 843.5 565.667 834.667 563 826C560.333 817.333 556.5 809.833 551.5 803.5C546.5 797.167 539.667 794 531 794C522.333 794 515.5 797 510.5 803C505.5 809 501.667 816.167 499 824.5C496.333 832.833 494.667 841.333 494 850C493.333 858.667 493 865.667 493 871Z"
+                />
+              </g>
+            </svg>
+          </span>
+          <span class="nav-logo-text">S+KHAVIN</span>
+        </a>
+      </div>
+
+      <div class="nav-right-wrap">
+        <ul class="nav-center" id="navCenter">
+          <li>
+            <a href={navHref('about')} class={isHome ? 'active' : ''} data-nav="about">
+              <span class="nav-num">I.</span>
+              <span class="nav-label">ABOUT</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href={isHome ? '#research' : '/archive'}
+              class={activePage === 'archive' ? 'active' : ''}
+              data-nav="research"
+            >
+              <span class="nav-num">II.</span>
+              <span class="nav-label">RESEARCH</span>
+            </a>
+          </li>
+          <li>
+            <a href={navHref('blog')} data-nav="blog">
+              <span class="nav-num">III.</span>
+              <span class="nav-label">WRITING</span>
+            </a>
+          </li>
+          <li>
+            <a href="/cv" class={activePage === 'cv' ? 'active' : ''} data-nav="experience">
+              <span class="nav-num">IV.</span>
+              <span class="nav-label">CV</span>
+            </a>
+          </li>
+          <li>
+            <a href={SITE_LINKS.mainSite} target="_blank" rel="noopener noreferrer">
+              <span class="nav-num">V.</span>
+              <span class="nav-label">SKHAVIN.IN ↗</span>
+            </a>
+          </li>
+        </ul>
+
+        <button type="button" class="nav-burger" id="burgerBtn" aria-label="Menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="mob-menu" id="mobMenu">
+      <a href={navHref('about')}><span class="nav-num">I.</span> ABOUT</a>
+      <a href={isHome ? '#research' : '/archive'}><span class="nav-num">II.</span> RESEARCH</a>
+      <a href={navHref('blog')}><span class="nav-num">III.</span> WRITING</a>
+      <a href="/cv"><span class="nav-num">IV.</span> CV</a>
+      <a href={SITE_LINKS.mainSite} target="_blank" rel="noopener noreferrer">
+        <span class="nav-num">V.</span> SKHAVIN.IN ↗
+      </a>
+    </div>
+
     <slot />
+
+    <!-- Bottom Bar / Black Footer -->
+    <footer id="siteFooter">
+      <div class="footer-container" id="fContainer">
+        <div class="f-logo-wrap">
+          <div class="f-logo-stage">
+            <a class="f-logo-metal" href={isHome ? '#top' : '/'} id="fLogo">s+khavin</a>
+            <div class="f-logo-metal-ref" aria-hidden="true">s+khavin</div>
+          </div>
+          <div class="f-tagline">
+            Understanding how intelligent systems compute.<br />
+            Building systems that perceive, remember, and reason.
+          </div>
+        </div>
+
+        <div class="f-links">
+          <a href={navHref('about')}>About</a>
+          <a href="/archive">Archive</a>
+          <a href="/cv">CV</a>
+          <a href={SITE_LINKS.blogExternal} target="_blank" rel="noopener noreferrer">Blog</a>
+          <a href={SITE_LINKS.openReview} target="_blank" rel="noopener noreferrer">OpenReview</a>
+          <a href={SITE_LINKS.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href={`mailto:${SITE_LINKS.email}`}>Email</a>
+        </div>
+
+        <div class="f-bottom">
+          <div>© <span id="yr">2026</span> S Khavin</div>
+          <div>Chennai • India</div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Fixed Bottom Liquid-Glass Blur Overlay -->
+    <div class="bottom-blur-overlay" id="bottomBlur" aria-hidden="true"></div>
+
+    <script>
+      const burgerBtn = document.getElementById('burgerBtn');
+      const mobMenu = document.getElementById('mobMenu');
+
+      burgerBtn?.addEventListener('click', () => {
+        mobMenu?.classList.toggle('open');
+      });
+
+      mobMenu?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          mobMenu.classList.remove('open');
+        });
+      });
+
+      const isHomePage = document.body.dataset.page === 'home';
+      const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-center a[data-nav]');
+      const sections = ['about', 'research', 'blog', 'experience']
+        .map((id) => document.getElementById(id))
+        .filter((el): el is HTMLElement => Boolean(el));
+
+      if (isHomePage && 'IntersectionObserver' in window && sections.length > 0) {
+        const sectionObserver = new IntersectionObserver(
+          (entries) => {
+            const visible = entries.filter((e) => e.isIntersecting);
+            if (visible.length === 0) return;
+            visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+            const activeId = visible[0].target.id;
+            navLinks.forEach((link) => {
+              link.classList.toggle('active', link.dataset.nav === activeId);
+            });
+          },
+          { rootMargin: '-25% 0px -55% 0px', threshold: [0.05, 0.25] }
+        );
+        sections.forEach((sec) => sectionObserver.observe(sec));
+      }
+
+      const yrEl = document.getElementById('yr');
+      if (yrEl) yrEl.textContent = String(new Date().getFullYear());
+
+      const fContainer = document.getElementById('fContainer');
+      const fLogo = document.getElementById('fLogo');
+      const siteFooter = document.getElementById('siteFooter');
+      const bottomBlur = document.getElementById('bottomBlur');
+
+      if ('IntersectionObserver' in window && fContainer && fLogo) {
+        const footerObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                fContainer.classList.add('reveal');
+                setTimeout(() => fLogo.classList.add('shimmer'), 650);
+                footerObserver.disconnect();
+              }
+            });
+          },
+          { rootMargin: '80px 0px', threshold: 0.05 }
+        );
+        footerObserver.observe(fContainer);
+      } else {
+        fContainer?.classList.add('reveal');
+      }
+
+      if ('IntersectionObserver' in window && siteFooter && bottomBlur) {
+        const blurObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              bottomBlur.classList.toggle('hidden', entry.isIntersecting);
+            });
+          },
+          { threshold: 0.02 }
+        );
+        blurObserver.observe(siteFooter);
+      }
+    </script>
   </body>
 </html>

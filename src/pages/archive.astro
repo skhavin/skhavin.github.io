@@ -1,0 +1,106 @@
+---
+import ResearchLayout from '../layouts/ResearchLayout.astro';
+import { SITE_LINKS, FEATURED_PAPER, PREPRINTS } from '../data/research';
+---
+
+<ResearchLayout
+  title="Research Archive — S. Khavin"
+  description="Complete working papers and preprints by S. Khavin on mechanistic interpretability, residual-stream geometry, and training-free efficient inference."
+  activePage="archive"
+>
+  <main class="research-main subpage-main">
+    <header class="subpage-header">
+      <div class="page-container">
+        <a href="/" class="subpage-back">← Back to overview</a>
+        <h1 class="subpage-title">Research Archive</h1>
+        <p class="subpage-lead">
+          Complete preprints and working papers across mechanistic interpretability, geometric
+          abstractions in residual streams, and training-free efficient inference.
+        </p>
+      </div>
+    </header>
+
+    <section class="archive-band archive-band-last">
+      <div class="page-container section-band-inner">
+        <div class="section-divider"></div>
+
+        <!-- Featured Manuscript -->
+        <article class="featured-paper">
+          <div class="featured-eyebrow">
+            {FEATURED_PAPER.index} · FEATURED MANUSCRIPT · {FEATURED_PAPER.date}
+          </div>
+
+          <figure class="featured-figure">
+            <img
+              src={FEATURED_PAPER.image}
+              onerror={`this.onerror=null;this.src='${FEATURED_PAPER.fallbackImage}';`}
+              alt={FEATURED_PAPER.title}
+              class="featured-img"
+            />
+            <figcaption class="featured-caption">{FEATURED_PAPER.caption}</figcaption>
+          </figure>
+
+          <h2 class="featured-title">{FEATURED_PAPER.title}</h2>
+          <p class="featured-oneliner">{FEATURED_PAPER.oneLiner}</p>
+
+          <div class="featured-abstract">
+            {FEATURED_PAPER.abstractParagraphs.map((para) => (
+              <p>{para}</p>
+            ))}
+          </div>
+
+          <div class="featured-links">
+            <span class="paper-venue">{FEATURED_PAPER.venue}</span>
+            <div class="paper-link-group">
+              {FEATURED_PAPER.links.map((link) => (
+                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                  {link.label} ↗
+                </a>
+              ))}
+            </div>
+          </div>
+        </article>
+
+        <!-- Complete Working Papers -->
+        <div class="archive-subhead">Working Papers &amp; Preprints</div>
+
+        <ul class="papers-list">
+          {PREPRINTS.map((paper) => (
+            <li class="paper-row">
+              <div class="paper-idx-col">
+                <span class="paper-idx">{paper.index}</span>
+                <span class="paper-date">{paper.date}</span>
+              </div>
+              <div class="paper-body">
+                <h2 class="paper-title">{paper.title}</h2>
+                <p class="paper-summary">{paper.summary}</p>
+                <p class="paper-abstract">{paper.abstract}</p>
+                <div class="paper-meta-bar">
+                  <span class="paper-venue">{paper.venue}</span>
+                  <div class="paper-link-group">
+                    {paper.links.map((link) => (
+                      <a href={link.url} target="_blank" rel="noopener noreferrer">
+                        {link.label} ↗
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div class="archive-more-wrap">
+          <a
+            href={SITE_LINKS.researchExternal}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="archive-more-link"
+          >
+            Additional research notes on skhavin.in/research ↗
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</ResearchLayout>

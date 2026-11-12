@@ -1,0 +1,189 @@
+---
+import ResearchLayout from '../layouts/ResearchLayout.astro';
+import {
+  SITE_LINKS,
+  FEATURED_PAPER,
+  PREPRINTS,
+  EXPERIENCE,
+  AWARDS,
+  COMMUNITY,
+} from '../data/research';
+---
+
+<ResearchLayout
+  title="Curriculum Vitae — S. Khavin"
+  description="Curriculum Vitae of S. Khavin — Education, Research & Engineering Experience, Awards & Scholarships, Community Leadership, and Preprints."
+  activePage="cv"
+>
+  <main class="research-main subpage-main">
+    <header class="subpage-header">
+      <div class="page-container">
+        <a href="/" class="subpage-back">← Back to overview</a>
+        <h1 class="subpage-title">Curriculum Vitae</h1>
+        <p class="subpage-lead">
+          S. Khavin — Final-year B.E. Computer Science Engineering student and independent
+          researcher working on mechanistic interpretability, residual-stream geometry, and
+          training-free efficient inference.
+        </p>
+        <nav class="bio-links" aria-label="CV profile links">
+          <a href={SITE_LINKS.openReview} target="_blank" rel="noopener noreferrer">OpenReview ↗</a>
+          <a href={SITE_LINKS.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href={SITE_LINKS.mainSite} target="_blank" rel="noopener noreferrer">skhavin.in ↗</a>
+          <a href="/archive">Research Archive →</a>
+          <a href={`mailto:${SITE_LINKS.email}`}>{SITE_LINKS.email}</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="archive-band">
+      <div class="page-container section-band-inner">
+        <div class="section-divider"></div>
+
+        <!-- Education & Research Interests -->
+        <div class="cv-meta-grid">
+          <div class="ledger-col">
+            <h2 class="ledger-subhead">Education</h2>
+            <ul class="ledger-list">
+              <li class="ledger-row">
+                <span class="ledger-period">2023–27</span>
+                <div class="ledger-text">
+                  <span class="ledger-primary">Sathyabama Institute of Science and Technology</span>
+                  <span class="ledger-secondary">B.E. Computer Science &amp; Engineering · Chennai, India</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ledger-col">
+            <h2 class="ledger-subhead">Research Areas</h2>
+            <ul class="ledger-list">
+              <li class="ledger-row">
+                <span class="ledger-period">01</span>
+                <div class="ledger-text">
+                  <span class="ledger-primary">Mechanistic Interpretability</span>
+                  <span class="ledger-secondary">Causal mediation, ablation, and circuit falsification</span>
+                </div>
+              </li>
+              <li class="ledger-row">
+                <span class="ledger-period">02</span>
+                <div class="ledger-text">
+                  <span class="ledger-primary">Representation Geometry</span>
+                  <span class="ledger-secondary">Cross-family task embeddings and residual-stream dynamics</span>
+                </div>
+              </li>
+              <li class="ledger-row">
+                <span class="ledger-period">03</span>
+                <div class="ledger-text">
+                  <span class="ledger-primary">Efficient Inference</span>
+                  <span class="ledger-secondary">Zero-training KV-cache eviction, sparse routing, video memory</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Full Research & Engineering Experience -->
+    <section class="archive-band">
+      <div class="page-container section-band-inner">
+        <div class="section-divider"></div>
+
+        <h2 class="section-editorial-title record-heading">Research &amp; Engineering</h2>
+        <ul class="ledger-list">
+          {EXPERIENCE.map((item) => (
+            <li class="ledger-row">
+              <span class="ledger-period">{item.period}</span>
+              <div class="ledger-text">
+                <span class="ledger-primary">{item.primary}</span>
+                <span class="ledger-secondary">{item.detail}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Awards & Community -->
+    <section class="archive-band">
+      <div class="page-container section-band-inner">
+        <div class="section-divider"></div>
+
+        <div class="ledger-grid">
+          <div class="ledger-col">
+            <h2 class="ledger-subhead">Awards &amp; Scholarships</h2>
+            <ul class="ledger-list">
+              {AWARDS.map((item) => (
+                <li class="ledger-row">
+                  <span class="ledger-period">{item.period}</span>
+                  <div class="ledger-text">
+                    <span class="ledger-primary">{item.primary}</span>
+                    <span class="ledger-secondary">{item.detail}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="ledger-col">
+            <h2 class="ledger-subhead">Community &amp; Leadership</h2>
+            <ul class="ledger-list">
+              {COMMUNITY.map((item) => (
+                <li class="ledger-row">
+                  <span class="ledger-period">{item.period}</span>
+                  <div class="ledger-text">
+                    <span class="ledger-primary">{item.primary}</span>
+                    <span class="ledger-secondary">{item.detail}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Selected Preprints Summary -->
+    <section class="archive-band archive-band-last">
+      <div class="page-container section-band-inner">
+        <div class="section-divider"></div>
+
+        <div class="section-head-row">
+          <h2 class="section-editorial-title">Preprints</h2>
+          <a href="/archive" class="section-ext-link">Read abstracts →</a>
+        </div>
+
+        <ul class="papers-list papers-compact-list">
+          <li class="paper-compact-row">
+            <div class="paper-compact-date">{FEATURED_PAPER.date}</div>
+            <div class="paper-compact-body">
+              <span class="paper-compact-title">{FEATURED_PAPER.title}.</span>
+              <span class="paper-link-group paper-inline-links">
+                {FEATURED_PAPER.links.map((link) => (
+                  <a href={link.url} target="_blank" rel="noopener noreferrer">
+                    ({link.label})
+                  </a>
+                ))}
+              </span>
+            </div>
+          </li>
+          {PREPRINTS.map((paper) => (
+            <li class="paper-compact-row">
+              <div class="paper-compact-date">{paper.date}</div>
+              <div class="paper-compact-body">
+                <span class="paper-compact-title">{paper.title}.</span>
+                <span class="paper-link-group paper-inline-links">
+                  {paper.links.map((link) => (
+                    <a href={link.url} target="_blank" rel="noopener noreferrer">
+                      ({link.label})
+                    </a>
+                  ))}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+</ResearchLayout>
